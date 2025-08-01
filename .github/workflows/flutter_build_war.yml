@@ -70,15 +70,14 @@ jobs:
           curl https://rclone.org/install.sh | sudo bash
 
       - name: Configure rclone for pCloud
+        env:
+          RCLONE_PCLOUD_TOKEN_JSON: ${{ secrets.RCLONE_PCLOUD_TOKEN_JSON }}
         run: |
           mkdir -p ~/.config/rclone
-          cat > ~/.config/rclone/rclone.conf <<EOF
-[Pcloud]
-type = pcloud
-token = ${RCLONE_PCLOUD_TOKEN_JSON}
-EOF
-  env:
-    RCLONE_PCLOUD_TOKEN_JSON: ${{ secrets.RCLONE_PCLOUD_TOKEN_JSON }}
+          echo "[Pcloud]" > ~/.config/rclone/rclone.conf
+          echo "type = pcloud" >> ~/.config/rclone/rclone.conf
+          echo "token = ${RCLONE_PCLOUD_TOKEN_JSON}" >> ~/.config/rclone/rclone.conf
+
 
 
       - name: Upload WAR to pCloud
