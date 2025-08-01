@@ -1,4 +1,4 @@
-name: Build and Upload Flutter App to pCloud by Tag
+name: Build and Upload Flutter Web WAR to pCloud by Tag
 
 on:
   push:
@@ -6,8 +6,7 @@ on:
       - '*-v*.*.*'  # Matches uat-v1.0.0, cug-v1.2.3, prod-v2.0.0
 
 permissions:
-  contents: write  # 👈 required for releases
-
+  contents: write  # Needed for creating GitHub releases
 
 jobs:
   build:
@@ -45,27 +44,24 @@ jobs:
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.27.3'  # adjust as per your flutter version
+          flutter-version: '3.27.3'
 
       - name: Get Dependencies
         run: flutter pub get
 
       - name: Build Flutter Web App
-        run: flutter build web
-        # You can replace this with `flutter build apk` if building Android
+        run: flutter build web --web-renderer html
 
-      - name: Upload Flutter Build to GitHub
-        uses: actions/upload-artifact@v4
-        with:
-          name: flutter-build
-          path: build/web  # or build/app/outputs/apk/release/app-release.apk for APK
-          retention-days: 3
+      - name: Create WAR File from Flutter Web Build
+        run: |
+          cd build/web
+          zip -r ../../flutter_web.war .
+          cd ../..
 
-      - name: Create GitHub Release
+      - name: Upload WAR to GitHub Release
         uses: softprops/action-gh-release@v1
         with:
-          files: |
-            build/web/**
+          files: flutter_web.war
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -82,9 +78,9 @@ jobs:
             token = ${{ secrets.RCLONE_PCLOUD_TOKEN_JSON }}
             EOF
 
-      - name: Upload Flutter Build to pCloud
+      - name: Upload WAR to pCloud
         run: |
           ENV=${{ needs.build.outputs.env_name }}
           TARGET_DIR="Pcloud:/GitHubFlutterBuilds/$ENV"
           rclone mkdir "$TARGET_DIR"
-          rclone copy build/web "$TARGET_DIR" --progress
+          rclone copy flutter_web.war "$TARGET_DIR" --progress
