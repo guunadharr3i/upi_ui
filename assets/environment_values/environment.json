@@ -1,0 +1,10 @@
+{
+  "url": "https://uat-onprem-dmz-hybrid.icicibank.com/fileflick/database/services",
+"applicationId": "15000000010454",
+"apiKey": "mcl6Aov7fz41veXi5zHaehuouFfTjVFfjtdNGAShmsjVRTMy",
+"applicationSecret": "",
+"initializeFaceIDURL": "https://pi-control-adapter-route-dimfa-fips-uat.apps.mfaocpcorpuat.icicibankltd.com/pi-control-adapter/",
+"validateFaceIDURL": "https://pi-control-adapter-route-dimfa-fips-uat.apps.mfaocpcorpuat.icicibankltd.com/pi-control-adapter/",
+"srURL": "https://icmsuat.icicibank.com/UPIUAT/auth_redirect.html",
+"erURL": "https://icmsuat.icicibank.com/UPIUAT/"
+}

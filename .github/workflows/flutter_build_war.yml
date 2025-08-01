@@ -1,0 +1,86 @@
+name: Build and Upload Flutter App to pCloud by Tag
+
+on:
+  push:
+    tags:
+      - '*-v*.*.*'  # Matches uat-v1.0.0, cug-v1.2.3, prod-v2.0.0
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    outputs:
+      env_name: ${{ steps.set_env.outputs.env_name }}
+
+    steps:
+      - name: Extract Environment from Tag
+        id: extract_env
+        run: |
+          TAG_NAME="${GITHUB_REF##*/}"
+          ENV_PREFIX="${TAG_NAME%%-*}"
+          echo "env_prefix=$ENV_PREFIX" >> $GITHUB_OUTPUT
+
+      - name: Set GitHub Environment
+        id: set_env
+        run: |
+          PREFIX=${{ steps.extract_env.outputs.env_prefix }}
+          ENV_NAME=$(echo $PREFIX | tr '[:lower:]' '[:upper:]')
+          echo "env_name=$ENV_NAME" >> $GITHUB_OUTPUT
+
+      - name: Setup Environment Context
+        run: echo "Selected environment is ${{ steps.set_env.outputs.env_name }}"
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment: ${{ needs.build.outputs.env_name }}
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.19.0'  # adjust as per your flutter version
+
+      - name: Get Dependencies
+        run: flutter pub get
+
+      - name: Build Flutter Web App
+        run: flutter build web
+        # You can replace this with `flutter build apk` if building Android
+
+      - name: Upload Flutter Build to GitHub
+        uses: actions/upload-artifact@v4
+        with:
+          name: flutter-build
+          path: build/web  # or build/app/outputs/apk/release/app-release.apk for APK
+          retention-days: 3
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: |
+            build/web/**  # or path to APK
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Install rclone
+        run: |
+          curl https://rclone.org/install.sh | sudo bash
+
+      - name: Configure rclone for pCloud
+        run: |
+          mkdir -p ~/.config/rclone
+          cat <<EOF > ~/.config/rclone/rclone.conf
+            [Pcloud]
+            type = pcloud
+            token = ${{ secrets.RCLONE_PCLOUD_TOKEN_JSON }}
+            EOF
+
+      - name: Upload Flutter Build to pCloud
+        run: |
+          ENV=${{ needs.build.outputs.env_name }}
+          TARGET_DIR="Pcloud:/GitHubFlutterBuilds/$ENV"
+          rclone mkdir "$TARGET_DIR"
+          rclone copy build/web "$TARGET_DIR" --progress
