@@ -5,6 +5,10 @@ on:
     tags:
       - '*-v*.*.*'  # Matches uat-v1.0.0, cug-v1.2.3, prod-v2.0.0
 
+permissions:
+  contents: write  # 👈 required for releases
+
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -61,7 +65,7 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           files: |
-            build/web/**  # or path to APK
+            build/web/**
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
