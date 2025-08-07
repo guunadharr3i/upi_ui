@@ -56,8 +56,13 @@ jobs:
     environment: ${{ needs.build.outputs.env_name }}
 
     steps:
-      - name: Checkout Code
+      - name: Checkout Code (tag or main)
         uses: actions/checkout@v4
+        with:
+          ref: ${{ needs.build.outputs.tag_name }}
+
+      - name: Debug: Show selected tag
+        run: echo "Using tag ${{ needs.build.outputs.tag_name }}"
 
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
