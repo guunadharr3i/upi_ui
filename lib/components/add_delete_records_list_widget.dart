@@ -795,7 +795,11 @@ class _AddDeleteRecordsListWidgetState
                                                                         10.0,
                                                                         5.0),
                                                             child: Text(
-                                                              newDataItem,
+                                                              valueOrDefault<
+                                                                  String>(
+                                                                newDataItem,
+                                                                '-',
+                                                              ),
                                                               style: FlutterFlowTheme
                                                                       .of(context)
                                                                   .bodyMedium
@@ -849,7 +853,11 @@ class _AddDeleteRecordsListWidgetState
                                                                     0.0,
                                                                     0.0),
                                                         child: Text(
-                                                          newDataItem,
+                                                          valueOrDefault<
+                                                              String>(
+                                                            newDataItem,
+                                                            '-',
+                                                          ),
                                                           style: FlutterFlowTheme
                                                                   .of(context)
                                                               .bodyMedium

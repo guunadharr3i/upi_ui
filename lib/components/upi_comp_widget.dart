@@ -1103,8 +1103,26 @@ class _UpiCompWidgetState extends State<UpiCompWidget> {
                                                                                 return 0;
                                                                               } else if (FFAppState().selectedSidebar == '3') {
                                                                                 return 1;
-                                                                              } else {
+                                                                              } else if (FFAppState().selectedSidebar == '4') {
                                                                                 return 2;
+                                                                              } else if (FFAppState().selectedSidebar == '5') {
+                                                                                return 3;
+                                                                              } else if (FFAppState().selectedSidebar == '6') {
+                                                                                return 4;
+                                                                              } else if (FFAppState().selectedSidebar == '7') {
+                                                                                return 5;
+                                                                              } else if (FFAppState().selectedSidebar == '8') {
+                                                                                return 6;
+                                                                              } else if (FFAppState().selectedSidebar == '9') {
+                                                                                return 7;
+                                                                              } else if (FFAppState().selectedSidebar == '10') {
+                                                                                return 8;
+                                                                              } else if (FFAppState().selectedSidebar == '11') {
+                                                                                return 9;
+                                                                              } else if (FFAppState().selectedSidebar == '12') {
+                                                                                return 10;
+                                                                              } else {
+                                                                                return 0;
                                                                               }
                                                                             }()))!) {
                                                                       await showDialog(
@@ -1213,14 +1231,30 @@ class _UpiCompWidgetState extends State<UpiCompWidget> {
                                                                                 await DeleteOperationApiCall.call(
                                                                               operationType: 'DELETE',
                                                                               tableId: () {
-                                                                                if (widget.sidebarSelected == '2') {
+                                                                                if (FFAppState().selectedSidebar == '2') {
                                                                                   return 'UPIHOST';
-                                                                                } else if (widget.sidebarSelected == '3') {
-                                                                                  return 'SYS';
-                                                                                } else if (widget.sidebarSelected == '4') {
+                                                                                } else if (FFAppState().selectedSidebar == '5') {
+                                                                                  return 'UPICOUNTRY';
+                                                                                } else if (FFAppState().selectedSidebar == '4') {
                                                                                   return 'UPICOMPLAINT';
+                                                                                } else if (FFAppState().selectedSidebar == '5') {
+                                                                                  return 'UPICOUNTRY';
+                                                                                } else if (FFAppState().selectedSidebar == '6') {
+                                                                                  return 'UPISMS';
+                                                                                } else if (FFAppState().selectedSidebar == '7') {
+                                                                                  return 'UPISOURCESUB';
+                                                                                } else if (FFAppState().selectedSidebar == '8') {
+                                                                                  return 'UPIFRM';
+                                                                                } else if (FFAppState().selectedSidebar == '9') {
+                                                                                  return 'UPITRANSACTION';
+                                                                                } else if (FFAppState().selectedSidebar == '10') {
+                                                                                  return 'UPIBANK';
+                                                                                } else if (FFAppState().selectedSidebar == '11') {
+                                                                                  return 'UPISOURCECHANNELS';
+                                                                                } else if (FFAppState().selectedSidebar == '12') {
+                                                                                  return 'UPIINTEROPERABLE';
                                                                                 } else {
-                                                                                  return 'UPIHOST';
+                                                                                  return 'SYS';
                                                                                 }
                                                                               }(),
                                                                               recordId: valueOrDefault<String>(
@@ -1249,6 +1283,27 @@ class _UpiCompWidgetState extends State<UpiCompWidget> {
                                                                                 'accessToken',
                                                                               );
                                                                               safeSetState(() {});
+                                                                              await showDialog(
+                                                                                context: context,
+                                                                                builder: (dialogContext) {
+                                                                                  return Dialog(
+                                                                                    elevation: 0,
+                                                                                    insetPadding: EdgeInsets.zero,
+                                                                                    backgroundColor: Colors.transparent,
+                                                                                    alignment: AlignmentDirectional(0.0, 0.0).resolve(Directionality.of(context)),
+                                                                                    child: ErrorMessageDialogWidget(
+                                                                                      errorMessageBody: valueOrDefault<String>(
+                                                                                        getJsonField(
+                                                                                          (_model.apiResultwfd?.jsonBody ?? ''),
+                                                                                          r'''$.message''',
+                                                                                        )?.toString(),
+                                                                                        '\$.message',
+                                                                                      ),
+                                                                                      titleValue: 'Alert',
+                                                                                    ),
+                                                                                  );
+                                                                                },
+                                                                              );
                                                                             } else {
                                                                               await showDialog(
                                                                                 context: context,
@@ -1260,7 +1315,10 @@ class _UpiCompWidgetState extends State<UpiCompWidget> {
                                                                                     alignment: AlignmentDirectional(0.0, 0.0).resolve(Directionality.of(context)),
                                                                                     child: ErrorMessageDialogWidget(
                                                                                       errorMessageBody: valueOrDefault<String>(
-                                                                                        (_model.apiResultwfd?.jsonBody ?? '').toString(),
+                                                                                        getJsonField(
+                                                                                          (_model.apiResultwfd?.jsonBody ?? ''),
+                                                                                          r'''$.message''',
+                                                                                        )?.toString(),
                                                                                         '\$.message',
                                                                                       ),
                                                                                       titleValue: 'Alert',
@@ -1289,8 +1347,35 @@ class _UpiCompWidgetState extends State<UpiCompWidget> {
                                                                             } else if (FFAppState().selectedSidebar ==
                                                                                 '3') {
                                                                               return 1;
-                                                                            } else {
+                                                                            } else if (FFAppState().selectedSidebar ==
+                                                                                '4') {
                                                                               return 2;
+                                                                            } else if (FFAppState().selectedSidebar ==
+                                                                                '5') {
+                                                                              return 3;
+                                                                            } else if (FFAppState().selectedSidebar ==
+                                                                                '6') {
+                                                                              return 4;
+                                                                            } else if (FFAppState().selectedSidebar ==
+                                                                                '7') {
+                                                                              return 5;
+                                                                            } else if (FFAppState().selectedSidebar ==
+                                                                                '8') {
+                                                                              return 6;
+                                                                            } else if (FFAppState().selectedSidebar ==
+                                                                                '9') {
+                                                                              return 7;
+                                                                            } else if (FFAppState().selectedSidebar ==
+                                                                                '10') {
+                                                                              return 8;
+                                                                            } else if (FFAppState().selectedSidebar ==
+                                                                                '11') {
+                                                                              return 9;
+                                                                            } else if (FFAppState().selectedSidebar ==
+                                                                                '12') {
+                                                                              return 10;
+                                                                            } else {
+                                                                              return 0;
                                                                             }
                                                                           }()))!) {
                                                                   } else {

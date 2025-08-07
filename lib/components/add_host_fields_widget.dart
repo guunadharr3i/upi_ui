@@ -242,7 +242,8 @@ class _AddHostFieldsWidgetState extends State<AddHostFieldsWidget> {
                                   .resolve(Directionality.of(context)),
                               child: AlertSuccessfullDialogWidget(
                                 alertText: 'Alert',
-                                messageBody: 'Data added successfully',
+                                messageBody:
+                                    'Data add request sent successfully',
                                 callback: () async {
                                   Navigator.pop(context);
                                   Navigator.pop(context);
