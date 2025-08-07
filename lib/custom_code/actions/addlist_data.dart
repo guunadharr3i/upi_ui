@@ -15,23 +15,40 @@ Future addlistData(
 ) async {
   // Add your function code here!
   //  print("Index: $index");
+  // Fields that should be stored as integers
+  final Set<String> intFields = {
+    'READ_TIMEOUT',
+    'CONNECT_TIMEOUT',
+    'MAX_CONNECTIONS',
+    'MAX_PER_ROUTE',
+    'PROXY_PORT'
+  };
+
   print("Updated Value: $updatedvalue");
   print("Key List: $keys");
 
   Map<String, dynamic> result = {};
 
-  // Case 1: JSON is null or empty — create full key map with blank values except the current key
   if (FFAppState().addjsonconfig == null ||
       FFAppState().addjsonconfig.isEmpty) {
     for (int i = 0; i < keys.length; i++) {
-      result[keys[i]] = (i == index) ? updatedvalue.toString() : "";
+      final key = keys[i];
+      if (i == index) {
+        result[key] = intFields.contains(key)
+            ? int.tryParse(updatedvalue) ?? 0
+            : updatedvalue;
+      } else {
+        result[key] = intFields.contains(key) ? 0 : "";
+      }
     }
     print("Created new JSON map with updated index and others blank.");
   } else {
-    // Case 2: JSON already exists — decode and update only the selected field
+    // Decode existing JSON and update the specific field
     result = jsonDecode(FFAppState().addjsonconfig);
     final fieldKey = keys[index];
-    result[fieldKey] = updatedvalue.toString();
+    result[fieldKey] = intFields.contains(fieldKey)
+        ? int.tryParse(updatedvalue) ?? 0
+        : updatedvalue;
     print("Updated existing JSON with new value at index.");
   }
 

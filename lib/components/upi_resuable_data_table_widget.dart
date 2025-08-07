@@ -1,11 +1,7 @@
 import '/flutter_flow/flutter_flow_data_table.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'upi_resuable_data_table_model.dart';
 export 'upi_resuable_data_table_model.dart';
 
@@ -53,6 +49,8 @@ class _UpiResuableDataTableWidgetState
   void initState() {
     super.initState();
     _model = createModel(context, () => UpiResuableDataTableModel());
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -70,36 +68,24 @@ class _UpiResuableDataTableWidgetState
       ),
       child: Builder(
         builder: (context) {
-          final upiDataTable = widget!.tableRawData!.map((e) => e).toList();
+          final upiDataTable = widget.tableRawData!.map((e) => e).toList();
 
           return FlutterFlowDataTable<dynamic>(
             controller: _model.paginatedDataTableController,
             data: upiDataTable,
             columnsBuilder: (onSortChanged) => List.generate(
               valueOrDefault<int>(
-                widget!.tableColumnValue?.length,
+                widget.tableColumnValue?.length,
                 5,
               ),
               (columnIndex) => DataColumn2(
                 label: DefaultTextStyle.merge(
                   softWrap: true,
                   child: Text(
-                    widget!.tableColumnValue!.length.toString(),
+                    widget.tableColumnValue!.length.toString(),
                     style: FlutterFlowTheme.of(context).labelLarge.override(
-                          font: GoogleFonts.mulish(
-                            fontWeight: FlutterFlowTheme.of(context)
-                                .labelLarge
-                                .fontWeight,
-                            fontStyle: FlutterFlowTheme.of(context)
-                                .labelLarge
-                                .fontStyle,
-                          ),
+                          fontFamily: 'Mulish',
                           letterSpacing: 0.0,
-                          fontWeight: FlutterFlowTheme.of(context)
-                              .labelLarge
-                              .fontWeight,
-                          fontStyle:
-                              FlutterFlowTheme.of(context).labelLarge.fontStyle,
                         ),
                   ),
                 ),
@@ -108,34 +94,22 @@ class _UpiResuableDataTableWidgetState
             dataRowBuilder: (upiDataTableItem, upiDataTableIndex, selected,
                     onSelectChanged) =>
                 DataRow(
-              color: MaterialStateProperty.all(
+              color: WidgetStateProperty.all(
                 upiDataTableIndex % 2 == 0
                     ? FlutterFlowTheme.of(context).tableRowColor
                     : FlutterFlowTheme.of(context).secondaryBackground,
               ),
               cells: List.generate(
                 valueOrDefault<int>(
-                  widget!.tableColumnValue?.length,
+                  widget.tableColumnValue?.length,
                   5,
                 ),
                 (columnIndex) => DataCell(
                   Text(
                     'Edit Column 1',
                     style: FlutterFlowTheme.of(context).bodyMedium.override(
-                          font: GoogleFonts.mulish(
-                            fontWeight: FlutterFlowTheme.of(context)
-                                .bodyMedium
-                                .fontWeight,
-                            fontStyle: FlutterFlowTheme.of(context)
-                                .bodyMedium
-                                .fontStyle,
-                          ),
+                          fontFamily: 'Mulish',
                           letterSpacing: 0.0,
-                          fontWeight: FlutterFlowTheme.of(context)
-                              .bodyMedium
-                              .fontWeight,
-                          fontStyle:
-                              FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                         ),
                   ),
                 ),

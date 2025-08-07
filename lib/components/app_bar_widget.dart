@@ -1,14 +1,9 @@
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
-import 'dart:ui';
 import '/custom_code/actions/index.dart' as actions;
 import '/index.dart';
 import 'package:badges/badges.dart' as badges;
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'app_bar_model.dart';
 export 'app_bar_model.dart';
 
@@ -32,6 +27,8 @@ class _AppBarWidgetState extends State<AppBarWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => AppBarModel());
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -106,19 +103,11 @@ class _AppBarWidgetState extends State<AppBarWidget> {
                     Text(
                       'Last Login : 29/06/2025 ',
                       style: FlutterFlowTheme.of(context).bodyMedium.override(
-                            font: GoogleFonts.mulish(
-                              fontWeight: FontWeight.normal,
-                              fontStyle: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .fontStyle,
-                            ),
+                            fontFamily: 'Mulish',
                             color: Colors.white,
                             fontSize: 16.0,
                             letterSpacing: 0.0,
                             fontWeight: FontWeight.normal,
-                            fontStyle: FlutterFlowTheme.of(context)
-                                .bodyMedium
-                                .fontStyle,
                           ),
                     ),
                     Container(
@@ -134,20 +123,12 @@ class _AppBarWidgetState extends State<AppBarWidget> {
                           'PK',
                           style:
                               FlutterFlowTheme.of(context).bodyMedium.override(
-                                    font: GoogleFonts.mulish(
-                                      fontWeight: FontWeight.bold,
-                                      fontStyle: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .fontStyle,
-                                    ),
+                                    fontFamily: 'Mulish',
                                     color: FlutterFlowTheme.of(context)
                                         .secondaryBackground,
                                     fontSize: 14.0,
                                     letterSpacing: 0.0,
                                     fontWeight: FontWeight.bold,
-                                    fontStyle: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .fontStyle,
                                   ),
                         ),
                       ),
@@ -156,23 +137,10 @@ class _AppBarWidgetState extends State<AppBarWidget> {
                       badgeContent: Text(
                         '1',
                         style: FlutterFlowTheme.of(context).titleSmall.override(
-                              font: GoogleFonts.mulish(
-                                fontWeight: FlutterFlowTheme.of(context)
-                                    .titleSmall
-                                    .fontWeight,
-                                fontStyle: FlutterFlowTheme.of(context)
-                                    .titleSmall
-                                    .fontStyle,
-                              ),
+                              fontFamily: 'Mulish',
                               color: Colors.white,
                               fontSize: 10.0,
                               letterSpacing: 0.0,
-                              fontWeight: FlutterFlowTheme.of(context)
-                                  .titleSmall
-                                  .fontWeight,
-                              fontStyle: FlutterFlowTheme.of(context)
-                                  .titleSmall
-                                  .fontStyle,
                             ),
                       ),
                       showBadge: true,
@@ -198,7 +166,10 @@ class _AppBarWidgetState extends State<AppBarWidget> {
                       onTap: () async {
                         await actions.clearSession();
                         await Future.delayed(
-                            const Duration(milliseconds: 1500));
+                          Duration(
+                            milliseconds: 1500,
+                          ),
+                        );
 
                         context.goNamed(LoginpageWidget.routeName);
                       },

@@ -1,9 +1,4 @@
 import 'dart:convert';
-import 'dart:typed_data';
-import 'package:upi_ui/backend/api_requests/_/api_interceptor.dart';
-import 'package:upi_ui/backend/api_requests/_/api_manager.dart';
-
-import '../schema/structs/index.dart';
 
 import 'package:flutter/foundation.dart';
 
@@ -35,6 +30,7 @@ class UpiAPIGroup {
       DeleteOperationApinCall();
   static PendingRequestApprovenCall pendingRequestApprovenCall =
       PendingRequestApprovenCall();
+  static LogoutnCall logoutnCall = LogoutnCall();
 
   static final interceptors = [
     upiInterceptor(),
@@ -46,6 +42,7 @@ class LDAPAuthCall {
     String? userName = '',
     String? password = '',
     String? deviceHase = '',
+    String? roleName = '',
     String? token = '',
     String? deviceHash = '\"\${FFAppState().deviceHash}\"',
   }) async {
@@ -58,7 +55,8 @@ class LDAPAuthCall {
 {
   "userName": "${escapeStringForJson(userName)}",
   "password": "${escapeStringForJson(password)}",
-  "deviceHase": "${escapeStringForJson(deviceHase)}"
+  "deviceHase": "${escapeStringForJson(deviceHase)}",
+  "roleName": "${escapeStringForJson(roleName)}"
 }''';
     return FFApiInterceptor.makeApiCall(
       // ignore: prefer_const_constructors - can be mutated by interceptors
@@ -131,7 +129,7 @@ class TablesGetApiCallnCall {
       // ignore: prefer_const_constructors - can be mutated by interceptors
       ApiCallOptions(
         callName: 'TablesGetApiCalln',
-        apiUrl: '${baseUrl}upiapi/tableData',
+        apiUrl: '${baseUrl}/upiapi/tableData',
         callType: ApiCallType.POST,
         // ignore: prefer_const_literals_to_create_immutables - can be mutated by interceptors
         headers: {
@@ -159,7 +157,7 @@ class TablesGetApiCallnCall {
 class HostOpeartionsnCall {
   Future<ApiCallResponse> call({
     String? operationType = '',
-    dynamic? dataJson,
+    dynamic dataJson,
     String? tableID = '',
     String? id = '',
     String? host = '',
@@ -204,7 +202,7 @@ class HostOpeartionsnCall {
       // ignore: prefer_const_constructors - can be mutated by interceptors
       ApiCallOptions(
         callName: 'HostOpeartionsn',
-        apiUrl: '${baseUrl}upiapi/operations',
+        apiUrl: '${baseUrl}/upiapi/operations',
         callType: ApiCallType.POST,
         // ignore: prefer_const_literals_to_create_immutables - can be mutated by interceptors
         headers: {
@@ -251,7 +249,7 @@ class DeleteOperationApinCall {
     String? maxConnections = '',
     String? maxPerRoute = '',
     String? tlsVersion = '',
-    dynamic? dataJson,
+    dynamic dataJson,
     String? token = '',
     String? deviceHash = '\"\${FFAppState().deviceHash}\"',
   }) async {
@@ -274,7 +272,7 @@ class DeleteOperationApinCall {
       // ignore: prefer_const_constructors - can be mutated by interceptors
       ApiCallOptions(
         callName: 'DeleteOperationApin',
-        apiUrl: '${baseUrl}upiapi/operations',
+        apiUrl: '${baseUrl}/upiapi/operations',
         callType: ApiCallType.POST,
         // ignore: prefer_const_literals_to_create_immutables - can be mutated by interceptors
         headers: {
@@ -349,6 +347,45 @@ class PendingRequestApprovenCall {
   }
 }
 
+class LogoutnCall {
+  Future<ApiCallResponse> call({
+    String? token = '',
+    String? deviceHash = '\"\${FFAppState().deviceHash}\"',
+  }) async {
+    final baseUrl = UpiAPIGroup.getBaseUrl(
+      token: token,
+      deviceHash: deviceHash,
+    );
+
+    return FFApiInterceptor.makeApiCall(
+      // ignore: prefer_const_constructors - can be mutated by interceptors
+      ApiCallOptions(
+        callName: 'Logoutn',
+        apiUrl: '${baseUrl}/upiauth/logout',
+        callType: ApiCallType.POST,
+        // ignore: prefer_const_literals_to_create_immutables - can be mutated by interceptors
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': '${token}',
+          'DeviceHash': '${deviceHash}',
+        },
+        // ignore: prefer_const_literals_to_create_immutables - can be mutated by interceptors
+        params: {},
+
+        bodyType: BodyType.NONE,
+        returnBody: true,
+        encodeBodyUtf8: false,
+        decodeUtf8: false,
+        cache: false,
+        isStreamingApi: false,
+        alwaysAllowBody: false,
+      ),
+
+      UpiAPIGroup.interceptors,
+    );
+  }
+}
+
 /// End UpiAPI Group Code
 
 class GetEmployeeListCall {
@@ -404,7 +441,8 @@ class TablesGetApiCallCall {
     final ffApiRequestBody = '''
 {
   "tableCode": "${tableCode}",
-  "tempTableName":"${tempTableName}" ,
+  "tempTableName": "${tempTableName}",
+  "userId": "${userId}",
   "limit": ${limit},
   "offset": ${offset},
   "sort": {
@@ -423,7 +461,7 @@ class TablesGetApiCallCall {
       // ignore: prefer_const_constructors - can be mutated by interceptors
       ApiCallOptions(
         callName: 'TablesGetApiCall',
-        apiUrl: 'https://icmsuat.icicibank.com/upiapi/tableData',
+        apiUrl: 'http://localhost:8080/tableData',
         callType: ApiCallType.POST,
         // ignore: prefer_const_literals_to_create_immutables - can be mutated by interceptors
         headers: {
@@ -647,8 +685,9 @@ class HostOpeartionsCall {
     String? tlsVersion = '',
     String? editedBy = '',
     String? editedAt = '',
-    dynamic? dataJson,
+    dynamic dataJson,
     String? tableID = '',
+    String? dateTime = '',
   }) async {
     final data = _serializeJson(dataJson);
     final ffApiRequestBody = '''
@@ -656,16 +695,17 @@ class HostOpeartionsCall {
   "operationType": "${operationType}",
   "data": {
     "rawJson": ${data},
-    "tableId":"${tableID}",
+    "tableId": "${tableID}",
     "recordId": "${id}",
-    "createdBy":"${editedBy}",
-    "dateTime": "2025-07-23T16:00:00"
-  }}''';
+    "createdBy": "${editedBy}",
+    "dateTime": "${dateTime}"
+  }
+}''';
     return FFApiInterceptor.makeApiCall(
       // ignore: prefer_const_constructors - can be mutated by interceptors
       ApiCallOptions(
         callName: 'HostOpeartions',
-        apiUrl: 'https://icmsuat.icicibank.com/upiapi/operations',
+        apiUrl: 'http://localhost:8080/operations',
         callType: ApiCallType.POST,
         // ignore: prefer_const_literals_to_create_immutables - can be mutated by interceptors
         headers: {},
@@ -692,7 +732,7 @@ class HostOpeartionsCall {
 
 class DeleteOperationApiCall {
   static Future<ApiCallResponse> call({
-    dynamic? dataJson,
+    dynamic dataJson,
     int? id,
     String? host = '',
     String? url = '',
@@ -810,6 +850,85 @@ class PendingRequestApproveCall {
   static final interceptors = [
     upiInterceptor(),
   ];
+}
+
+class LogoutCall {
+  static Future<ApiCallResponse> call() async {
+    return FFApiInterceptor.makeApiCall(
+      // ignore: prefer_const_constructors - can be mutated by interceptors
+      ApiCallOptions(
+        callName: 'Logout',
+        apiUrl: 'https://icmsuat.icicibank.com/upiauth/logout',
+        callType: ApiCallType.POST,
+        // ignore: prefer_const_literals_to_create_immutables - can be mutated by interceptors
+        headers: {},
+        // ignore: prefer_const_literals_to_create_immutables - can be mutated by interceptors
+        params: {},
+
+        bodyType: BodyType.JSON,
+        returnBody: true,
+        encodeBodyUtf8: false,
+        decodeUtf8: false,
+        cache: false,
+        isStreamingApi: false,
+        alwaysAllowBody: false,
+      ),
+
+      interceptors,
+    );
+  }
+
+  static final interceptors = [
+    upiInterceptor(),
+  ];
+}
+
+class UserAccessMOCKCall {
+  static Future<ApiCallResponse> call() async {
+    return ApiManager.instance.makeApiCall(
+      callName: 'userAccessMOCK',
+      apiUrl: 'https://mocki.io/v1/3e3f04a0-51a9-464d-a54c-ec82a793cbdd',
+      callType: ApiCallType.GET,
+      headers: {},
+      params: {},
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+
+  static List? userTableAccess(dynamic response) => getJsonField(
+        response,
+        r'''$.accessByTable''',
+        true,
+      ) as List?;
+}
+
+class UserMockCall {
+  static Future<ApiCallResponse> call({
+    String? header,
+  }) async {
+    header ??= FFDevEnvironmentValues().url;
+
+    return ApiManager.instance.makeApiCall(
+      callName: 'userMock',
+      apiUrl: '${header}operations',
+      callType: ApiCallType.GET,
+      headers: {
+        'urlHeader': '${header}',
+      },
+      params: {},
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
 }
 
 class ApiPagingParams {

@@ -3,16 +3,12 @@ import '/backend/schema/structs/index.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import 'dart:ui';
 import '/custom_code/widgets/index.dart' as custom_widgets;
 import '/flutter_flow/custom_functions.dart' as functions;
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
-import 'package:provider/provider.dart';
 import 'u_p_i_h_o_s_t_page_model.dart';
 export 'u_p_i_h_o_s_t_page_model.dart';
 
@@ -80,6 +76,8 @@ class _UPIHOSTPageWidgetState extends State<UPIHOSTPageWidget> {
 
     _model.textController ??= TextEditingController();
     _model.textFieldFocusNode ??= FocusNode();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -399,41 +397,15 @@ class _UPIHOSTPageWidgetState extends State<UPIHOSTPageWidget> {
                                 labelStyle: FlutterFlowTheme.of(context)
                                     .labelMedium
                                     .override(
-                                      font: GoogleFonts.mulish(
-                                        fontWeight: FlutterFlowTheme.of(context)
-                                            .labelMedium
-                                            .fontWeight,
-                                        fontStyle: FlutterFlowTheme.of(context)
-                                            .labelMedium
-                                            .fontStyle,
-                                      ),
+                                      fontFamily: 'Mulish',
                                       letterSpacing: 0.0,
-                                      fontWeight: FlutterFlowTheme.of(context)
-                                          .labelMedium
-                                          .fontWeight,
-                                      fontStyle: FlutterFlowTheme.of(context)
-                                          .labelMedium
-                                          .fontStyle,
                                     ),
                                 hintText: 'Search by ID',
                                 hintStyle: FlutterFlowTheme.of(context)
                                     .labelMedium
                                     .override(
-                                      font: GoogleFonts.mulish(
-                                        fontWeight: FlutterFlowTheme.of(context)
-                                            .labelMedium
-                                            .fontWeight,
-                                        fontStyle: FlutterFlowTheme.of(context)
-                                            .labelMedium
-                                            .fontStyle,
-                                      ),
+                                      fontFamily: 'Mulish',
                                       letterSpacing: 0.0,
-                                      fontWeight: FlutterFlowTheme.of(context)
-                                          .labelMedium
-                                          .fontWeight,
-                                      fontStyle: FlutterFlowTheme.of(context)
-                                          .labelMedium
-                                          .fontStyle,
                                     ),
                                 enabledBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
@@ -472,22 +444,9 @@ class _UPIHOSTPageWidgetState extends State<UPIHOSTPageWidget> {
                               style: FlutterFlowTheme.of(context)
                                   .bodyMedium
                                   .override(
-                                    font: GoogleFonts.mulish(
-                                      fontWeight: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .fontWeight,
-                                      fontStyle: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .fontStyle,
-                                    ),
+                                    fontFamily: 'Mulish',
                                     fontSize: 16.0,
                                     letterSpacing: 0.0,
-                                    fontWeight: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .fontWeight,
-                                    fontStyle: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .fontStyle,
                                   ),
                               cursorColor:
                                   FlutterFlowTheme.of(context).primaryText,
@@ -501,8 +460,7 @@ class _UPIHOSTPageWidgetState extends State<UPIHOSTPageWidget> {
                             child: FFButtonWidget(
                               onPressed: () async {
                                 var _shouldSetState = false;
-                                if (_model.textController.text != null &&
-                                    _model.textController.text != '') {
+                                if (_model.textController.text != '') {
                                   _model.isSuccess = false;
                                   safeSetState(() {});
                                   _model.isLoading = true;
@@ -584,22 +542,9 @@ class _UPIHOSTPageWidgetState extends State<UPIHOSTPageWidget> {
                                 textStyle: FlutterFlowTheme.of(context)
                                     .titleSmall
                                     .override(
-                                      font: GoogleFonts.mulish(
-                                        fontWeight: FlutterFlowTheme.of(context)
-                                            .titleSmall
-                                            .fontWeight,
-                                        fontStyle: FlutterFlowTheme.of(context)
-                                            .titleSmall
-                                            .fontStyle,
-                                      ),
+                                      fontFamily: 'Mulish',
                                       color: Colors.white,
                                       letterSpacing: 0.0,
-                                      fontWeight: FlutterFlowTheme.of(context)
-                                          .titleSmall
-                                          .fontWeight,
-                                      fontStyle: FlutterFlowTheme.of(context)
-                                          .titleSmall
-                                          .fontStyle,
                                     ),
                                 elevation: 0.0,
                                 borderRadius: BorderRadius.circular(8.0),

@@ -16,3 +16,4 @@ export 'mapping_struct.dart';
 export 'meta_data_struct.dart';
 export 'test_upi_editable_struct.dart';
 export 'upi_test_struct.dart';
+export 'user_access_struct.dart';

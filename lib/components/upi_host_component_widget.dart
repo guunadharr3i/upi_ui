@@ -3,10 +3,7 @@ import '/flutter_flow/flutter_flow_data_table.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'upi_host_component_model.dart';
 export 'upi_host_component_model.dart';
@@ -31,6 +28,8 @@ class _UpiHostComponentWidgetState extends State<UpiHostComponentWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => UpiHostComponentModel());
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -58,16 +57,10 @@ class _UpiHostComponentWidgetState extends State<UpiHostComponentWidget> {
                 child: Text(
                   'S/NO',
                   style: FlutterFlowTheme.of(context).labelLarge.override(
-                        font: GoogleFonts.mulish(
-                          fontWeight: FontWeight.w600,
-                          fontStyle:
-                              FlutterFlowTheme.of(context).labelLarge.fontStyle,
-                        ),
+                        fontFamily: 'Mulish',
                         color: Colors.black,
                         letterSpacing: 0.0,
                         fontWeight: FontWeight.w600,
-                        fontStyle:
-                            FlutterFlowTheme.of(context).labelLarge.fontStyle,
                       ),
                 ),
               ),
@@ -78,16 +71,10 @@ class _UpiHostComponentWidgetState extends State<UpiHostComponentWidget> {
                 child: Text(
                   'ID',
                   style: FlutterFlowTheme.of(context).labelLarge.override(
-                        font: GoogleFonts.mulish(
-                          fontWeight: FontWeight.w600,
-                          fontStyle:
-                              FlutterFlowTheme.of(context).labelLarge.fontStyle,
-                        ),
+                        fontFamily: 'Mulish',
                         color: Colors.black,
                         letterSpacing: 0.0,
                         fontWeight: FontWeight.w600,
-                        fontStyle:
-                            FlutterFlowTheme.of(context).labelLarge.fontStyle,
                       ),
                 ),
               ),
@@ -98,16 +85,10 @@ class _UpiHostComponentWidgetState extends State<UpiHostComponentWidget> {
                 child: Text(
                   'HOST',
                   style: FlutterFlowTheme.of(context).labelLarge.override(
-                        font: GoogleFonts.mulish(
-                          fontWeight: FontWeight.w600,
-                          fontStyle:
-                              FlutterFlowTheme.of(context).labelLarge.fontStyle,
-                        ),
+                        fontFamily: 'Mulish',
                         color: Colors.black,
                         letterSpacing: 0.0,
                         fontWeight: FontWeight.w600,
-                        fontStyle:
-                            FlutterFlowTheme.of(context).labelLarge.fontStyle,
                       ),
                 ),
               ),
@@ -118,16 +99,10 @@ class _UpiHostComponentWidgetState extends State<UpiHostComponentWidget> {
                 child: Text(
                   'URL',
                   style: FlutterFlowTheme.of(context).labelLarge.override(
-                        font: GoogleFonts.mulish(
-                          fontWeight: FontWeight.w600,
-                          fontStyle:
-                              FlutterFlowTheme.of(context).labelLarge.fontStyle,
-                        ),
+                        fontFamily: 'Mulish',
                         color: Colors.black,
                         letterSpacing: 0.0,
                         fontWeight: FontWeight.w600,
-                        fontStyle:
-                            FlutterFlowTheme.of(context).labelLarge.fontStyle,
                       ),
                 ),
               ),
@@ -138,16 +113,10 @@ class _UpiHostComponentWidgetState extends State<UpiHostComponentWidget> {
                 child: Text(
                   'STATUS ',
                   style: FlutterFlowTheme.of(context).labelLarge.override(
-                        font: GoogleFonts.mulish(
-                          fontWeight: FontWeight.w600,
-                          fontStyle:
-                              FlutterFlowTheme.of(context).labelLarge.fontStyle,
-                        ),
+                        fontFamily: 'Mulish',
                         color: Colors.black,
                         letterSpacing: 0.0,
                         fontWeight: FontWeight.w600,
-                        fontStyle:
-                            FlutterFlowTheme.of(context).labelLarge.fontStyle,
                       ),
                 ),
               ),
@@ -161,65 +130,29 @@ class _UpiHostComponentWidgetState extends State<UpiHostComponentWidget> {
               Text(
                 '1',
                 style: FlutterFlowTheme.of(context).bodyMedium.override(
-                      font: GoogleFonts.mulish(
-                        fontWeight:
-                            FlutterFlowTheme.of(context).bodyMedium.fontWeight,
-                        fontStyle:
-                            FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                      ),
+                      fontFamily: 'Mulish',
                       letterSpacing: 0.0,
-                      fontWeight:
-                          FlutterFlowTheme.of(context).bodyMedium.fontWeight,
-                      fontStyle:
-                          FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                     ),
               ),
               Text(
                 '442',
                 style: FlutterFlowTheme.of(context).bodyMedium.override(
-                      font: GoogleFonts.mulish(
-                        fontWeight:
-                            FlutterFlowTheme.of(context).bodyMedium.fontWeight,
-                        fontStyle:
-                            FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                      ),
+                      fontFamily: 'Mulish',
                       letterSpacing: 0.0,
-                      fontWeight:
-                          FlutterFlowTheme.of(context).bodyMedium.fontWeight,
-                      fontStyle:
-                          FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                     ),
               ),
               Text(
                 'FALCON-ASYNC-\nFINANCIAL',
                 style: FlutterFlowTheme.of(context).bodyMedium.override(
-                      font: GoogleFonts.mulish(
-                        fontWeight:
-                            FlutterFlowTheme.of(context).bodyMedium.fontWeight,
-                        fontStyle:
-                            FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                      ),
+                      fontFamily: 'Mulish',
                       letterSpacing: 0.0,
-                      fontWeight:
-                          FlutterFlowTheme.of(context).bodyMedium.fontWeight,
-                      fontStyle:
-                          FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                     ),
               ),
               Text(
                 '10.230.88.24:7701/upi',
                 style: FlutterFlowTheme.of(context).bodyMedium.override(
-                      font: GoogleFonts.mulish(
-                        fontWeight:
-                            FlutterFlowTheme.of(context).bodyMedium.fontWeight,
-                        fontStyle:
-                            FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                      ),
+                      fontFamily: 'Mulish',
                       letterSpacing: 0.0,
-                      fontWeight:
-                          FlutterFlowTheme.of(context).bodyMedium.fontWeight,
-                      fontStyle:
-                          FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                     ),
               ),
               Row(
@@ -241,22 +174,9 @@ class _UpiHostComponentWidgetState extends State<UpiHostComponentWidget> {
                       color: Color(0xFF089D08),
                       textStyle:
                           FlutterFlowTheme.of(context).titleSmall.override(
-                                font: GoogleFonts.mulish(
-                                  fontWeight: FlutterFlowTheme.of(context)
-                                      .titleSmall
-                                      .fontWeight,
-                                  fontStyle: FlutterFlowTheme.of(context)
-                                      .titleSmall
-                                      .fontStyle,
-                                ),
+                                fontFamily: 'Mulish',
                                 color: Colors.white,
                                 letterSpacing: 0.0,
-                                fontWeight: FlutterFlowTheme.of(context)
-                                    .titleSmall
-                                    .fontWeight,
-                                fontStyle: FlutterFlowTheme.of(context)
-                                    .titleSmall
-                                    .fontStyle,
                               ),
                       elevation: 0.0,
                       borderRadius: BorderRadius.circular(8.0),
@@ -280,22 +200,9 @@ class _UpiHostComponentWidgetState extends State<UpiHostComponentWidget> {
                         color: Color(0xFFFF0000),
                         textStyle:
                             FlutterFlowTheme.of(context).titleSmall.override(
-                                  font: GoogleFonts.mulish(
-                                    fontWeight: FlutterFlowTheme.of(context)
-                                        .titleSmall
-                                        .fontWeight,
-                                    fontStyle: FlutterFlowTheme.of(context)
-                                        .titleSmall
-                                        .fontStyle,
-                                  ),
+                                  fontFamily: 'Mulish',
                                   color: Colors.white,
                                   letterSpacing: 0.0,
-                                  fontWeight: FlutterFlowTheme.of(context)
-                                      .titleSmall
-                                      .fontWeight,
-                                  fontStyle: FlutterFlowTheme.of(context)
-                                      .titleSmall
-                                      .fontStyle,
                                 ),
                         elevation: 0.0,
                         borderRadius: BorderRadius.circular(8.0),

@@ -1,11 +1,6 @@
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
-import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'sidebar_menu_list_model.dart';
 export 'sidebar_menu_list_model.dart';
 
@@ -29,6 +24,8 @@ class _SidebarMenuListWidgetState extends State<SidebarMenuListWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => SidebarMenuListModel());
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -67,18 +64,10 @@ class _SidebarMenuListWidgetState extends State<SidebarMenuListWidget> {
                     child: Text(
                       'Pending Requests',
                       style: FlutterFlowTheme.of(context).bodyMedium.override(
-                            font: GoogleFonts.mulish(
-                              fontWeight: FontWeight.bold,
-                              fontStyle: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .fontStyle,
-                            ),
+                            fontFamily: 'Mulish',
                             fontSize: 16.0,
                             letterSpacing: 0.0,
                             fontWeight: FontWeight.bold,
-                            fontStyle: FlutterFlowTheme.of(context)
-                                .bodyMedium
-                                .fontStyle,
                           ),
                     ),
                   ),

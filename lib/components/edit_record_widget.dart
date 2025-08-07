@@ -1,11 +1,7 @@
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'edit_record_model.dart';
 export 'edit_record_model.dart';
 
@@ -36,6 +32,8 @@ class _EditRecordWidgetState extends State<EditRecordWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => EditRecordModel());
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -70,17 +68,10 @@ class _EditRecordWidgetState extends State<EditRecordWidget> {
                   child: Text(
                     'Edit Record',
                     style: FlutterFlowTheme.of(context).bodyMedium.override(
-                          font: GoogleFonts.mulish(
-                            fontWeight: FontWeight.w600,
-                            fontStyle: FlutterFlowTheme.of(context)
-                                .bodyMedium
-                                .fontStyle,
-                          ),
+                          fontFamily: 'Mulish',
                           fontSize: 18.0,
                           letterSpacing: 0.0,
                           fontWeight: FontWeight.w600,
-                          fontStyle:
-                              FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                         ),
                   ),
                 ),
@@ -96,7 +87,7 @@ class _EditRecordWidgetState extends State<EditRecordWidget> {
                 padding: EdgeInsetsDirectional.fromSTEB(30.0, 30.0, 30.0, 0.0),
                 child: Builder(
                   builder: (context) {
-                    final json = widget!.json?.toList() ?? [];
+                    final json = widget.json?.toList() ?? [];
 
                     return GridView.builder(
                       padding: EdgeInsets.zero,
@@ -122,21 +113,8 @@ class _EditRecordWidgetState extends State<EditRecordWidget> {
                               style: FlutterFlowTheme.of(context)
                                   .bodyMedium
                                   .override(
-                                    font: GoogleFonts.mulish(
-                                      fontWeight: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .fontWeight,
-                                      fontStyle: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .fontStyle,
-                                    ),
+                                    fontFamily: 'Mulish',
                                     letterSpacing: 0.0,
-                                    fontWeight: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .fontWeight,
-                                    fontStyle: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .fontStyle,
                                   ),
                             ),
                           ],
@@ -164,21 +142,9 @@ class _EditRecordWidgetState extends State<EditRecordWidget> {
                         EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                     color: FlutterFlowTheme.of(context).primary,
                     textStyle: FlutterFlowTheme.of(context).titleSmall.override(
-                          font: GoogleFonts.mulish(
-                            fontWeight: FlutterFlowTheme.of(context)
-                                .titleSmall
-                                .fontWeight,
-                            fontStyle: FlutterFlowTheme.of(context)
-                                .titleSmall
-                                .fontStyle,
-                          ),
+                          fontFamily: 'Mulish',
                           color: Colors.white,
                           letterSpacing: 0.0,
-                          fontWeight: FlutterFlowTheme.of(context)
-                              .titleSmall
-                              .fontWeight,
-                          fontStyle:
-                              FlutterFlowTheme.of(context).titleSmall.fontStyle,
                         ),
                     elevation: 0.0,
                     borderRadius: BorderRadius.circular(8.0),

@@ -1,11 +1,6 @@
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
-import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'alert_successfull_dialog_model.dart';
 export 'alert_successfull_dialog_model.dart';
 
@@ -41,6 +36,8 @@ class _AlertSuccessfullDialogWidgetState
   void initState() {
     super.initState();
     _model = createModel(context, () => AlertSuccessfullDialogModel());
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -75,22 +72,14 @@ class _AlertSuccessfullDialogWidgetState
               children: [
                 Text(
                   valueOrDefault<String>(
-                    widget!.alertText,
+                    widget.alertText,
                     'Alert',
                   ),
                   style: FlutterFlowTheme.of(context).headlineSmall.override(
-                        font: GoogleFonts.mulish(
-                          fontWeight: FontWeight.w500,
-                          fontStyle: FlutterFlowTheme.of(context)
-                              .headlineSmall
-                              .fontStyle,
-                        ),
+                        fontFamily: 'Mulish',
                         fontSize: 20.0,
                         letterSpacing: 0.0,
                         fontWeight: FontWeight.w500,
-                        fontStyle: FlutterFlowTheme.of(context)
-                            .headlineSmall
-                            .fontStyle,
                       ),
                 ),
                 Container(
@@ -123,24 +112,14 @@ class _AlertSuccessfullDialogWidgetState
                 padding: EdgeInsetsDirectional.fromSTEB(0.0, 85.0, 0.0, 0.0),
                 child: Text(
                   valueOrDefault<String>(
-                    widget!.messageBody,
+                    widget.messageBody,
                     'Data Successfully added',
                   ),
                   style: FlutterFlowTheme.of(context).bodyMedium.override(
-                        font: GoogleFonts.mulish(
-                          fontWeight: FlutterFlowTheme.of(context)
-                              .bodyMedium
-                              .fontWeight,
-                          fontStyle:
-                              FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                        ),
+                        fontFamily: 'Mulish',
                         color: FlutterFlowTheme.of(context).primaryText,
                         fontSize: 20.0,
                         letterSpacing: 0.0,
-                        fontWeight:
-                            FlutterFlowTheme.of(context).bodyMedium.fontWeight,
-                        fontStyle:
-                            FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                       ),
                 ),
               ),
@@ -156,6 +135,7 @@ class _AlertSuccessfullDialogWidgetState
                   highlightColor: Colors.transparent,
                   onTap: () async {
                     await widget.callback?.call();
+                    Navigator.pop(context);
                   },
                   child: Container(
                     width: 85.0,
@@ -169,18 +149,10 @@ class _AlertSuccessfullDialogWidgetState
                       child: Text(
                         'OK',
                         style: FlutterFlowTheme.of(context).bodyMedium.override(
-                              font: GoogleFonts.mulish(
-                                fontWeight: FontWeight.bold,
-                                fontStyle: FlutterFlowTheme.of(context)
-                                    .bodyMedium
-                                    .fontStyle,
-                              ),
-                              fontSize: 18.0,
+                              fontFamily: 'Mulish',
+                              fontSize: 14.0,
                               letterSpacing: 0.0,
-                              fontWeight: FontWeight.bold,
-                              fontStyle: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .fontStyle,
+                              fontWeight: FontWeight.w600,
                             ),
                       ),
                     ),
