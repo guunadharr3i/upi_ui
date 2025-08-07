@@ -6,13 +6,8 @@ import '/components/search_comp_widget.dart';
 import '/flutter_flow/flutter_flow_data_table.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
-import 'dart:ui';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'common_d_t_model.dart';
 export 'common_d_t_model.dart';
 
@@ -45,6 +40,8 @@ class _CommonDTWidgetState extends State<CommonDTWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => CommonDTModel());
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -68,19 +65,13 @@ class _CommonDTWidgetState extends State<CommonDTWidget> {
               child: Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(0.0, 40.0, 0.0, 12.0),
                 child: Text(
-                  widget!.heading,
+                  widget.heading,
                   style: FlutterFlowTheme.of(context).bodyMedium.override(
-                        font: GoogleFonts.mulish(
-                          fontWeight: FontWeight.w500,
-                          fontStyle:
-                              FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                        ),
+                        fontFamily: 'Mulish',
                         color: FlutterFlowTheme.of(context).primary,
                         fontSize: 32.0,
                         letterSpacing: 0.0,
                         fontWeight: FontWeight.w500,
-                        fontStyle:
-                            FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                       ),
                 ),
               ),
@@ -103,12 +94,10 @@ class _CommonDTWidgetState extends State<CommonDTWidget> {
                           model: _model.searchCompModel,
                           updateCallback: () => safeSetState(() {}),
                           child: SearchCompWidget(
-                            inputVal: '',
+                            sidebarSelected: '',
                             callBack: () async {
                               var _shouldSetState = false;
                               if (_model.searchCompModel.textController.text !=
-                                      null &&
-                                  _model.searchCompModel.textController.text !=
                                       '') {
                                 _model.isSuccess = false;
                                 _model.viewClick = false;
@@ -121,9 +110,9 @@ class _CommonDTWidgetState extends State<CommonDTWidget> {
                                 _model.apiResult2 =
                                     await TablesGetApiCallCall.call(
                                   tableCode: () {
-                                    if (widget!.heading == 'upiHost') {
+                                    if (widget.heading == 'upiHost') {
                                       return 'UPIHOST';
-                                    } else if (widget!.heading == 'upiSms') {
+                                    } else if (widget.heading == 'upiSms') {
                                       return 'UPISMS';
                                     } else {
                                       return 'SYS';
@@ -134,9 +123,9 @@ class _CommonDTWidgetState extends State<CommonDTWidget> {
                                   sortColumn: 'ID',
                                   direction: 'ASC',
                                   filtersColumn: () {
-                                    if (widget!.heading == 'upiHost') {
+                                    if (widget.heading == 'upiHost') {
                                       return 'HOST';
-                                    } else if (widget!.heading == 'upiSms') {
+                                    } else if (widget.heading == 'upiSms') {
                                       return 'ID';
                                     } else {
                                       return 'ID';
@@ -203,8 +192,6 @@ class _CommonDTWidgetState extends State<CommonDTWidget> {
                             onChnagedCallBack: () async {
                               var _shouldSetState = false;
                               if (_model.searchCompModel.textController.text !=
-                                      null &&
-                                  _model.searchCompModel.textController.text !=
                                       '') {
                                 await showDialog(
                                   context: context,
@@ -225,9 +212,9 @@ class _CommonDTWidgetState extends State<CommonDTWidget> {
                                 _model.apiResult2e =
                                     await TablesGetApiCallCall.call(
                                   tableCode: () {
-                                    if (widget!.heading == 'upiHost') {
+                                    if (widget.heading == 'upiHost') {
                                       return 'UPIHOST';
-                                    } else if (widget!.heading == 'upiSms') {
+                                    } else if (widget.heading == 'upiSms') {
                                       return 'UPISMS';
                                     } else {
                                       return 'UPIHOST';
@@ -238,9 +225,9 @@ class _CommonDTWidgetState extends State<CommonDTWidget> {
                                   sortColumn: 'ID',
                                   direction: 'ASC',
                                   filtersColumn: () {
-                                    if (widget!.heading == 'upiHost') {
+                                    if (widget.heading == 'upiHost') {
                                       return 'HOST';
-                                    } else if (widget!.heading == 'upiSms') {
+                                    } else if (widget.heading == 'upiSms') {
                                       return 'ID';
                                     } else {
                                       return 'ID';
@@ -315,9 +302,9 @@ class _CommonDTWidgetState extends State<CommonDTWidget> {
                               _model.fieldsdetails =
                                   await TablesGetApiCallCall.call(
                                 tableCode: () {
-                                  if (widget!.heading == 'upiHost') {
+                                  if (widget.heading == 'upiHost') {
                                     return 'UPIHOST';
-                                  } else if (widget!.heading == 'upiSms') {
+                                  } else if (widget.heading == 'upiSms') {
                                     return 'UPISMS';
                                   } else {
                                     return 'UPIHOST';
@@ -328,9 +315,9 @@ class _CommonDTWidgetState extends State<CommonDTWidget> {
                                 sortColumn: 'ID',
                                 direction: 'ASC',
                                 filtersColumn: () {
-                                  if (widget!.heading == 'upiHost') {
+                                  if (widget.heading == 'upiHost') {
                                     return 'HOST';
-                                  } else if (widget!.heading == 'upiSms') {
+                                  } else if (widget.heading == 'upiSms') {
                                     return 'ID';
                                   } else {
                                     return 'ID';
@@ -427,23 +414,13 @@ class _CommonDTWidgetState extends State<CommonDTWidget> {
                                         style: FlutterFlowTheme.of(context)
                                             .labelLarge
                                             .override(
-                                              font: GoogleFonts.mulish(
-                                                fontWeight: FontWeight.w600,
-                                                fontStyle:
-                                                    FlutterFlowTheme.of(context)
-                                                        .labelLarge
-                                                        .fontStyle,
-                                              ),
+                                              fontFamily: 'Mulish',
                                               color:
                                                   FlutterFlowTheme.of(context)
                                                       .primaryText,
                                               fontSize: 14.0,
                                               letterSpacing: 0.0,
                                               fontWeight: FontWeight.w600,
-                                              fontStyle:
-                                                  FlutterFlowTheme.of(context)
-                                                      .labelLarge
-                                                      .fontStyle,
                                             ),
                                       ),
                                     ),
@@ -453,29 +430,19 @@ class _CommonDTWidgetState extends State<CommonDTWidget> {
                                       softWrap: true,
                                       child: Text(
                                         valueOrDefault<String>(
-                                          widget!.header2,
+                                          widget.header2,
                                           'HOST',
                                         ),
                                         style: FlutterFlowTheme.of(context)
                                             .labelLarge
                                             .override(
-                                              font: GoogleFonts.mulish(
-                                                fontWeight: FontWeight.w600,
-                                                fontStyle:
-                                                    FlutterFlowTheme.of(context)
-                                                        .labelLarge
-                                                        .fontStyle,
-                                              ),
+                                              fontFamily: 'Mulish',
                                               color:
                                                   FlutterFlowTheme.of(context)
                                                       .primaryText,
                                               fontSize: 14.0,
                                               letterSpacing: 0.0,
                                               fontWeight: FontWeight.w600,
-                                              fontStyle:
-                                                  FlutterFlowTheme.of(context)
-                                                      .labelLarge
-                                                      .fontStyle,
                                             ),
                                       ),
                                     ),
@@ -485,29 +452,19 @@ class _CommonDTWidgetState extends State<CommonDTWidget> {
                                       softWrap: true,
                                       child: Text(
                                         valueOrDefault<String>(
-                                          widget!.header3,
+                                          widget.header3,
                                           'URL',
                                         ),
                                         style: FlutterFlowTheme.of(context)
                                             .labelLarge
                                             .override(
-                                              font: GoogleFonts.mulish(
-                                                fontWeight: FontWeight.w600,
-                                                fontStyle:
-                                                    FlutterFlowTheme.of(context)
-                                                        .labelLarge
-                                                        .fontStyle,
-                                              ),
+                                              fontFamily: 'Mulish',
                                               color:
                                                   FlutterFlowTheme.of(context)
                                                       .primaryText,
                                               fontSize: 14.0,
                                               letterSpacing: 0.0,
                                               fontWeight: FontWeight.w600,
-                                              fontStyle:
-                                                  FlutterFlowTheme.of(context)
-                                                      .labelLarge
-                                                      .fontStyle,
                                             ),
                                       ),
                                     ),
@@ -520,23 +477,13 @@ class _CommonDTWidgetState extends State<CommonDTWidget> {
                                         style: FlutterFlowTheme.of(context)
                                             .labelLarge
                                             .override(
-                                              font: GoogleFonts.mulish(
-                                                fontWeight: FontWeight.w600,
-                                                fontStyle:
-                                                    FlutterFlowTheme.of(context)
-                                                        .labelLarge
-                                                        .fontStyle,
-                                              ),
+                                              fontFamily: 'Mulish',
                                               color:
                                                   FlutterFlowTheme.of(context)
                                                       .primaryText,
                                               fontSize: 14.0,
                                               letterSpacing: 0.0,
                                               fontWeight: FontWeight.w600,
-                                              fontStyle:
-                                                  FlutterFlowTheme.of(context)
-                                                      .labelLarge
-                                                      .fontStyle,
                                             ),
                                       ),
                                     ),
@@ -545,7 +492,7 @@ class _CommonDTWidgetState extends State<CommonDTWidget> {
                                 dataRowBuilder: (dbItem, dbIndex, selected,
                                         onSelectChanged) =>
                                     DataRow(
-                                  color: MaterialStateProperty.all(
+                                  color: WidgetStateProperty.all(
                                     dbIndex % 2 == 0
                                         ? FlutterFlowTheme.of(context)
                                             .tableRowColor
@@ -563,25 +510,8 @@ class _CommonDTWidgetState extends State<CommonDTWidget> {
                                       style: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .override(
-                                            font: GoogleFonts.mulish(
-                                              fontWeight:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMedium
-                                                      .fontWeight,
-                                              fontStyle:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMedium
-                                                      .fontStyle,
-                                            ),
+                                            fontFamily: 'Mulish',
                                             letterSpacing: 0.0,
-                                            fontWeight:
-                                                FlutterFlowTheme.of(context)
-                                                    .bodyMedium
-                                                    .fontWeight,
-                                            fontStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .bodyMedium
-                                                    .fontStyle,
                                           ),
                                     ),
                                     Text(
@@ -595,25 +525,8 @@ class _CommonDTWidgetState extends State<CommonDTWidget> {
                                       style: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .override(
-                                            font: GoogleFonts.mulish(
-                                              fontWeight:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMedium
-                                                      .fontWeight,
-                                              fontStyle:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMedium
-                                                      .fontStyle,
-                                            ),
+                                            fontFamily: 'Mulish',
                                             letterSpacing: 0.0,
-                                            fontWeight:
-                                                FlutterFlowTheme.of(context)
-                                                    .bodyMedium
-                                                    .fontWeight,
-                                            fontStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .bodyMedium
-                                                    .fontStyle,
                                           ),
                                     ),
                                     Text(
@@ -627,25 +540,8 @@ class _CommonDTWidgetState extends State<CommonDTWidget> {
                                       style: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .override(
-                                            font: GoogleFonts.mulish(
-                                              fontWeight:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMedium
-                                                      .fontWeight,
-                                              fontStyle:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMedium
-                                                      .fontStyle,
-                                            ),
+                                            fontFamily: 'Mulish',
                                             letterSpacing: 0.0,
-                                            fontWeight:
-                                                FlutterFlowTheme.of(context)
-                                                    .bodyMedium
-                                                    .fontWeight,
-                                            fontStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .bodyMedium
-                                                    .fontStyle,
                                           ),
                                     ),
                                     Row(
@@ -696,36 +592,16 @@ class _CommonDTWidgetState extends State<CommonDTWidget> {
                                               },
                                               child: Text(
                                                 'Edit',
-                                                style: FlutterFlowTheme.of(
-                                                        context)
-                                                    .bodyMedium
-                                                    .override(
-                                                      font: GoogleFonts.mulish(
-                                                        fontWeight:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .bodyMedium
-                                                                .fontWeight,
-                                                        fontStyle:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .bodyMedium
-                                                                .fontStyle,
-                                                      ),
-                                                      letterSpacing: 0.0,
-                                                      fontWeight:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .bodyMedium
-                                                              .fontWeight,
-                                                      fontStyle:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .bodyMedium
-                                                              .fontStyle,
-                                                      decoration: TextDecoration
-                                                          .underline,
-                                                    ),
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily: 'Mulish',
+                                                          letterSpacing: 0.0,
+                                                          decoration:
+                                                              TextDecoration
+                                                                  .underline,
+                                                        ),
                                               ),
                                             ),
                                           ),

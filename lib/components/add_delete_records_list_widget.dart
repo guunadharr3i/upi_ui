@@ -1,14 +1,12 @@
 import '/backend/api_requests/api_calls.dart';
-import '/backend/schema/structs/index.dart';
+import '/components/error_message_dialog_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import 'dart:ui';
 import '/flutter_flow/custom_functions.dart' as functions;
+import '/index.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'add_delete_records_list_model.dart';
 export 'add_delete_records_list_model.dart';
@@ -55,6 +53,8 @@ class _AddDeleteRecordsListWidgetState
           functions.dynamicDataTableConvertCopy(FFAppState().editJson);
       _model.updatePage(() {});
     });
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -69,16 +69,17 @@ class _AddDeleteRecordsListWidgetState
     context.watch<FFAppState>();
 
     return Container(
-      height: double.infinity,
+      height: 600.0,
       decoration: BoxDecoration(
         color: Color(0x00FFFFFF),
       ),
-      child: Column(
-        mainAxisSize: MainAxisSize.max,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Flexible(
-            child: Container(
+      child: SingleChildScrollView(
+        child: Column(
+          mainAxisSize: MainAxisSize.max,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Container(
+              height: 600.0,
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(10.0),
@@ -121,26 +122,9 @@ class _AddDeleteRecordsListWidgetState
                                         style: FlutterFlowTheme.of(context)
                                             .bodyMedium
                                             .override(
-                                              font: GoogleFonts.mulish(
-                                                fontWeight:
-                                                    FlutterFlowTheme.of(context)
-                                                        .bodyMedium
-                                                        .fontWeight,
-                                                fontStyle:
-                                                    FlutterFlowTheme.of(context)
-                                                        .bodyMedium
-                                                        .fontStyle,
-                                              ),
+                                              fontFamily: 'Mulish',
                                               fontSize: 20.0,
                                               letterSpacing: 0.0,
-                                              fontWeight:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMedium
-                                                      .fontWeight,
-                                              fontStyle:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMedium
-                                                      .fontStyle,
                                             ),
                                       ),
                                     ],
@@ -158,24 +142,13 @@ class _AddDeleteRecordsListWidgetState
                                           style: FlutterFlowTheme.of(context)
                                               .bodyMedium
                                               .override(
-                                                font: GoogleFonts.mulish(
-                                                  fontWeight: FontWeight.w500,
-                                                  fontStyle:
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .bodyMedium
-                                                          .fontStyle,
-                                                ),
+                                                fontFamily: 'Mulish',
                                                 color:
                                                     FlutterFlowTheme.of(context)
                                                         .tertiary,
                                                 fontSize: 24.0,
                                                 letterSpacing: 0.0,
                                                 fontWeight: FontWeight.w500,
-                                                fontStyle:
-                                                    FlutterFlowTheme.of(context)
-                                                        .bodyMedium
-                                                        .fontStyle,
                                               ),
                                         ),
                                       ),
@@ -201,186 +174,232 @@ class _AddDeleteRecordsListWidgetState
                                       mainAxisSize: MainAxisSize.max,
                                       mainAxisAlignment: MainAxisAlignment.end,
                                       children: [
-                                        FFButtonWidget(
-                                          onPressed: () async {
-                                            _model.apiResultem3 =
-                                                await PendingRequestApproveCall
-                                                    .call(
-                                              action: 'APPROVE',
-                                              tableId: widget!.tableId,
-                                              recordId: widget!.recordId,
-                                              userId: FFAppState().userid,
-                                              token: FFAppState().token,
-                                              deviceHash: 'deviceHash',
-                                            );
-
-                                            if ((_model
-                                                    .apiResultem3?.succeeded ??
-                                                true)) {
-                                              await showDialog(
-                                                context: context,
-                                                builder: (alertDialogContext) {
-                                                  return AlertDialog(
-                                                    title: Text('Alert'),
-                                                    content: Text(
-                                                        'Successfully Approved'),
-                                                    actions: [
-                                                      TextButton(
-                                                        onPressed: () =>
-                                                            Navigator.pop(
-                                                                alertDialogContext),
-                                                        child: Text('Ok'),
-                                                      ),
-                                                    ],
-                                                  );
-                                                },
+                                        Builder(
+                                          builder: (context) => FFButtonWidget(
+                                            onPressed: () async {
+                                              _model.apiResultem3 =
+                                                  await PendingRequestApproveCall
+                                                      .call(
+                                                action: 'APPROVE',
+                                                tableId: widget.tableId,
+                                                recordId: widget.recordId,
+                                                userId: valueOrDefault<String>(
+                                                  FFAppState().userid,
+                                                  'BAN123455',
+                                                ),
+                                                token: FFAppState().token,
+                                                deviceHash: 'deviceHash',
                                               );
-                                              FFAppState()
-                                                      .pendingRequestViewOption =
-                                                  false;
-                                              safeSetState(() {});
-                                            }
 
-                                            safeSetState(() {});
-                                          },
-                                          text: 'Approve',
-                                          options: FFButtonOptions(
-                                            width: 120.0,
-                                            height: 40.0,
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    16.0, 0.0, 16.0, 0.0),
-                                            iconPadding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    0.0, 0.0, 0.0, 0.0),
-                                            color: FlutterFlowTheme.of(context)
-                                                .bgColor1,
-                                            textStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .titleSmall
-                                                    .override(
-                                                      font: GoogleFonts.mulish(
-                                                        fontWeight:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .titleSmall
-                                                                .fontWeight,
-                                                        fontStyle:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .titleSmall
-                                                                .fontStyle,
+                                              if ((_model.apiResultem3
+                                                      ?.succeeded ??
+                                                  true)) {
+                                                await showDialog(
+                                                  context: context,
+                                                  builder: (dialogContext) {
+                                                    return Dialog(
+                                                      elevation: 0,
+                                                      insetPadding:
+                                                          EdgeInsets.zero,
+                                                      backgroundColor:
+                                                          Colors.transparent,
+                                                      alignment:
+                                                          AlignmentDirectional(
+                                                                  0.0, 0.0)
+                                                              .resolve(
+                                                                  Directionality.of(
+                                                                      context)),
+                                                      child:
+                                                          ErrorMessageDialogWidget(
+                                                        errorMessageBody:
+                                                            'Successfully Approved',
+                                                        titleValue: 'Alert',
                                                       ),
-                                                      color:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .tableText1,
-                                                      letterSpacing: 0.0,
-                                                      fontWeight:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .titleSmall
-                                                              .fontWeight,
-                                                      fontStyle:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .titleSmall
-                                                              .fontStyle,
-                                                    ),
-                                            elevation: 0.0,
-                                            borderRadius:
-                                                BorderRadius.circular(15.0),
+                                                    );
+                                                  },
+                                                );
+
+                                                FFAppState().addDeleteBool =
+                                                    false;
+                                                FFAppState().update(() {});
+                                              } else {
+                                                await showDialog(
+                                                  context: context,
+                                                  builder: (dialogContext) {
+                                                    return Dialog(
+                                                      elevation: 0,
+                                                      insetPadding:
+                                                          EdgeInsets.zero,
+                                                      backgroundColor:
+                                                          Colors.transparent,
+                                                      alignment:
+                                                          AlignmentDirectional(
+                                                                  0.0, 0.0)
+                                                              .resolve(
+                                                                  Directionality.of(
+                                                                      context)),
+                                                      child:
+                                                          ErrorMessageDialogWidget(
+                                                        errorMessageBody:
+                                                            'Failed',
+                                                        titleValue: 'Alert',
+                                                      ),
+                                                    );
+                                                  },
+                                                );
+
+                                                FFAppState().addDeleteBool =
+                                                    false;
+                                                FFAppState().update(() {});
+                                              }
+
+                                              context.goNamed(
+                                                  DashboardScreenWidget
+                                                      .routeName);
+
+                                              safeSetState(() {});
+                                            },
+                                            text: 'Approve',
+                                            options: FFButtonOptions(
+                                              width: 120.0,
+                                              height: 40.0,
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(
+                                                      16.0, 0.0, 16.0, 0.0),
+                                              iconPadding: EdgeInsetsDirectional
+                                                  .fromSTEB(0.0, 0.0, 0.0, 0.0),
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bgColor1,
+                                              textStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .titleSmall
+                                                      .override(
+                                                        fontFamily: 'Mulish',
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .tableText1,
+                                                        letterSpacing: 0.0,
+                                                      ),
+                                              elevation: 0.0,
+                                              borderRadius:
+                                                  BorderRadius.circular(15.0),
+                                            ),
                                           ),
                                         ),
-                                        FFButtonWidget(
-                                          onPressed: () async {
-                                            _model.apiResultem3Copy =
-                                                await PendingRequestApproveCall
-                                                    .call(
-                                              action: 'REJECT',
-                                              tableId: widget!.tableId,
-                                              recordId: widget!.recordId,
-                                              userId: FFAppState().userid,
-                                              token: FFAppState().token,
-                                              deviceHash: 'deviceHash',
-                                            );
-
-                                            if ((_model.apiResultem3Copy
-                                                    ?.succeeded ??
-                                                true)) {
-                                              await showDialog(
-                                                context: context,
-                                                builder: (alertDialogContext) {
-                                                  return AlertDialog(
-                                                    title: Text('Alert'),
-                                                    content: Text(
-                                                        'Successfully Rejected'),
-                                                    actions: [
-                                                      TextButton(
-                                                        onPressed: () =>
-                                                            Navigator.pop(
-                                                                alertDialogContext),
-                                                        child: Text('Ok'),
-                                                      ),
-                                                    ],
-                                                  );
-                                                },
+                                        Builder(
+                                          builder: (context) => FFButtonWidget(
+                                            onPressed: () async {
+                                              _model.apiResultem3Copy =
+                                                  await PendingRequestApproveCall
+                                                      .call(
+                                                action: 'REJECT',
+                                                tableId: widget.tableId,
+                                                recordId: widget.recordId,
+                                                userId: valueOrDefault<String>(
+                                                  FFAppState().userid,
+                                                  'BAN5432',
+                                                ),
+                                                token: FFAppState().token,
+                                                deviceHash: 'deviceHash',
                                               );
-                                              FFAppState()
-                                                      .pendingRequestViewOption =
-                                                  false;
-                                              safeSetState(() {});
-                                            }
 
-                                            safeSetState(() {});
-                                          },
-                                          text: 'Reject',
-                                          options: FFButtonOptions(
-                                            width: 120.0,
-                                            height: 40.0,
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    16.0, 0.0, 16.0, 0.0),
-                                            iconPadding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    0.0, 0.0, 0.0, 0.0),
-                                            color: FlutterFlowTheme.of(context)
-                                                .bgColor2,
-                                            textStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .titleSmall
-                                                    .override(
-                                                      font: GoogleFonts.mulish(
-                                                        fontWeight:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .titleSmall
-                                                                .fontWeight,
-                                                        fontStyle:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .titleSmall
-                                                                .fontStyle,
+                                              if ((_model.apiResultem3Copy
+                                                      ?.succeeded ??
+                                                  true)) {
+                                                await showDialog(
+                                                  context: context,
+                                                  builder: (dialogContext) {
+                                                    return Dialog(
+                                                      elevation: 0,
+                                                      insetPadding:
+                                                          EdgeInsets.zero,
+                                                      backgroundColor:
+                                                          Colors.transparent,
+                                                      alignment:
+                                                          AlignmentDirectional(
+                                                                  0.0, 0.0)
+                                                              .resolve(
+                                                                  Directionality.of(
+                                                                      context)),
+                                                      child:
+                                                          ErrorMessageDialogWidget(
+                                                        errorMessageBody:
+                                                            'Successfully Rejected',
+                                                        titleValue: 'Alert',
                                                       ),
-                                                      color:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .tableText2,
-                                                      letterSpacing: 0.0,
-                                                      fontWeight:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .titleSmall
-                                                              .fontWeight,
-                                                      fontStyle:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .titleSmall
-                                                              .fontStyle,
-                                                    ),
-                                            elevation: 0.0,
-                                            borderRadius:
-                                                BorderRadius.circular(15.0),
+                                                    );
+                                                  },
+                                                );
+
+                                                FFAppState().addDeleteBool =
+                                                    false;
+                                                FFAppState().update(() {});
+                                              } else {
+                                                await showDialog(
+                                                  context: context,
+                                                  builder: (dialogContext) {
+                                                    return Dialog(
+                                                      elevation: 0,
+                                                      insetPadding:
+                                                          EdgeInsets.zero,
+                                                      backgroundColor:
+                                                          Colors.transparent,
+                                                      alignment:
+                                                          AlignmentDirectional(
+                                                                  0.0, 0.0)
+                                                              .resolve(
+                                                                  Directionality.of(
+                                                                      context)),
+                                                      child:
+                                                          ErrorMessageDialogWidget(
+                                                        errorMessageBody:
+                                                            'Failed',
+                                                        titleValue: 'Alert',
+                                                      ),
+                                                    );
+                                                  },
+                                                );
+
+                                                FFAppState().addDeleteBool =
+                                                    false;
+                                                FFAppState().update(() {});
+                                              }
+
+                                              context.goNamed(
+                                                  DashboardScreenWidget
+                                                      .routeName);
+
+                                              safeSetState(() {});
+                                            },
+                                            text: 'Reject',
+                                            options: FFButtonOptions(
+                                              width: 120.0,
+                                              height: 40.0,
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(
+                                                      16.0, 0.0, 16.0, 0.0),
+                                              iconPadding: EdgeInsetsDirectional
+                                                  .fromSTEB(0.0, 0.0, 0.0, 0.0),
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bgColor2,
+                                              textStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .titleSmall
+                                                      .override(
+                                                        fontFamily: 'Mulish',
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .tableText2,
+                                                        letterSpacing: 0.0,
+                                                      ),
+                                              elevation: 0.0,
+                                              borderRadius:
+                                                  BorderRadius.circular(15.0),
+                                            ),
                                           ),
                                         ),
                                         InkWell(
@@ -464,21 +483,11 @@ class _AddDeleteRecordsListWidgetState
                                     style: FlutterFlowTheme.of(context)
                                         .bodyMedium
                                         .override(
-                                          font: GoogleFonts.mulish(
-                                            fontWeight: FontWeight.w600,
-                                            fontStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .bodyMedium
-                                                    .fontStyle,
-                                          ),
+                                          fontFamily: 'Mulish',
                                           color: Colors.black,
                                           fontSize: 16.0,
                                           letterSpacing: 0.0,
                                           fontWeight: FontWeight.w600,
-                                          fontStyle:
-                                              FlutterFlowTheme.of(context)
-                                                  .bodyMedium
-                                                  .fontStyle,
                                         ),
                                   ),
                                   Text(
@@ -486,21 +495,11 @@ class _AddDeleteRecordsListWidgetState
                                     style: FlutterFlowTheme.of(context)
                                         .bodyMedium
                                         .override(
-                                          font: GoogleFonts.mulish(
-                                            fontWeight: FontWeight.w600,
-                                            fontStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .bodyMedium
-                                                    .fontStyle,
-                                          ),
+                                          fontFamily: 'Mulish',
                                           color: Colors.black,
                                           fontSize: 16.0,
                                           letterSpacing: 0.0,
                                           fontWeight: FontWeight.w600,
-                                          fontStyle:
-                                              FlutterFlowTheme.of(context)
-                                                  .bodyMedium
-                                                  .fontStyle,
                                         ),
                                   ),
                                 ]
@@ -531,112 +530,95 @@ class _AddDeleteRecordsListWidgetState
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      if (widget!.ddSelected != 'SYS')
-                                        Builder(
-                                          builder: (context) {
-                                            final headers = getJsonField(
-                                              FFAppState().upiHostResponse,
-                                              r'''$.metaData''',
-                                            ).toList();
+                                      Builder(
+                                        builder: (context) {
+                                          final headers = getJsonField(
+                                            FFAppState().headerJsonForView,
+                                            r'''$.metaData''',
+                                          ).toList();
 
-                                            return Column(
-                                              mainAxisSize: MainAxisSize.max,
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children:
-                                                  List.generate(headers.length,
-                                                      (headersIndex) {
-                                                final headersItem =
-                                                    headers[headersIndex];
-                                                return Column(
-                                                  mainAxisSize:
-                                                      MainAxisSize.max,
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  children: [
-                                                    Padding(
-                                                      padding:
-                                                          EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                                  5.0,
-                                                                  0.0,
-                                                                  0.0,
-                                                                  0.0),
-                                                      child: Container(
-                                                        height: 30.0,
-                                                        decoration:
-                                                            BoxDecoration(
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(
-                                                                      0.0),
-                                                        ),
-                                                        child: Padding(
-                                                          padding:
-                                                              EdgeInsetsDirectional
-                                                                  .fromSTEB(
-                                                                      5.0,
-                                                                      5.0,
-                                                                      5.0,
-                                                                      1.0),
-                                                          child: Text(
-                                                            valueOrDefault<
-                                                                String>(
-                                                              getJsonField(
-                                                                headersItem,
-                                                                r'''$.name''',
-                                                              )?.toString(),
-                                                              '\$.name',
-                                                            ),
-                                                            style: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .bodyMedium
-                                                                .override(
-                                                                  font: GoogleFonts
-                                                                      .mulish(
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w600,
-                                                                    fontStyle: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .bodyMedium
-                                                                        .fontStyle,
-                                                                  ),
-                                                                  color: Colors
-                                                                      .black,
-                                                                  fontSize:
-                                                                      16.0,
-                                                                  letterSpacing:
-                                                                      0.0,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w600,
-                                                                  fontStyle: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .bodyMedium
-                                                                      .fontStyle,
-                                                                ),
+                                          return Column(
+                                            mainAxisSize: MainAxisSize.max,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: List.generate(
+                                                headers.length, (headersIndex) {
+                                              final headersItem =
+                                                  headers[headersIndex];
+                                              return Column(
+                                                mainAxisSize: MainAxisSize.max,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Padding(
+                                                    padding:
+                                                        EdgeInsetsDirectional
+                                                            .fromSTEB(5.0, 0.0,
+                                                                0.0, 0.0),
+                                                    child: Container(
+                                                      height: 30.0,
+                                                      decoration: BoxDecoration(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(0.0),
+                                                      ),
+                                                      child: Padding(
+                                                        padding:
+                                                            EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                                    5.0,
+                                                                    5.0,
+                                                                    5.0,
+                                                                    1.0),
+                                                        child: Text(
+                                                          valueOrDefault<
+                                                              String>(
+                                                            getJsonField(
+                                                              headersItem,
+                                                              r'''$.name''',
+                                                            )?.toString(),
+                                                            '\$.name',
                                                           ),
+                                                          style: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .bodyMedium
+                                                              .override(
+                                                                fontFamily:
+                                                                    'Mulish',
+                                                                color: Colors
+                                                                    .black,
+                                                                fontSize: 16.0,
+                                                                letterSpacing:
+                                                                    0.0,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w600,
+                                                              ),
                                                         ),
                                                       ),
                                                     ),
-                                                    SizedBox(
-                                                      width: 700.0,
-                                                      child: Divider(
-                                                        thickness: 1.0,
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .primaryText,
-                                                      ),
+                                                  ),
+                                                  SizedBox(
+                                                    width: 700.0,
+                                                    child: Divider(
+                                                      thickness: 1.0,
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .primaryText,
                                                     ),
-                                                  ],
-                                                );
-                                              }),
-                                            );
-                                          },
-                                        ),
-                                      if (widget!.ddSelected == 'SYS')
+                                                  ),
+                                                ],
+                                              );
+                                            }),
+                                          );
+                                        },
+                                      ),
+                                      if ((widget.ddSelected == 'SYS') &&
+                                          responsiveVisibility(
+                                            context: context,
+                                            desktop: false,
+                                          ))
                                         Builder(
                                           builder: (context) {
                                             final headers = getJsonField(
@@ -697,16 +679,8 @@ class _AddDeleteRecordsListWidgetState
                                                                     .of(context)
                                                                 .bodyMedium
                                                                 .override(
-                                                                  font: GoogleFonts
-                                                                      .mulish(
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w600,
-                                                                    fontStyle: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .bodyMedium
-                                                                        .fontStyle,
-                                                                  ),
+                                                                  fontFamily:
+                                                                      'Mulish',
                                                                   color: Colors
                                                                       .black,
                                                                   fontSize:
@@ -716,10 +690,6 @@ class _AddDeleteRecordsListWidgetState
                                                                   fontWeight:
                                                                       FontWeight
                                                                           .w600,
-                                                                  fontStyle: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .bodyMedium
-                                                                      .fontStyle,
                                                                 ),
                                                           ),
                                                         ),
@@ -757,8 +727,8 @@ class _AddDeleteRecordsListWidgetState
                                   child: Builder(
                                     builder: (context) {
                                       final newData = _model.dataNew?.value
-                                              ?.firstOrNull?.modelList
-                                              ?.toList() ??
+                                              .firstOrNull?.modelList
+                                              .toList() ??
                                           [];
 
                                       return Column(
@@ -775,9 +745,9 @@ class _AddDeleteRecordsListWidgetState
                                                       (_model
                                                           .dataOld
                                                           ?.value
-                                                          ?.firstOrNull
+                                                          .firstOrNull
                                                           ?.modelList
-                                                          ?.elementAtOrNull(
+                                                          .elementAtOrNull(
                                                               newDataIndex))
                                                   ? false
                                                   : true) {
@@ -830,19 +800,10 @@ class _AddDeleteRecordsListWidgetState
                                                                       .of(context)
                                                                   .bodyMedium
                                                                   .override(
-                                                                    font: GoogleFonts
-                                                                        .mulish(
-                                                                      fontWeight: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .bodyMedium
-                                                                          .fontWeight,
-                                                                      fontStyle: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .bodyMedium
-                                                                          .fontStyle,
-                                                                    ),
+                                                                    fontFamily:
+                                                                        'Mulish',
                                                                     color: newDataItem ==
-                                                                            (_model.dataNew?.value?.firstOrNull?.modelList?.elementAtOrNull(
+                                                                            (_model.dataNew?.value.firstOrNull?.modelList.elementAtOrNull(
                                                                                 newDataIndex))
                                                                         ? FlutterFlowTheme.of(context)
                                                                             .tableText1
@@ -850,14 +811,6 @@ class _AddDeleteRecordsListWidgetState
                                                                             .primaryText,
                                                                     letterSpacing:
                                                                         0.0,
-                                                                    fontWeight: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .bodyMedium
-                                                                        .fontWeight,
-                                                                    fontStyle: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .bodyMedium
-                                                                        .fontStyle,
                                                                   ),
                                                             ),
                                                           ),
@@ -901,31 +854,13 @@ class _AddDeleteRecordsListWidgetState
                                                                   .of(context)
                                                               .bodyMedium
                                                               .override(
-                                                                font:
-                                                                    GoogleFonts
-                                                                        .mulish(
-                                                                  fontWeight: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .bodyMedium
-                                                                      .fontWeight,
-                                                                  fontStyle: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .bodyMedium
-                                                                      .fontStyle,
-                                                                ),
+                                                                fontFamily:
+                                                                    'Mulish',
                                                                 color: FlutterFlowTheme.of(
                                                                         context)
                                                                     .primaryText,
                                                                 letterSpacing:
                                                                     0.0,
-                                                                fontWeight: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .bodyMedium
-                                                                    .fontWeight,
-                                                                fontStyle: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .bodyMedium
-                                                                    .fontStyle,
                                                               ),
                                                         ),
                                                       ),
@@ -960,8 +895,8 @@ class _AddDeleteRecordsListWidgetState
                 ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

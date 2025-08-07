@@ -47,7 +47,7 @@ DataTableNewModelStruct? dynamicDataTableConvert(dynamic json) {
         headers.map((field) => item[field]?.toString() ?? '').toList();
     return DataTableModelStruct(modelList: values);
   }).toList();
-
+  print(DataTableNewModelStruct(headers: headers, value: rows));
   // Return a single DataTableNewModelStruct in a list
   return DataTableNewModelStruct(headers: headers, value: rows);
 }
@@ -151,6 +151,16 @@ String extractIdHostUrl(
     final result = decoded[value];
     print(result);
     return result != null ? result.toString() : '';
+    // final decoded = json.decode(rawJson);
+
+    // // Normalize keys to lowercase
+    // final normalizedMap = decoded
+    //     .map((key, value) => MapEntry(key.toString().toLowerCase(), value));
+
+    // // Lookup using lowercase version of input value
+    // final result = normalizedMap[value.toLowerCase()];
+    // print(result);
+    // return result != null ? result.toString() : '';
   } catch (e) {
     return '';
   }
@@ -224,4 +234,60 @@ dynamic rawjsonTojson(dynamic rawjson) {
   };
 
   return transformed;
+}
+
+bool? userTableAccess(
+  String? action,
+  AccessByTableStruct? accessByTable,
+) {
+  if (action == null || accessByTable == null) return false;
+
+  return accessByTable.actionIds.contains(action);
+}
+
+bool areIntFieldsNumeric(String rawjson) {
+  final Set<String> intFields = {
+    'READ_TIMEOUT',
+    'CONNECT_TIMEOUT',
+    'MAX_CONNECTIONS',
+    'MAX_PER_ROUTE',
+  };
+
+  try {
+    // Step 1: Decode first layer of rawJson
+    final outerDecoded = jsonDecode(rawjson);
+
+    // Step 2: If it's a string (escaped JSON), decode again
+    Map<String, dynamic> jsonMap;
+    if (outerDecoded is String) {
+      jsonMap = jsonDecode(outerDecoded);
+    } else if (outerDecoded is Map<String, dynamic>) {
+      jsonMap = outerDecoded;
+    } else {
+      return false;
+    }
+
+    // Step 3: Check each intField value is numeric
+    for (final key in intFields) {
+      final value = jsonMap[key];
+      if (!(value is num || (value is String && num.tryParse(value) != null))) {
+        return false;
+      }
+    }
+
+    return true;
+  } catch (e) {
+    print('Error in areIntFieldsNumeric: $e');
+    return false;
+  }
+}
+
+int? charCheck(String? toCheck) {
+  int lengthIs = toCheck!.length;
+  return lengthIs;
+}
+
+bool? jsonEmptyCheck(dynamic json) {
+  //  if json is empty then return false else return true
+  return json != null && json.isNotEmpty;
 }

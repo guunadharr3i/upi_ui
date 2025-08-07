@@ -1,10 +1,6 @@
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
-import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'sidebarhovermenu_to_open_model.dart';
 export 'sidebarhovermenu_to_open_model.dart';
@@ -46,6 +42,8 @@ class _SidebarhovermenuToOpenWidgetState
   void initState() {
     super.initState();
     _model = createModel(context, () => SidebarhovermenuToOpenModel());
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -78,19 +76,19 @@ class _SidebarhovermenuToOpenWidgetState
       ),
       decoration: BoxDecoration(
         color: () {
-          if (((widget!.menuText == 'PendingRequests') &&
+          if (((widget.menuText == 'PendingRequests') &&
                   _model.pendingRequests) ||
-              ((widget!.menuText == 'UPI Host') && _model.upiHost) ||
-              ((widget!.menuText == 'UPI SMS') && _model.upiSms) ||
-              ((widget!.menuText == 'sys') && _model.sys) ||
-              ((widget!.menuText == 'UPI Complaint') && _model.upiComplaint) ||
-              ((widget!.menuText == 'UPI Country') && _model.upiCountry) ||
-              ((widget!.menuText == 'UPI Source') && _model.upiSource) ||
-              ((widget!.menuText == 'UPI Frm') && _model.upiFrm) ||
-              ((widget!.menuText == 'UPI Transaction') &&
+              ((widget.menuText == 'UPI Host') && _model.upiHost) ||
+              ((widget.menuText == 'UPI SMS') && _model.upiSms) ||
+              ((widget.menuText == 'sys') && _model.sys) ||
+              ((widget.menuText == 'UPI Complaint') && _model.upiComplaint) ||
+              ((widget.menuText == 'UPI Country') && _model.upiCountry) ||
+              ((widget.menuText == 'UPI Source') && _model.upiSource) ||
+              ((widget.menuText == 'UPI Frm') && _model.upiFrm) ||
+              ((widget.menuText == 'UPI Transaction') &&
                   _model.upiTransaction)) {
             return FlutterFlowTheme.of(context).secondaryBackground;
-          } else if (widget!.highlight! ? true : false) {
+          } else if (widget.highlight! ? true : false) {
             return FlutterFlowTheme.of(context).secondaryBackground;
           } else {
             return Color(0x00000000);
@@ -112,30 +110,30 @@ class _SidebarhovermenuToOpenWidgetState
               children: [
                 Builder(
                   builder: (context) {
-                    if (widget!.menuText == 'Pending requests') {
+                    if (widget.menuText == 'Pending requests') {
                       return Icon(
                         Icons.home_rounded,
                         color: valueOrDefault<Color>(
                           () {
-                            if (((widget!.menuText == 'PendingRequests') &&
+                            if (((widget.menuText == 'PendingRequests') &&
                                     _model.pendingRequests) ||
-                                ((widget!.menuText == 'UPI Host') &&
+                                ((widget.menuText == 'UPI Host') &&
                                     _model.upiHost) ||
-                                ((widget!.menuText == 'UPI SMS') &&
+                                ((widget.menuText == 'UPI SMS') &&
                                     _model.upiSms) ||
-                                ((widget!.menuText == 'sys') && _model.sys) ||
-                                ((widget!.menuText == 'UPI Complaint') &&
+                                ((widget.menuText == 'sys') && _model.sys) ||
+                                ((widget.menuText == 'UPI Complaint') &&
                                     _model.upiComplaint) ||
-                                ((widget!.menuText == 'UPI Country') &&
+                                ((widget.menuText == 'UPI Country') &&
                                     _model.upiCountry) ||
-                                ((widget!.menuText == 'UPI Source') &&
+                                ((widget.menuText == 'UPI Source') &&
                                     _model.upiSource) ||
-                                ((widget!.menuText == 'UPI Frm') &&
+                                ((widget.menuText == 'UPI Frm') &&
                                     _model.upiFrm) ||
-                                ((widget!.menuText == 'UPI Transaction') &&
+                                ((widget.menuText == 'UPI Transaction') &&
                                     _model.upiTransaction)) {
                               return FlutterFlowTheme.of(context).tertiary;
-                            } else if (widget!.highlight! ? true : false) {
+                            } else if (widget.highlight! ? true : false) {
                               return FlutterFlowTheme.of(context).tertiary;
                             } else {
                               return FlutterFlowTheme.of(context)
@@ -158,30 +156,30 @@ class _SidebarhovermenuToOpenWidgetState
                           24.0,
                         ),
                       );
-                    } else if (widget!.menuText == 'UPI Host') {
+                    } else if (widget.menuText == 'UPI Host') {
                       return Icon(
                         Icons.document_scanner_outlined,
                         color: valueOrDefault<Color>(
                           () {
-                            if (((widget!.menuText == 'PendingRequests') &&
+                            if (((widget.menuText == 'PendingRequests') &&
                                     _model.pendingRequests) ||
-                                ((widget!.menuText == 'UPI Host') &&
+                                ((widget.menuText == 'UPI Host') &&
                                     _model.upiHost) ||
-                                ((widget!.menuText == 'UPI SMS') &&
+                                ((widget.menuText == 'UPI SMS') &&
                                     _model.upiSms) ||
-                                ((widget!.menuText == 'sys') && _model.sys) ||
-                                ((widget!.menuText == 'UPI Complaint') &&
+                                ((widget.menuText == 'sys') && _model.sys) ||
+                                ((widget.menuText == 'UPI Complaint') &&
                                     _model.upiComplaint) ||
-                                ((widget!.menuText == 'UPI Country') &&
+                                ((widget.menuText == 'UPI Country') &&
                                     _model.upiCountry) ||
-                                ((widget!.menuText == 'UPI Source') &&
+                                ((widget.menuText == 'UPI Source') &&
                                     _model.upiSource) ||
-                                ((widget!.menuText == 'UPI Frm') &&
+                                ((widget.menuText == 'UPI Frm') &&
                                     _model.upiFrm) ||
-                                ((widget!.menuText == 'UPI Transaction') &&
+                                ((widget.menuText == 'UPI Transaction') &&
                                     _model.upiTransaction)) {
                               return FlutterFlowTheme.of(context).tertiary;
-                            } else if (widget!.highlight! ? true : false) {
+                            } else if (widget.highlight! ? true : false) {
                               return FlutterFlowTheme.of(context).tertiary;
                             } else {
                               return FlutterFlowTheme.of(context)
@@ -204,30 +202,30 @@ class _SidebarhovermenuToOpenWidgetState
                           24.0,
                         ),
                       );
-                    } else if (widget!.menuText == 'UPI SMS') {
+                    } else if (widget.menuText == 'UPI SMS') {
                       return Icon(
                         Icons.newspaper_sharp,
                         color: valueOrDefault<Color>(
                           () {
-                            if (((widget!.menuText == 'PendingRequests') &&
+                            if (((widget.menuText == 'PendingRequests') &&
                                     _model.pendingRequests) ||
-                                ((widget!.menuText == 'UPI Host') &&
+                                ((widget.menuText == 'UPI Host') &&
                                     _model.upiHost) ||
-                                ((widget!.menuText == 'UPI SMS') &&
+                                ((widget.menuText == 'UPI SMS') &&
                                     _model.upiSms) ||
-                                ((widget!.menuText == 'sys') && _model.sys) ||
-                                ((widget!.menuText == 'UPI Complaint') &&
+                                ((widget.menuText == 'sys') && _model.sys) ||
+                                ((widget.menuText == 'UPI Complaint') &&
                                     _model.upiComplaint) ||
-                                ((widget!.menuText == 'UPI Country') &&
+                                ((widget.menuText == 'UPI Country') &&
                                     _model.upiCountry) ||
-                                ((widget!.menuText == 'UPI Source') &&
+                                ((widget.menuText == 'UPI Source') &&
                                     _model.upiSource) ||
-                                ((widget!.menuText == 'UPI Frm') &&
+                                ((widget.menuText == 'UPI Frm') &&
                                     _model.upiFrm) ||
-                                ((widget!.menuText == 'UPI Transaction') &&
+                                ((widget.menuText == 'UPI Transaction') &&
                                     _model.upiTransaction)) {
                               return FlutterFlowTheme.of(context).tertiary;
-                            } else if (widget!.highlight! ? true : false) {
+                            } else if (widget.highlight! ? true : false) {
                               return FlutterFlowTheme.of(context).tertiary;
                             } else {
                               return FlutterFlowTheme.of(context)
@@ -250,30 +248,30 @@ class _SidebarhovermenuToOpenWidgetState
                           24.0,
                         ),
                       );
-                    } else if (widget!.menuText == 'SYS') {
+                    } else if (widget.menuText == 'SYS') {
                       return Icon(
                         Icons.arrow_back,
                         color: valueOrDefault<Color>(
                           () {
-                            if (((widget!.menuText == 'PendingRequests') &&
+                            if (((widget.menuText == 'PendingRequests') &&
                                     _model.pendingRequests) ||
-                                ((widget!.menuText == 'UPI Host') &&
+                                ((widget.menuText == 'UPI Host') &&
                                     _model.upiHost) ||
-                                ((widget!.menuText == 'UPI SMS') &&
+                                ((widget.menuText == 'UPI SMS') &&
                                     _model.upiSms) ||
-                                ((widget!.menuText == 'sys') && _model.sys) ||
-                                ((widget!.menuText == 'UPI Complaint') &&
+                                ((widget.menuText == 'sys') && _model.sys) ||
+                                ((widget.menuText == 'UPI Complaint') &&
                                     _model.upiComplaint) ||
-                                ((widget!.menuText == 'UPI Country') &&
+                                ((widget.menuText == 'UPI Country') &&
                                     _model.upiCountry) ||
-                                ((widget!.menuText == 'UPI Source') &&
+                                ((widget.menuText == 'UPI Source') &&
                                     _model.upiSource) ||
-                                ((widget!.menuText == 'UPI Frm') &&
+                                ((widget.menuText == 'UPI Frm') &&
                                     _model.upiFrm) ||
-                                ((widget!.menuText == 'UPI Transaction') &&
+                                ((widget.menuText == 'UPI Transaction') &&
                                     _model.upiTransaction)) {
                               return FlutterFlowTheme.of(context).tertiary;
-                            } else if (widget!.highlight! ? true : false) {
+                            } else if (widget.highlight! ? true : false) {
                               return FlutterFlowTheme.of(context).tertiary;
                             } else {
                               return FlutterFlowTheme.of(context)
@@ -296,30 +294,30 @@ class _SidebarhovermenuToOpenWidgetState
                           24.0,
                         ),
                       );
-                    } else if (widget!.menuText == 'UPI Complaint') {
+                    } else if (widget.menuText == 'UPI Complaint') {
                       return Icon(
                         Icons.credit_card,
                         color: valueOrDefault<Color>(
                           () {
-                            if (((widget!.menuText == 'PendingRequests') &&
+                            if (((widget.menuText == 'PendingRequests') &&
                                     _model.pendingRequests) ||
-                                ((widget!.menuText == 'UPI Host') &&
+                                ((widget.menuText == 'UPI Host') &&
                                     _model.upiHost) ||
-                                ((widget!.menuText == 'UPI SMS') &&
+                                ((widget.menuText == 'UPI SMS') &&
                                     _model.upiSms) ||
-                                ((widget!.menuText == 'sys') && _model.sys) ||
-                                ((widget!.menuText == 'UPI Complaint') &&
+                                ((widget.menuText == 'sys') && _model.sys) ||
+                                ((widget.menuText == 'UPI Complaint') &&
                                     _model.upiComplaint) ||
-                                ((widget!.menuText == 'UPI Country') &&
+                                ((widget.menuText == 'UPI Country') &&
                                     _model.upiCountry) ||
-                                ((widget!.menuText == 'UPI Source') &&
+                                ((widget.menuText == 'UPI Source') &&
                                     _model.upiSource) ||
-                                ((widget!.menuText == 'UPI Frm') &&
+                                ((widget.menuText == 'UPI Frm') &&
                                     _model.upiFrm) ||
-                                ((widget!.menuText == 'UPI Transaction') &&
+                                ((widget.menuText == 'UPI Transaction') &&
                                     _model.upiTransaction)) {
                               return FlutterFlowTheme.of(context).tertiary;
-                            } else if (widget!.highlight! ? true : false) {
+                            } else if (widget.highlight! ? true : false) {
                               return FlutterFlowTheme.of(context).tertiary;
                             } else {
                               return FlutterFlowTheme.of(context)
@@ -342,30 +340,30 @@ class _SidebarhovermenuToOpenWidgetState
                           24.0,
                         ),
                       );
-                    } else if (widget!.menuText == 'UPI Country') {
+                    } else if (widget.menuText == 'UPI Country') {
                       return Icon(
                         Icons.monitor_heart,
                         color: valueOrDefault<Color>(
                           () {
-                            if (((widget!.menuText == 'PendingRequests') &&
+                            if (((widget.menuText == 'PendingRequests') &&
                                     _model.pendingRequests) ||
-                                ((widget!.menuText == 'UPI Host') &&
+                                ((widget.menuText == 'UPI Host') &&
                                     _model.upiHost) ||
-                                ((widget!.menuText == 'UPI SMS') &&
+                                ((widget.menuText == 'UPI SMS') &&
                                     _model.upiSms) ||
-                                ((widget!.menuText == 'sys') && _model.sys) ||
-                                ((widget!.menuText == 'UPI Complaint') &&
+                                ((widget.menuText == 'sys') && _model.sys) ||
+                                ((widget.menuText == 'UPI Complaint') &&
                                     _model.upiComplaint) ||
-                                ((widget!.menuText == 'UPI Country') &&
+                                ((widget.menuText == 'UPI Country') &&
                                     _model.upiCountry) ||
-                                ((widget!.menuText == 'UPI Source') &&
+                                ((widget.menuText == 'UPI Source') &&
                                     _model.upiSource) ||
-                                ((widget!.menuText == 'UPI Frm') &&
+                                ((widget.menuText == 'UPI Frm') &&
                                     _model.upiFrm) ||
-                                ((widget!.menuText == 'UPI Transaction') &&
+                                ((widget.menuText == 'UPI Transaction') &&
                                     _model.upiTransaction)) {
                               return FlutterFlowTheme.of(context).tertiary;
-                            } else if (widget!.highlight! ? true : false) {
+                            } else if (widget.highlight! ? true : false) {
                               return FlutterFlowTheme.of(context).tertiary;
                             } else {
                               return FlutterFlowTheme.of(context)
@@ -388,30 +386,30 @@ class _SidebarhovermenuToOpenWidgetState
                           24.0,
                         ),
                       );
-                    } else if (widget!.menuText == 'UPI Source') {
+                    } else if (widget.menuText == 'UPI Source') {
                       return Icon(
                         Icons.folder_open,
                         color: valueOrDefault<Color>(
                           () {
-                            if (((widget!.menuText == 'PendingRequests') &&
+                            if (((widget.menuText == 'PendingRequests') &&
                                     _model.pendingRequests) ||
-                                ((widget!.menuText == 'UPI Host') &&
+                                ((widget.menuText == 'UPI Host') &&
                                     _model.upiHost) ||
-                                ((widget!.menuText == 'UPI SMS') &&
+                                ((widget.menuText == 'UPI SMS') &&
                                     _model.upiSms) ||
-                                ((widget!.menuText == 'sys') && _model.sys) ||
-                                ((widget!.menuText == 'UPI Complaint') &&
+                                ((widget.menuText == 'sys') && _model.sys) ||
+                                ((widget.menuText == 'UPI Complaint') &&
                                     _model.upiComplaint) ||
-                                ((widget!.menuText == 'UPI Country') &&
+                                ((widget.menuText == 'UPI Country') &&
                                     _model.upiCountry) ||
-                                ((widget!.menuText == 'UPI Source') &&
+                                ((widget.menuText == 'UPI Source') &&
                                     _model.upiSource) ||
-                                ((widget!.menuText == 'UPI Frm') &&
+                                ((widget.menuText == 'UPI Frm') &&
                                     _model.upiFrm) ||
-                                ((widget!.menuText == 'UPI Transaction') &&
+                                ((widget.menuText == 'UPI Transaction') &&
                                     _model.upiTransaction)) {
                               return FlutterFlowTheme.of(context).tertiary;
-                            } else if (widget!.highlight! ? true : false) {
+                            } else if (widget.highlight! ? true : false) {
                               return FlutterFlowTheme.of(context).tertiary;
                             } else {
                               return FlutterFlowTheme.of(context)
@@ -434,30 +432,30 @@ class _SidebarhovermenuToOpenWidgetState
                           24.0,
                         ),
                       );
-                    } else if (widget!.menuText == 'UPI FRM') {
+                    } else if (widget.menuText == 'UPI FRM') {
                       return Icon(
                         Icons.arrow_back,
                         color: valueOrDefault<Color>(
                           () {
-                            if (((widget!.menuText == 'PendingRequests') &&
+                            if (((widget.menuText == 'PendingRequests') &&
                                     _model.pendingRequests) ||
-                                ((widget!.menuText == 'UPI Host') &&
+                                ((widget.menuText == 'UPI Host') &&
                                     _model.upiHost) ||
-                                ((widget!.menuText == 'UPI SMS') &&
+                                ((widget.menuText == 'UPI SMS') &&
                                     _model.upiSms) ||
-                                ((widget!.menuText == 'sys') && _model.sys) ||
-                                ((widget!.menuText == 'UPI Complaint') &&
+                                ((widget.menuText == 'sys') && _model.sys) ||
+                                ((widget.menuText == 'UPI Complaint') &&
                                     _model.upiComplaint) ||
-                                ((widget!.menuText == 'UPI Country') &&
+                                ((widget.menuText == 'UPI Country') &&
                                     _model.upiCountry) ||
-                                ((widget!.menuText == 'UPI Source') &&
+                                ((widget.menuText == 'UPI Source') &&
                                     _model.upiSource) ||
-                                ((widget!.menuText == 'UPI Frm') &&
+                                ((widget.menuText == 'UPI Frm') &&
                                     _model.upiFrm) ||
-                                ((widget!.menuText == 'UPI Transaction') &&
+                                ((widget.menuText == 'UPI Transaction') &&
                                     _model.upiTransaction)) {
                               return FlutterFlowTheme.of(context).tertiary;
-                            } else if (widget!.highlight! ? true : false) {
+                            } else if (widget.highlight! ? true : false) {
                               return FlutterFlowTheme.of(context).tertiary;
                             } else {
                               return FlutterFlowTheme.of(context)
@@ -485,25 +483,25 @@ class _SidebarhovermenuToOpenWidgetState
                         Icons.arrow_back,
                         color: valueOrDefault<Color>(
                           () {
-                            if (((widget!.menuText == 'PendingRequests') &&
+                            if (((widget.menuText == 'PendingRequests') &&
                                     _model.pendingRequests) ||
-                                ((widget!.menuText == 'UPI Host') &&
+                                ((widget.menuText == 'UPI Host') &&
                                     _model.upiHost) ||
-                                ((widget!.menuText == 'UPI SMS') &&
+                                ((widget.menuText == 'UPI SMS') &&
                                     _model.upiSms) ||
-                                ((widget!.menuText == 'sys') && _model.sys) ||
-                                ((widget!.menuText == 'UPI Complaint') &&
+                                ((widget.menuText == 'sys') && _model.sys) ||
+                                ((widget.menuText == 'UPI Complaint') &&
                                     _model.upiComplaint) ||
-                                ((widget!.menuText == 'UPI Country') &&
+                                ((widget.menuText == 'UPI Country') &&
                                     _model.upiCountry) ||
-                                ((widget!.menuText == 'UPI Source') &&
+                                ((widget.menuText == 'UPI Source') &&
                                     _model.upiSource) ||
-                                ((widget!.menuText == 'UPI Frm') &&
+                                ((widget.menuText == 'UPI Frm') &&
                                     _model.upiFrm) ||
-                                ((widget!.menuText == 'UPI Transaction') &&
+                                ((widget.menuText == 'UPI Transaction') &&
                                     _model.upiTransaction)) {
                               return FlutterFlowTheme.of(context).tertiary;
-                            } else if (widget!.highlight! ? true : false) {
+                            } else if (widget.highlight! ? true : false) {
                               return FlutterFlowTheme.of(context).tertiary;
                             } else {
                               return FlutterFlowTheme.of(context)
@@ -531,36 +529,32 @@ class _SidebarhovermenuToOpenWidgetState
                 ),
                 Text(
                   valueOrDefault<String>(
-                    widget!.menuText,
+                    widget.menuText,
                     'Pending Requests',
                   ),
                   style: FlutterFlowTheme.of(context).bodyMedium.override(
-                        font: GoogleFonts.mulish(
-                          fontWeight: FontWeight.bold,
-                          fontStyle:
-                              FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                        ),
+                        fontFamily: 'Mulish',
                         color: valueOrDefault<Color>(
                           () {
-                            if (((widget!.menuText == 'Pending Requests') &&
+                            if (((widget.menuText == 'Pending Requests') &&
                                     _model.pendingRequests) ||
-                                ((widget!.menuText == 'UPI Host') &&
+                                ((widget.menuText == 'UPI Host') &&
                                     _model.upiHost) ||
-                                ((widget!.menuText == 'UPI SMS') &&
+                                ((widget.menuText == 'UPI SMS') &&
                                     _model.upiSms) ||
-                                ((widget!.menuText == 'SYS') && _model.sys) ||
-                                ((widget!.menuText == 'UPI Complaint') &&
+                                ((widget.menuText == 'SYS') && _model.sys) ||
+                                ((widget.menuText == 'UPI Complaint') &&
                                     _model.upiComplaint) ||
-                                ((widget!.menuText == 'UPI Country') &&
+                                ((widget.menuText == 'UPI Country') &&
                                     _model.upiCountry) ||
-                                ((widget!.menuText == 'UPI Source') &&
+                                ((widget.menuText == 'UPI Source') &&
                                     _model.upiSource) ||
-                                ((widget!.menuText == 'UPI FRM') &&
+                                ((widget.menuText == 'UPI FRM') &&
                                     _model.upiFrm) ||
-                                ((widget!.menuText == 'UPI Transaction') &&
+                                ((widget.menuText == 'UPI Transaction') &&
                                     _model.upiTransaction)) {
                               return FlutterFlowTheme.of(context).tertiary;
-                            } else if (widget!.highlight! ? true : false) {
+                            } else if (widget.highlight! ? true : false) {
                               return FlutterFlowTheme.of(context).tertiary;
                             } else {
                               return FlutterFlowTheme.of(context)
@@ -584,8 +578,6 @@ class _SidebarhovermenuToOpenWidgetState
                         ),
                         letterSpacing: 0.0,
                         fontWeight: FontWeight.bold,
-                        fontStyle:
-                            FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                       ),
                 ),
               ].divide(SizedBox(

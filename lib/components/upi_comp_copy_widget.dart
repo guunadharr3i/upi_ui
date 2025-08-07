@@ -7,12 +7,8 @@ import '/components/search_comp_widget.dart';
 import '/flutter_flow/flutter_flow_data_table.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
-import 'dart:ui';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'upi_comp_copy_model.dart';
 export 'upi_comp_copy_model.dart';
@@ -42,6 +38,8 @@ class _UpiCompCopyWidgetState extends State<UpiCompCopyWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => UpiCompCopyModel());
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -68,26 +66,20 @@ class _UpiCompCopyWidgetState extends State<UpiCompCopyWidget> {
                 padding: EdgeInsetsDirectional.fromSTEB(0.0, 40.0, 0.0, 12.0),
                 child: Text(
                   () {
-                    if (widget!.parameter1 == '2') {
+                    if (widget.parameter1 == '2') {
                       return 'UPI HOST';
-                    } else if (widget!.parameter1 == '3') {
+                    } else if (widget.parameter1 == '3') {
                       return 'SYS';
                     } else {
                       return 'UPI HOST';
                     }
                   }(),
                   style: FlutterFlowTheme.of(context).bodyMedium.override(
-                        font: GoogleFonts.mulish(
-                          fontWeight: FontWeight.w500,
-                          fontStyle:
-                              FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                        ),
+                        fontFamily: 'Mulish',
                         color: FlutterFlowTheme.of(context).headingColor,
                         fontSize: 32.0,
                         letterSpacing: 0.0,
                         fontWeight: FontWeight.w500,
-                        fontStyle:
-                            FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                       ),
                 ),
               ),
@@ -110,12 +102,10 @@ class _UpiCompCopyWidgetState extends State<UpiCompCopyWidget> {
                           model: _model.searchCompModel,
                           updateCallback: () => safeSetState(() {}),
                           child: SearchCompWidget(
-                            inputVal: widget!.parameter1,
+                            sidebarSelected: widget.parameter1,
                             callBack: () async {
                               var _shouldSetState = false;
                               if (_model.searchCompModel.textController.text !=
-                                      null &&
-                                  _model.searchCompModel.textController.text !=
                                       '') {
                                 _model.isSuccess = false;
                                 _model.viewClick = false;
@@ -128,9 +118,9 @@ class _UpiCompCopyWidgetState extends State<UpiCompCopyWidget> {
                                 _model.apiResult2 =
                                     await TablesGetApiCallCall.call(
                                   tableCode: () {
-                                    if (widget!.parameter1 == 'upiHost') {
+                                    if (widget.parameter1 == 'upiHost') {
                                       return 'UPIHOST';
-                                    } else if (widget!.parameter1 == 'upiSms') {
+                                    } else if (widget.parameter1 == 'upiSms') {
                                       return 'UPISMS';
                                     } else {
                                       return 'SYS';
@@ -141,9 +131,9 @@ class _UpiCompCopyWidgetState extends State<UpiCompCopyWidget> {
                                   sortColumn: 'ID',
                                   direction: 'ASC',
                                   filtersColumn: () {
-                                    if (widget!.parameter1 == 'upiHost') {
+                                    if (widget.parameter1 == 'upiHost') {
                                       return 'HOST';
-                                    } else if (widget!.parameter1 == 'upiSms') {
+                                    } else if (widget.parameter1 == 'upiSms') {
                                       return 'ID';
                                     } else {
                                       return 'ID';
@@ -214,9 +204,9 @@ class _UpiCompCopyWidgetState extends State<UpiCompCopyWidget> {
                               _model.apiResult2e =
                                   await TablesGetApiCallCall.call(
                                 tableCode: () {
-                                  if (widget!.parameter1 == '2') {
+                                  if (widget.parameter1 == '2') {
                                     return 'UPIHOST';
-                                  } else if (widget!.parameter1 == '3') {
+                                  } else if (widget.parameter1 == '3') {
                                     return 'SYS';
                                   } else {
                                     return 'UPIHOST';
@@ -227,9 +217,9 @@ class _UpiCompCopyWidgetState extends State<UpiCompCopyWidget> {
                                 sortColumn: 'HOST',
                                 direction: 'ASC',
                                 filtersColumn: () {
-                                  if (widget!.parameter1 == '2') {
+                                  if (widget.parameter1 == '2') {
                                     return 'HOST';
-                                  } else if (widget!.parameter1 == '3') {
+                                  } else if (widget.parameter1 == '3') {
                                     return 'ID';
                                   } else {
                                     return 'HOST';
@@ -293,9 +283,9 @@ class _UpiCompCopyWidgetState extends State<UpiCompCopyWidget> {
                               _model.fieldsdetails =
                                   await TablesGetApiCallCall.call(
                                 tableCode: () {
-                                  if (widget!.parameter1 == '2') {
+                                  if (widget.parameter1 == '2') {
                                     return 'UPIHOST';
-                                  } else if (widget!.parameter1 == '3') {
+                                  } else if (widget.parameter1 == '3') {
                                     return 'SYS';
                                   } else {
                                     return 'UPIHOST';
@@ -306,9 +296,9 @@ class _UpiCompCopyWidgetState extends State<UpiCompCopyWidget> {
                                 sortColumn: 'ID',
                                 direction: 'ASC',
                                 filtersColumn: () {
-                                  if (widget!.parameter1 == '2') {
+                                  if (widget.parameter1 == '2') {
                                     return 'HOST';
-                                  } else if (widget!.parameter1 == '3') {
+                                  } else if (widget.parameter1 == '3') {
                                     return 'ID';
                                   } else {
                                     return 'ID';
@@ -411,23 +401,13 @@ class _UpiCompCopyWidgetState extends State<UpiCompCopyWidget> {
                                         style: FlutterFlowTheme.of(context)
                                             .labelLarge
                                             .override(
-                                              font: GoogleFonts.mulish(
-                                                fontWeight: FontWeight.w600,
-                                                fontStyle:
-                                                    FlutterFlowTheme.of(context)
-                                                        .labelLarge
-                                                        .fontStyle,
-                                              ),
+                                              fontFamily: 'Mulish',
                                               color:
                                                   FlutterFlowTheme.of(context)
                                                       .primaryText,
                                               fontSize: 14.0,
                                               letterSpacing: 0.0,
                                               fontWeight: FontWeight.w600,
-                                              fontStyle:
-                                                  FlutterFlowTheme.of(context)
-                                                      .labelLarge
-                                                      .fontStyle,
                                             ),
                                       ),
                                     ),
@@ -437,9 +417,9 @@ class _UpiCompCopyWidgetState extends State<UpiCompCopyWidget> {
                                       softWrap: true,
                                       child: Text(
                                         () {
-                                          if (widget!.parameter1 == '2') {
+                                          if (widget.parameter1 == '2') {
                                             return 'HOST';
-                                          } else if (widget!.parameter1 ==
+                                          } else if (widget.parameter1 ==
                                               '3') {
                                             return 'VALUE';
                                           } else {
@@ -449,23 +429,13 @@ class _UpiCompCopyWidgetState extends State<UpiCompCopyWidget> {
                                         style: FlutterFlowTheme.of(context)
                                             .labelLarge
                                             .override(
-                                              font: GoogleFonts.mulish(
-                                                fontWeight: FontWeight.w600,
-                                                fontStyle:
-                                                    FlutterFlowTheme.of(context)
-                                                        .labelLarge
-                                                        .fontStyle,
-                                              ),
+                                              fontFamily: 'Mulish',
                                               color:
                                                   FlutterFlowTheme.of(context)
                                                       .primaryText,
                                               fontSize: 14.0,
                                               letterSpacing: 0.0,
                                               fontWeight: FontWeight.w600,
-                                              fontStyle:
-                                                  FlutterFlowTheme.of(context)
-                                                      .labelLarge
-                                                      .fontStyle,
                                             ),
                                       ),
                                     ),
@@ -475,9 +445,9 @@ class _UpiCompCopyWidgetState extends State<UpiCompCopyWidget> {
                                       softWrap: true,
                                       child: Text(
                                         () {
-                                          if (widget!.parameter1 == '2') {
+                                          if (widget.parameter1 == '2') {
                                             return 'URL';
-                                          } else if (widget!.parameter1 ==
+                                          } else if (widget.parameter1 ==
                                               '3') {
                                             return 'DATA_TYPE';
                                           } else {
@@ -487,23 +457,13 @@ class _UpiCompCopyWidgetState extends State<UpiCompCopyWidget> {
                                         style: FlutterFlowTheme.of(context)
                                             .labelLarge
                                             .override(
-                                              font: GoogleFonts.mulish(
-                                                fontWeight: FontWeight.w600,
-                                                fontStyle:
-                                                    FlutterFlowTheme.of(context)
-                                                        .labelLarge
-                                                        .fontStyle,
-                                              ),
+                                              fontFamily: 'Mulish',
                                               color:
                                                   FlutterFlowTheme.of(context)
                                                       .primaryText,
                                               fontSize: 14.0,
                                               letterSpacing: 0.0,
                                               fontWeight: FontWeight.w600,
-                                              fontStyle:
-                                                  FlutterFlowTheme.of(context)
-                                                      .labelLarge
-                                                      .fontStyle,
                                             ),
                                       ),
                                     ),
@@ -516,23 +476,13 @@ class _UpiCompCopyWidgetState extends State<UpiCompCopyWidget> {
                                         style: FlutterFlowTheme.of(context)
                                             .labelLarge
                                             .override(
-                                              font: GoogleFonts.mulish(
-                                                fontWeight: FontWeight.w600,
-                                                fontStyle:
-                                                    FlutterFlowTheme.of(context)
-                                                        .labelLarge
-                                                        .fontStyle,
-                                              ),
+                                              fontFamily: 'Mulish',
                                               color:
                                                   FlutterFlowTheme.of(context)
                                                       .primaryText,
                                               fontSize: 14.0,
                                               letterSpacing: 0.0,
                                               fontWeight: FontWeight.w600,
-                                              fontStyle:
-                                                  FlutterFlowTheme.of(context)
-                                                      .labelLarge
-                                                      .fontStyle,
                                             ),
                                       ),
                                     ),
@@ -541,7 +491,7 @@ class _UpiCompCopyWidgetState extends State<UpiCompCopyWidget> {
                                 dataRowBuilder: (dbItem, dbIndex, selected,
                                         onSelectChanged) =>
                                     DataRow(
-                                  color: MaterialStateProperty.all(
+                                  color: WidgetStateProperty.all(
                                     dbIndex % 2 == 0
                                         ? FlutterFlowTheme.of(context)
                                             .tableRowColor
@@ -559,30 +509,13 @@ class _UpiCompCopyWidgetState extends State<UpiCompCopyWidget> {
                                       style: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .override(
-                                            font: GoogleFonts.mulish(
-                                              fontWeight:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMedium
-                                                      .fontWeight,
-                                              fontStyle:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMedium
-                                                      .fontStyle,
-                                            ),
+                                            fontFamily: 'Mulish',
                                             letterSpacing: 0.0,
-                                            fontWeight:
-                                                FlutterFlowTheme.of(context)
-                                                    .bodyMedium
-                                                    .fontWeight,
-                                            fontStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .bodyMedium
-                                                    .fontStyle,
                                           ),
                                     ),
                                     Text(
                                       () {
-                                        if (widget!.parameter1 == '2') {
+                                        if (widget.parameter1 == '2') {
                                           return valueOrDefault<String>(
                                             getJsonField(
                                               dbItem,
@@ -590,7 +523,7 @@ class _UpiCompCopyWidgetState extends State<UpiCompCopyWidget> {
                                             )?.toString(),
                                             'FALCON-ASYNC-FINANCIAL',
                                           );
-                                        } else if (widget!.parameter1 == '3') {
+                                        } else if (widget.parameter1 == '3') {
                                           return valueOrDefault<String>(
                                             getJsonField(
                                               dbItem,
@@ -611,30 +544,13 @@ class _UpiCompCopyWidgetState extends State<UpiCompCopyWidget> {
                                       style: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .override(
-                                            font: GoogleFonts.mulish(
-                                              fontWeight:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMedium
-                                                      .fontWeight,
-                                              fontStyle:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMedium
-                                                      .fontStyle,
-                                            ),
+                                            fontFamily: 'Mulish',
                                             letterSpacing: 0.0,
-                                            fontWeight:
-                                                FlutterFlowTheme.of(context)
-                                                    .bodyMedium
-                                                    .fontWeight,
-                                            fontStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .bodyMedium
-                                                    .fontStyle,
                                           ),
                                     ),
                                     Text(
                                       () {
-                                        if (widget!.parameter1 == '2') {
+                                        if (widget.parameter1 == '2') {
                                           return valueOrDefault<String>(
                                             getJsonField(
                                               dbItem,
@@ -642,7 +558,7 @@ class _UpiCompCopyWidgetState extends State<UpiCompCopyWidget> {
                                             )?.toString(),
                                             'FALCON-ASYNC-FINANCIAL',
                                           );
-                                        } else if (widget!.parameter1 == '3') {
+                                        } else if (widget.parameter1 == '3') {
                                           return valueOrDefault<String>(
                                             getJsonField(
                                               dbItem,
@@ -663,25 +579,8 @@ class _UpiCompCopyWidgetState extends State<UpiCompCopyWidget> {
                                       style: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .override(
-                                            font: GoogleFonts.mulish(
-                                              fontWeight:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMedium
-                                                      .fontWeight,
-                                              fontStyle:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMedium
-                                                      .fontStyle,
-                                            ),
+                                            fontFamily: 'Mulish',
                                             letterSpacing: 0.0,
-                                            fontWeight:
-                                                FlutterFlowTheme.of(context)
-                                                    .bodyMedium
-                                                    .fontWeight,
-                                            fontStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .bodyMedium
-                                                    .fontStyle,
                                           ),
                                     ),
                                     Row(
@@ -732,36 +631,16 @@ class _UpiCompCopyWidgetState extends State<UpiCompCopyWidget> {
                                               },
                                               child: Text(
                                                 'Edit',
-                                                style: FlutterFlowTheme.of(
-                                                        context)
-                                                    .bodyMedium
-                                                    .override(
-                                                      font: GoogleFonts.mulish(
-                                                        fontWeight:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .bodyMedium
-                                                                .fontWeight,
-                                                        fontStyle:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .bodyMedium
-                                                                .fontStyle,
-                                                      ),
-                                                      letterSpacing: 0.0,
-                                                      fontWeight:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .bodyMedium
-                                                              .fontWeight,
-                                                      fontStyle:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .bodyMedium
-                                                              .fontStyle,
-                                                      decoration: TextDecoration
-                                                          .underline,
-                                                    ),
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily: 'Mulish',
+                                                          letterSpacing: 0.0,
+                                                          decoration:
+                                                              TextDecoration
+                                                                  .underline,
+                                                        ),
                                               ),
                                             ),
                                           ),
@@ -859,11 +738,11 @@ class _UpiCompCopyWidgetState extends State<UpiCompCopyWidget> {
                                                             operationType:
                                                                 'DELETE',
                                                             tableId: () {
-                                                              if (widget!
+                                                              if (widget
                                                                       .parameter1 ==
                                                                   '2') {
                                                                 return 'UPIHOST';
-                                                              } else if (widget!
+                                                              } else if (widget
                                                                       .parameter1 ==
                                                                   '3') {
                                                                 return 'SYS';

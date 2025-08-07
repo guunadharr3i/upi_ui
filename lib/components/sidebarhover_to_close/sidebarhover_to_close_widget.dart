@@ -1,10 +1,6 @@
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
-import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'sidebarhover_to_close_model.dart';
 export 'sidebarhover_to_close_model.dart';
@@ -41,6 +37,8 @@ class _SidebarhoverToCloseWidgetState extends State<SidebarhoverToCloseWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => SidebarhoverToCloseModel());
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -73,19 +71,19 @@ class _SidebarhoverToCloseWidgetState extends State<SidebarhoverToCloseWidget> {
       ),
       decoration: BoxDecoration(
         color: valueOrDefault<Color>(
-          ((widget!.menuText == 'PendingRequests') &&
+          ((widget.menuText == 'PendingRequests') &&
                       FFAppState().PendingRequests) ||
-                  ((widget!.menuText == 'UPI Host') && FFAppState().UpiHost) ||
-                  ((widget!.menuText == 'UPI SMS') && FFAppState().UpiSms) ||
-                  ((widget!.menuText == 'sys') && FFAppState().SYS) ||
-                  ((widget!.menuText == 'UPI Complaint') &&
+                  ((widget.menuText == 'UPI Host') && FFAppState().UpiHost) ||
+                  ((widget.menuText == 'UPI SMS') && FFAppState().UpiSms) ||
+                  ((widget.menuText == 'sys') && FFAppState().SYS) ||
+                  ((widget.menuText == 'UPI Complaint') &&
                       FFAppState().UpiComplaint) ||
-                  ((widget!.menuText == 'UPI Country') &&
+                  ((widget.menuText == 'UPI Country') &&
                       FFAppState().UpiCountry) ||
-                  ((widget!.menuText == 'UPI Source') &&
+                  ((widget.menuText == 'UPI Source') &&
                       FFAppState().UpiSource) ||
-                  ((widget!.menuText == 'UPI Frm') && FFAppState().UpiFrm) ||
-                  ((widget!.menuText == 'UPI Transaction') &&
+                  ((widget.menuText == 'UPI Frm') && FFAppState().UpiFrm) ||
+                  ((widget.menuText == 'UPI Transaction') &&
                       FFAppState().UpiTransaction)
               ? FlutterFlowTheme.of(context).secondaryBackground
               : Color(0x00000000),
@@ -103,36 +101,32 @@ class _SidebarhoverToCloseWidgetState extends State<SidebarhoverToCloseWidget> {
             Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                widget!.icon!,
+                widget.icon!,
                 Text(
                   valueOrDefault<String>(
-                    widget!.menuText,
+                    widget.menuText,
                     'Pending Requests',
                   ),
                   style: FlutterFlowTheme.of(context).bodyMedium.override(
-                        font: GoogleFonts.mulish(
-                          fontWeight: FontWeight.w600,
-                          fontStyle:
-                              FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                        ),
+                        fontFamily: 'Mulish',
                         color: valueOrDefault<Color>(
-                          ((widget!.menuText == 'PendingRequests') &&
+                          ((widget.menuText == 'PendingRequests') &&
                                       FFAppState().PendingRequests) ||
-                                  ((widget!.menuText == 'UPI Host') &&
+                                  ((widget.menuText == 'UPI Host') &&
                                       FFAppState().UpiHost) ||
-                                  ((widget!.menuText == 'UPI SMS') &&
+                                  ((widget.menuText == 'UPI SMS') &&
                                       FFAppState().UpiSms) ||
-                                  ((widget!.menuText == 'sys') &&
+                                  ((widget.menuText == 'sys') &&
                                       FFAppState().SYS) ||
-                                  ((widget!.menuText == 'UPI Complaint') &&
+                                  ((widget.menuText == 'UPI Complaint') &&
                                       FFAppState().UpiComplaint) ||
-                                  ((widget!.menuText == 'UPI Country') &&
+                                  ((widget.menuText == 'UPI Country') &&
                                       FFAppState().UpiCountry) ||
-                                  ((widget!.menuText == 'UPI Source') &&
+                                  ((widget.menuText == 'UPI Source') &&
                                       FFAppState().UpiSource) ||
-                                  ((widget!.menuText == 'UPI Frm') &&
+                                  ((widget.menuText == 'UPI Frm') &&
                                       FFAppState().UpiFrm) ||
-                                  ((widget!.menuText == 'UPI Transaction') &&
+                                  ((widget.menuText == 'UPI Transaction') &&
                                       FFAppState().UpiTransaction)
                               ? FlutterFlowTheme.of(context).secondaryText
                               : FlutterFlowTheme.of(context)
@@ -154,8 +148,6 @@ class _SidebarhoverToCloseWidgetState extends State<SidebarhoverToCloseWidget> {
                         ),
                         letterSpacing: 0.0,
                         fontWeight: FontWeight.w600,
-                        fontStyle:
-                            FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                       ),
                 ),
               ].divide(SizedBox(width: 14.0)),

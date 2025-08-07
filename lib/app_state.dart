@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import '/backend/schema/structs/index.dart';
-// import '/backend/api_requests/api_manager.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'flutter_flow/flutter_flow_util.dart';
 import 'dart:convert';
@@ -20,6 +19,9 @@ class FFAppState extends ChangeNotifier {
 
   Future initializePersistedState() async {
     prefs = await SharedPreferences.getInstance();
+    _safeInit(() {
+      _userid = prefs.getString('ff_userid') ?? _userid;
+    });
     _safeInit(() {
       _token = prefs.getString('ff_token') ?? _token;
     });
@@ -209,6 +211,7 @@ class FFAppState extends ChangeNotifier {
   String get userid => _userid;
   set userid(String value) {
     _userid = value;
+    prefs.setString('ff_userid', value);
   }
 
   dynamic _editJson = jsonDecode(
@@ -351,6 +354,70 @@ class FFAppState extends ChangeNotifier {
   String get dropdownSelectedValue => _dropdownSelectedValue;
   set dropdownSelectedValue(String value) {
     _dropdownSelectedValue = value;
+  }
+
+  List<AccessByTableStruct> _userDataAccess = [
+    AccessByTableStruct.fromSerializableMap(jsonDecode(
+        '{\"tableId\":\"1\",\"actionIds\":\"[\\\"1\\\",\\\"2\\\",\\\"3\\\",\\\"4\\\"]\"}')),
+    AccessByTableStruct.fromSerializableMap(jsonDecode(
+        '{\"tableId\":\"2\",\"actionIds\":\"[\\\"1\\\",\\\"4\\\"]\"}')),
+    AccessByTableStruct.fromSerializableMap(jsonDecode(
+        '{\"tableId\":\"3\",\"actionIds\":\"[\\\"2\\\",\\\"3\\\",\\\"4\\\"]\"}')),
+    AccessByTableStruct.fromSerializableMap(
+        jsonDecode('{\"tableId\":\"4\",\"actionIds\":\"[\\\"4\\\"]\"}')),
+    AccessByTableStruct.fromSerializableMap(
+        jsonDecode('{\"tableId\":\"5\",\"actionIds\":\"[\\\"4\\\"]\"}')),
+    AccessByTableStruct.fromSerializableMap(
+        jsonDecode('{\"tableId\":\"6\",\"actionIds\":\"[\\\"4\\\"]\"}')),
+    AccessByTableStruct.fromSerializableMap(
+        jsonDecode('{\"tableId\":\"7\",\"actionIds\":\"[\\\"4\\\"]\"}'))
+  ];
+  List<AccessByTableStruct> get userDataAccess => _userDataAccess;
+  set userDataAccess(List<AccessByTableStruct> value) {
+    _userDataAccess = value;
+  }
+
+  void addToUserDataAccess(AccessByTableStruct value) {
+    userDataAccess.add(value);
+  }
+
+  void removeFromUserDataAccess(AccessByTableStruct value) {
+    userDataAccess.remove(value);
+  }
+
+  void removeAtIndexFromUserDataAccess(int index) {
+    userDataAccess.removeAt(index);
+  }
+
+  void updateUserDataAccessAtIndex(
+    int index,
+    AccessByTableStruct Function(AccessByTableStruct) updateFn,
+  ) {
+    userDataAccess[index] = updateFn(_userDataAccess[index]);
+  }
+
+  void insertAtIndexInUserDataAccess(int index, AccessByTableStruct value) {
+    userDataAccess.insert(index, value);
+  }
+
+  dynamic _datatest = jsonDecode(
+      '{\"token\":\"token\",\"accessSummary\":{\"userId\":\"john.doe\",\"roleId\":\"1\",\"accessByTable\":[{\"tableId\":\"1\",\"actionIds\":[\"1\"]},{\"tableId\":\"2\",\"actionIds\":[\"1\",\"3\"]},{\"tableId\":\"3\",\"actionIds\":[\"2\",\"3\"]}]}}');
+  dynamic get datatest => _datatest;
+  set datatest(dynamic value) {
+    _datatest = value;
+  }
+
+  dynamic _loginjsontest = jsonDecode(
+      '{\"token\":null,\"message\":\"Token validation failed\",\"statusCode\":1000}');
+  dynamic get loginjsontest => _loginjsontest;
+  set loginjsontest(dynamic value) {
+    _loginjsontest = value;
+  }
+
+  dynamic _headerJsonForView;
+  dynamic get headerJsonForView => _headerJsonForView;
+  set headerJsonForView(dynamic value) {
+    _headerJsonForView = value;
   }
 }
 

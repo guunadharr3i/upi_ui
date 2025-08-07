@@ -4,17 +4,9 @@ import '/components/header/header_widget.dart';
 import '/components/new_sidebar/new_sidebar_widget.dart';
 import '/components/pending_request_widget.dart';
 import '/components/upi_comp_widget.dart';
-import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
-import 'dart:ui';
-import '/custom_code/actions/index.dart' as actions;
 import 'dashboard_screen_widget.dart' show DashboardScreenWidget;
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 
 class DashboardScreenModel extends FlutterFlowModel<DashboardScreenWidget> {
   ///  Local state fields for this page.
@@ -45,8 +37,6 @@ class DashboardScreenModel extends FlutterFlowModel<DashboardScreenWidget> {
 
   ///  State fields for stateful widgets in this page.
 
-  // Stores action output result for [Custom Action - generateWebDeviceHashWithTime] action in DashboardScreen widget.
-  String? deviceHashInfo;
   // Model for NewSidebar component.
   late NewSidebarModel newSidebarModel;
   // Model for header component.

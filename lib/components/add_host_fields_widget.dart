@@ -1,17 +1,16 @@
 import '/backend/api_requests/api_calls.dart';
 import '/backend/schema/structs/index.dart';
+import '/components/alert_successfull_dialog_widget.dart';
 import '/components/editable_field_widget.dart';
+import '/components/error_message_dialog_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'dart:async';
-import 'dart:ui';
 import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'add_host_fields_model.dart';
 export 'add_host_fields_model.dart';
@@ -44,10 +43,16 @@ class _AddHostFieldsWidgetState extends State<AddHostFieldsWidget> {
 
     // On component load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
-      await Future.delayed(const Duration(milliseconds: 100));
-      _model.editableHeaders = widget!.dataTableNewModel;
+      await Future.delayed(
+        Duration(
+          milliseconds: 100,
+        ),
+      );
+      _model.editableHeaders = widget.dataTableNewModel;
       safeSetState(() {});
     });
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -89,20 +94,12 @@ class _AddHostFieldsWidgetState extends State<AddHostFieldsWidget> {
                           style: FlutterFlowTheme.of(context)
                               .bodyMedium
                               .override(
-                                font: GoogleFonts.mulish(
-                                  fontWeight: FontWeight.w500,
-                                  fontStyle: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .fontStyle,
-                                ),
+                                fontFamily: 'Mulish',
                                 color:
                                     FlutterFlowTheme.of(context).headingColor,
                                 fontSize: 25.0,
                                 letterSpacing: 0.0,
                                 fontWeight: FontWeight.w500,
-                                fontStyle: FlutterFlowTheme.of(context)
-                                    .bodyMedium
-                                    .fontStyle,
                               ),
                         ),
                       ],
@@ -145,10 +142,8 @@ class _AddHostFieldsWidgetState extends State<AddHostFieldsWidget> {
                       EdgeInsetsDirectional.fromSTEB(30.0, 20.0, 30.0, 0.0),
                   child: Builder(
                     builder: (context) {
-                      final gview = _model
-                              .editableHeaders?.value?.firstOrNull?.modelList
-                              ?.toList() ??
-                          [];
+                      final gview =
+                          _model.editableHeaders?.headers.toList() ?? [];
 
                       return GridView.builder(
                         padding: EdgeInsets.zero,
@@ -164,7 +159,7 @@ class _AddHostFieldsWidgetState extends State<AddHostFieldsWidget> {
                           return EditableFieldWidget(
                             key: Key('Key2bn_${gviewIndex}_of_${gview.length}'),
                             heading: _model.editableHeaders?.headers
-                                ?.elementAtOrNull(gviewIndex),
+                                .elementAtOrNull(gviewIndex),
                             data: '',
                             showTooltip: true,
                             onChange: (data) async {
@@ -191,94 +186,114 @@ class _AddHostFieldsWidgetState extends State<AddHostFieldsWidget> {
                   ),
                 ),
               ),
-              Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 20.0, 20.0),
-                child: FFButtonWidget(
-                  onPressed: () async {
-                    _model.addfieldsapires = await HostOpeartionsCall.call(
-                      dataJson: FFAppState().addjsonconfig,
-                      operationType: 'ADD',
-                      id: functions.idReturn(
-                          FFAppState().addjsonconfig.toString(), 'ID'),
-                      tableID: FFAppState().selectedSidebar == '2'
-                          ? 'UPIHOST'
-                          : 'SYS',
-                      editedBy: FFAppState().userid,
-                    );
-
-                    if ((_model.addfieldsapires?.succeeded ?? true)) {
-                      Navigator.pop(context);
-                      await showDialog(
-                        context: context,
-                        builder: (alertDialogContext) {
-                          return AlertDialog(
-                            title: Text('Alert'),
-                            content: Text('Added successfully.'),
-                            actions: [
-                              TextButton(
-                                onPressed: () =>
-                                    Navigator.pop(alertDialogContext),
-                                child: Text('Ok'),
-                              ),
-                            ],
-                          );
-                        },
-                      );
-                      FFAppState().apiConfigJson = null;
-                      FFAppState().addjsonconfig = null;
-                      safeSetState(() {});
-                    } else {
-                      await showDialog(
-                        context: context,
-                        builder: (alertDialogContext) {
-                          return AlertDialog(
-                            title: Text('Alert'),
-                            content: Text(getJsonField(
-                              (_model.addfieldsapires?.jsonBody ?? ''),
-                              r'''$.message''',
-                            ).toString()),
-                            actions: [
-                              TextButton(
-                                onPressed: () =>
-                                    Navigator.pop(alertDialogContext),
-                                child: Text('Ok'),
-                              ),
-                            ],
-                          );
-                        },
-                      );
-                    }
-
-                    safeSetState(() {});
-                  },
-                  text: 'ADD',
-                  options: FFButtonOptions(
-                    width: 200.0,
-                    height: 40.0,
-                    padding:
-                        EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
-                    iconPadding:
-                        EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                    color: Color(0xFFE77817),
-                    textStyle: FlutterFlowTheme.of(context).titleSmall.override(
-                          font: GoogleFonts.mulish(
-                            fontWeight: FlutterFlowTheme.of(context)
-                                .titleSmall
-                                .fontWeight,
-                            fontStyle: FlutterFlowTheme.of(context)
-                                .titleSmall
-                                .fontStyle,
-                          ),
-                          color: Colors.white,
-                          letterSpacing: 0.0,
-                          fontWeight: FlutterFlowTheme.of(context)
-                              .titleSmall
-                              .fontWeight,
-                          fontStyle:
-                              FlutterFlowTheme.of(context).titleSmall.fontStyle,
+              Builder(
+                builder: (context) => Padding(
+                  padding:
+                      EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 20.0, 20.0),
+                  child: FFButtonWidget(
+                    onPressed: () async {
+                      _model.addfieldsapires = await HostOpeartionsCall.call(
+                        dataJson: FFAppState().addjsonconfig,
+                        operationType: 'ADD',
+                        id: functions.idReturn(
+                            FFAppState().addjsonconfig.toString(), 'ID'),
+                        tableID: () {
+                          if (FFAppState().selectedSidebar == '2') {
+                            return 'UPIHOST';
+                          } else if (FFAppState().selectedSidebar == '7') {
+                            return 'UPISOURCESUB';
+                          } else if (FFAppState().selectedSidebar == '4') {
+                            return 'UPICOMPLAINT';
+                          } else if (FFAppState().selectedSidebar == '5') {
+                            return 'UPICOUNTRY';
+                          } else if (FFAppState().selectedSidebar == '6') {
+                            return 'UPISMS';
+                          } else if (FFAppState().selectedSidebar == '8') {
+                            return 'UPIFRM';
+                          } else if (FFAppState().selectedSidebar == '9') {
+                            return 'UPITRANSACTION';
+                          } else if (FFAppState().selectedSidebar == '10') {
+                            return 'UPIBANK';
+                          } else if (FFAppState().selectedSidebar == '11') {
+                            return 'UPISOURCECHANNELS';
+                          } else if (FFAppState().selectedSidebar == '12') {
+                            return 'UPIINTEROPERABLE';
+                          } else {
+                            return 'SYS';
+                          }
+                        }(),
+                        editedBy: valueOrDefault<String>(
+                          FFAppState().userid,
+                          'BAN471120',
                         ),
-                    elevation: 0.0,
-                    borderRadius: BorderRadius.circular(20.0),
+                        dateTime: dateTimeFormat(
+                            "yyyy-MM-ddTHH:mm:ss", getCurrentTimestamp),
+                      );
+
+                      if ((_model.addfieldsapires?.succeeded ?? true)) {
+                        await showDialog(
+                          context: context,
+                          builder: (dialogContext) {
+                            return Dialog(
+                              elevation: 0,
+                              insetPadding: EdgeInsets.zero,
+                              backgroundColor: Colors.transparent,
+                              alignment: AlignmentDirectional(0.0, 0.0)
+                                  .resolve(Directionality.of(context)),
+                              child: AlertSuccessfullDialogWidget(
+                                alertText: 'Alert',
+                                messageBody: 'Data added successfully',
+                                callback: () async {
+                                  Navigator.pop(context);
+                                  Navigator.pop(context);
+                                },
+                              ),
+                            );
+                          },
+                        );
+
+                        FFAppState().apiConfigJson = null;
+                        FFAppState().addjsonconfig = null;
+                        safeSetState(() {});
+                      } else {
+                        await showDialog(
+                          context: context,
+                          builder: (dialogContext) {
+                            return Dialog(
+                              elevation: 0,
+                              insetPadding: EdgeInsets.zero,
+                              backgroundColor: Colors.transparent,
+                              alignment: AlignmentDirectional(0.0, 0.0)
+                                  .resolve(Directionality.of(context)),
+                              child: ErrorMessageDialogWidget(
+                                errorMessageBody: 'Something went wrong',
+                                titleValue: 'Alert',
+                              ),
+                            );
+                          },
+                        );
+                      }
+
+                      safeSetState(() {});
+                    },
+                    text: 'ADD',
+                    options: FFButtonOptions(
+                      width: 200.0,
+                      height: 40.0,
+                      padding:
+                          EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
+                      iconPadding:
+                          EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                      color: Color(0xFFE77817),
+                      textStyle:
+                          FlutterFlowTheme.of(context).titleSmall.override(
+                                fontFamily: 'Mulish',
+                                color: Colors.white,
+                                letterSpacing: 0.0,
+                              ),
+                      elevation: 0.0,
+                      borderRadius: BorderRadius.circular(20.0),
+                    ),
                   ),
                 ),
               ),

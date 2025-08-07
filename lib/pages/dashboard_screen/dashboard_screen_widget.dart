@@ -1,4 +1,3 @@
-import '/backend/schema/structs/index.dart';
 import '/components/footer_widget.dart';
 import '/components/header/header_widget.dart';
 import '/components/new_sidebar/new_sidebar_widget.dart';
@@ -6,13 +5,8 @@ import '/components/pending_request_widget.dart';
 import '/components/upi_comp_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
-import 'dart:ui';
-import '/custom_code/actions/index.dart' as actions;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'dashboard_screen_model.dart';
 export 'dashboard_screen_model.dart';
@@ -38,11 +32,9 @@ class _DashboardScreenWidgetState extends State<DashboardScreenWidget> {
     _model = createModel(context, () => DashboardScreenModel());
 
     // On page load action.
-    SchedulerBinding.instance.addPostFrameCallback((_) async {
-      _model.deviceHashInfo = await actions.generateWebDeviceHashWithTime();
-      FFAppState().deviceHash = _model.deviceHashInfo!;
-      safeSetState(() {});
-    });
+    SchedulerBinding.instance.addPostFrameCallback((_) async {});
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -70,25 +62,31 @@ class _DashboardScreenWidgetState extends State<DashboardScreenWidget> {
             children: [
               Row(
                 mainAxisSize: MainAxisSize.max,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  wrapWithModel(
-                    model: _model.newSidebarModel,
-                    updateCallback: () => safeSetState(() {}),
-                    child: NewSidebarWidget(
-                      pendingRequestsNav: () async {
-                        safeSetState(() {
-                          _model.upiCompModel.searchCompModel.textController
-                              ?.clear();
-                        });
-                        safeSetState(() {
-                          _model.upiCompModel.searchCompModel.textController
-                              ?.text = FFAppState().searchVal;
-                        });
-                      },
+                  Container(
+                    height: MediaQuery.sizeOf(context).height * 0.9,
+                    decoration: BoxDecoration(),
+                    child: wrapWithModel(
+                      model: _model.newSidebarModel,
+                      updateCallback: () => safeSetState(() {}),
+                      child: NewSidebarWidget(
+                        pendingRequestsNav: () async {
+                          safeSetState(() {
+                            _model.upiCompModel.searchCompModel.textController
+                                ?.clear();
+                          });
+                          safeSetState(() {
+                            _model.upiCompModel.searchCompModel.textController
+                                ?.text = FFAppState().searchVal;
+                          });
+                        },
+                      ),
                     ),
                   ),
                   Expanded(
                     child: Container(
+                      height: MediaQuery.sizeOf(context).height * 0.9,
                       decoration: BoxDecoration(),
                       child: Column(
                         mainAxisSize: MainAxisSize.max,
@@ -123,9 +121,6 @@ class _DashboardScreenWidgetState extends State<DashboardScreenWidget> {
                                           0.0, 0.0, 15.0, 0.0),
                                       child: Container(
                                         width: double.infinity,
-                                        height:
-                                            MediaQuery.sizeOf(context).height *
-                                                0.83,
                                         decoration: BoxDecoration(
                                           color: FlutterFlowTheme.of(context)
                                               .secondaryBackground,
@@ -149,7 +144,6 @@ class _DashboardScreenWidgetState extends State<DashboardScreenWidget> {
                                           0.0, 0.0, 15.0, 0.0),
                                       child: Container(
                                         width: double.infinity,
-                                        height: 680.0,
                                         decoration: BoxDecoration(
                                           color: FlutterFlowTheme.of(context)
                                               .secondaryBackground,
@@ -161,7 +155,7 @@ class _DashboardScreenWidgetState extends State<DashboardScreenWidget> {
                                           updateCallback: () =>
                                               safeSetState(() {}),
                                           child: UpiCompWidget(
-                                            parameter1:
+                                            sidebarSelected:
                                                 FFAppState().selectedSidebar,
                                           ),
                                         ),

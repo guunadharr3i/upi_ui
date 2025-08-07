@@ -1,24 +1,11 @@
-import 'package:upi_ui/backend/api_requests/_/api_manager.dart';
-
 import '/backend/api_requests/api_calls.dart';
 import '/backend/schema/structs/index.dart';
-import '/components/add_host_fields_widget.dart';
-import '/components/delete_dialog_widget.dart';
-import '/components/new_dynamic_edit_fields_widget.dart';
+import '/components/empty_page_display_widget.dart';
 import '/components/search_comp_widget.dart';
 import '/flutter_flow/flutter_flow_data_table.dart';
-import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
-import 'dart:ui';
-import '/custom_code/widgets/index.dart' as custom_widgets;
-import '/flutter_flow/custom_functions.dart' as functions;
 import 'upi_comp_widget.dart' show UpiCompWidget;
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 
 class UpiCompModel extends FlutterFlowModel<UpiCompWidget> {
   ///  Local state fields for this component.
@@ -45,7 +32,11 @@ class UpiCompModel extends FlutterFlowModel<UpiCompWidget> {
     updateFn(dataTableStructure ??= DataTableNewModelStruct());
   }
 
-  int? pages;
+  int? totalPages = 5;
+
+  dynamic jsonBodyReqRes;
+
+  bool initialView = false;
 
   ///  State fields for stateful widgets in this component.
 
@@ -62,17 +53,21 @@ class UpiCompModel extends FlutterFlowModel<UpiCompWidget> {
       FlutterFlowDataTableController<dynamic>();
   // Stores action output result for [Backend Call - API (DeleteOperationApi)] action in Container widget.
   ApiCallResponse? apiResultwfd;
+  // Model for emptyPageDisplay component.
+  late EmptyPageDisplayModel emptyPageDisplayModel;
   // Stores action output result for [Backend Call - API (TablesGetApiCall)] action in PaginationWithDots widget.
   ApiCallResponse? searchApiPaged;
 
   @override
   void initState(BuildContext context) {
     searchCompModel = createModel(context, () => SearchCompModel());
+    emptyPageDisplayModel = createModel(context, () => EmptyPageDisplayModel());
   }
 
   @override
   void dispose() {
     searchCompModel.dispose();
     paginatedDataTableController.dispose();
+    emptyPageDisplayModel.dispose();
   }
 }

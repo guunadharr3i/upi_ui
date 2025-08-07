@@ -1,12 +1,7 @@
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
-import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'user_info_comp_model.dart';
 export 'user_info_comp_model.dart';
 
@@ -35,6 +30,8 @@ class _UserInfoCompWidgetState extends State<UserInfoCompWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => UserInfoCompModel());
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -82,34 +79,22 @@ class _UserInfoCompWidgetState extends State<UserInfoCompWidget> {
           ),
           Text(
             valueOrDefault<String>(
-              widget!.userId,
+              widget.userId,
               'BAN741655',
             ),
             style: FlutterFlowTheme.of(context).bodyMedium.override(
-                  font: GoogleFonts.mulish(
-                    fontWeight: FontWeight.bold,
-                    fontStyle:
-                        FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                  ),
+                  fontFamily: 'Mulish',
                   color: FlutterFlowTheme.of(context).headingColor,
                   letterSpacing: 0.0,
                   fontWeight: FontWeight.bold,
-                  fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                 ),
           ),
           Text(
             'Support',
             style: FlutterFlowTheme.of(context).bodyMedium.override(
-                  font: GoogleFonts.mulish(
-                    fontWeight:
-                        FlutterFlowTheme.of(context).bodyMedium.fontWeight,
-                    fontStyle:
-                        FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                  ),
+                  fontFamily: 'Mulish',
+                  color: FlutterFlowTheme.of(context).primaryText,
                   letterSpacing: 0.0,
-                  fontWeight:
-                      FlutterFlowTheme.of(context).bodyMedium.fontWeight,
-                  fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                 ),
           ),
         ],

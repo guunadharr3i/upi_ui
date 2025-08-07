@@ -3,12 +3,8 @@ import '/components/editable_field_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'dynamic_edit_fields_widget_card_copy_model.dart';
 export 'dynamic_edit_fields_widget_card_copy_model.dart';
 
@@ -48,12 +44,18 @@ class _DynamicEditFieldsWidgetCardCopyWidgetState
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       _model.isSuccess = false;
       safeSetState(() {});
-      await Future.delayed(const Duration(milliseconds: 10));
-      _model.editedData = widget!.dataTableNewModal;
+      await Future.delayed(
+        Duration(
+          milliseconds: 10,
+        ),
+      );
+      _model.editedData = widget.dataTableNewModal;
       _model.updatePage(() {});
       _model.isSuccess = true;
       _model.updatePage(() {});
     });
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -122,18 +124,10 @@ class _DynamicEditFieldsWidgetCardCopyWidgetState
                             style: FlutterFlowTheme.of(context)
                                 .bodyMedium
                                 .override(
-                                  font: GoogleFonts.mulish(
-                                    fontWeight: FontWeight.w500,
-                                    fontStyle: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .fontStyle,
-                                  ),
+                                  fontFamily: 'Mulish',
                                   fontSize: 18.0,
                                   letterSpacing: 0.0,
                                   fontWeight: FontWeight.w500,
-                                  fontStyle: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .fontStyle,
                                 ),
                           ),
                         ],
@@ -164,22 +158,9 @@ class _DynamicEditFieldsWidgetCardCopyWidgetState
                                 textStyle: FlutterFlowTheme.of(context)
                                     .titleSmall
                                     .override(
-                                      font: GoogleFonts.mulish(
-                                        fontWeight: FlutterFlowTheme.of(context)
-                                            .titleSmall
-                                            .fontWeight,
-                                        fontStyle: FlutterFlowTheme.of(context)
-                                            .titleSmall
-                                            .fontStyle,
-                                      ),
+                                      fontFamily: 'Mulish',
                                       color: Colors.white,
                                       letterSpacing: 0.0,
-                                      fontWeight: FlutterFlowTheme.of(context)
-                                          .titleSmall
-                                          .fontWeight,
-                                      fontStyle: FlutterFlowTheme.of(context)
-                                          .titleSmall
-                                          .fontStyle,
                                     ),
                                 elevation: 0.0,
                                 borderRadius: BorderRadius.circular(8.0),
@@ -219,8 +200,8 @@ class _DynamicEditFieldsWidgetCardCopyWidgetState
                       child: Builder(
                         builder: (context) {
                           final itemsList = _model
-                                  .editedData?.value?.firstOrNull?.modelList
-                                  ?.toList() ??
+                                  .editedData?.value.firstOrNull?.modelList
+                                  .toList() ??
                               [];
 
                           return GridView.builder(
@@ -244,7 +225,7 @@ class _DynamicEditFieldsWidgetCardCopyWidgetState
                                 key: Key(
                                     'Key7ao_${itemsListIndex}_of_${itemsList.length}'),
                                 heading: _model.editedData?.headers
-                                    ?.elementAtOrNull(itemsListIndex),
+                                    .elementAtOrNull(itemsListIndex),
                                 data: itemsListItem,
                                 onChange: (data) async {},
                                 passDataItem: (fieldName) async {},

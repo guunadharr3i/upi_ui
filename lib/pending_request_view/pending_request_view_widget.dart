@@ -1,11 +1,7 @@
 import '/components/pending_request_view_com_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'pending_request_view_model.dart';
 export 'pending_request_view_model.dart';
 
@@ -29,6 +25,8 @@ class _PendingRequestViewWidgetState extends State<PendingRequestViewWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => PendingRequestViewModel());
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
