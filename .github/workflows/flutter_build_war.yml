@@ -16,6 +16,7 @@ permissions:
 
 jobs:
   build:
+    name: Build for ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.tag_name || github.ref_name }}
     runs-on: ubuntu-latest
     outputs:
       env_name: ${{ steps.set_env.outputs.env_name }}
@@ -78,7 +79,7 @@ jobs:
       - name: Upload WAR to GitHub Release
         uses: softprops/action-gh-release@v1
         with:
-          files: flutter_web.war
+          files: UPIUI.war
           tag_name: ${{ needs.build.outputs.tag_name }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -101,4 +102,4 @@ jobs:
           ENV=${{ needs.build.outputs.env_name }}
           TARGET_DIR="Pcloud:/GitHubFlutterBuilds/$ENV"
           rclone mkdir "$TARGET_DIR"
-          rclone copy flutter_web.war "$TARGET_DIR" --progress
+          rclone copy UPIUI.war "$TARGET_DIR" --progress
