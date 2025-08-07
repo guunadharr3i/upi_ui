@@ -4,6 +4,13 @@ on:
   push:
     tags:
       - '*-v*.*.*'  # Matches uat-v1.0.0, cug-v1.2.3, prod-v2.0.0
+      
+  workflow_dispatch:
+    inputs:
+      tag_name:
+        description: 'Tag name to build (e.g. uat-v1.0.0)'
+        required: true
+        default: 'uat-v1.0.0'
 
 permissions:
   contents: write  # Needed for creating GitHub releases
@@ -44,7 +51,7 @@ jobs:
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.27.3'
+          flutter-version: '3.32.4'
 
       - name: Get Dependencies
         run: flutter pub get
