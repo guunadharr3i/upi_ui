@@ -408,7 +408,7 @@ class _PendingRequestWidgetState extends State<PendingRequestWidget> {
                                                   fixedWidth:
                                                       MediaQuery.sizeOf(context)
                                                               .width *
-                                                          0.1,
+                                                          0.08,
                                                 ),
                                                 DataColumn2(
                                                   label: DefaultTextStyle.merge(
@@ -429,7 +429,7 @@ class _PendingRequestWidgetState extends State<PendingRequestWidget> {
                                                           return 'COUNTRY_NAME';
                                                         } else if (_model
                                                                 .dropdownSelectedValue ==
-                                                            'UPI Source Hub') {
+                                                            'UPI Source Sub') {
                                                           return 'NAME';
                                                         } else if (_model
                                                                 .dropdownSelectedValue ==
@@ -499,7 +499,7 @@ class _PendingRequestWidgetState extends State<PendingRequestWidget> {
                                                           return 'TEMPLATE';
                                                         } else if (_model
                                                                 .dropdownSelectedValue ==
-                                                            'UPI Source Hub') {
+                                                            'UPI Source Sub') {
                                                           return 'CHANNEL_CODE';
                                                         } else if (_model
                                                                 .dropdownSelectedValue ==

@@ -315,7 +315,7 @@ class _NewDynamicEditFieldsWidgetState
                                       child: AlertSuccessfullDialogWidget(
                                         alertText: 'Alert',
                                         messageBody:
-                                            'Data has been updated successfully ',
+                                            'Data update request sent successfully ',
                                         callback: () async {
                                           Navigator.pop(context);
                                           Navigator.pop(context);
