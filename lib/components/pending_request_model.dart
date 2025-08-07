@@ -1,24 +1,11 @@
-import 'package:upi_ui/backend/api_requests/_/api_manager.dart';
-
 import '/backend/api_requests/api_calls.dart';
 import '/backend/schema/structs/index.dart';
 import '/components/add_delete_records_list_widget.dart';
 import '/components/pending_request_view_com_widget.dart';
 import '/flutter_flow/flutter_flow_data_table.dart';
-import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
-import 'dart:ui';
-import '/custom_code/widgets/index.dart' as custom_widgets;
-import '/flutter_flow/custom_functions.dart' as functions;
-import '/index.dart';
 import 'pending_request_widget.dart' show PendingRequestWidget;
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:lottie/lottie.dart';
-import 'package:provider/provider.dart';
 
 class PendingRequestModel extends FlutterFlowModel<PendingRequestWidget> {
   ///  Local state fields for this component.
@@ -46,7 +33,19 @@ class PendingRequestModel extends FlutterFlowModel<PendingRequestWidget> {
     updateFn(dataTableStructure ??= DataTableNewModelStruct());
   }
 
-  List<String> dropdownValue = ['UPI Host', 'SYS'];
+  List<String> dropdownValue = [
+    'UPI Host',
+    'SYS',
+    'UPI Complaint',
+    'UPI Country',
+    'UPI SMS',
+    'UPI Source Sub',
+    'UPI FRM',
+    'UPI Transaction',
+    'UPI Bank',
+    'UPI Source',
+    'UPI Interoperable'
+  ];
   void addToDropdownValue(String item) => dropdownValue.add(item);
   void removeFromDropdownValue(String item) => dropdownValue.remove(item);
   void removeAtIndexFromDropdownValue(int index) =>
@@ -68,7 +67,7 @@ class PendingRequestModel extends FlutterFlowModel<PendingRequestWidget> {
 
   String? recordId;
 
-  int? totalPages;
+  int? totalPages = 0;
 
   String dropdownSelectedValue = 'UPIHOST';
 
@@ -85,27 +84,33 @@ class PendingRequestModel extends FlutterFlowModel<PendingRequestWidget> {
   ApiCallResponse? apiResultem33;
   // Stores action output result for [Backend Call - API (PendingRequestApprove)] action in Container widget.
   ApiCallResponse? apiResultem33Copy;
+  // Stores action output result for [Backend Call - API (PendingRequestApprove)] action in Button widget.
+  ApiCallResponse? apiResultbq6;
+  // Stores action output result for [Backend Call - API (PendingRequestApprove)] action in Button widget.
+  ApiCallResponse? apiResultem33CopyCopyr;
   // Stores action output result for [Backend Call - API (TablesGetApiCall)] action in Icon widget.
-  ApiCallResponse? hostresult;
+  ApiCallResponse? upiresult;
+  // Stores action output result for [Backend Call - API (TablesGetApiCall)] action in Icon widget.
+  ApiCallResponse? upiresultt;
   // Stores action output result for [Backend Call - API (TablesGetApiCall)] action in PaginationWithDots widget.
   ApiCallResponse? pendingRequestApiiiii;
-  // Model for PendingRequestViewCom component.
-  late PendingRequestViewComModel pendingRequestViewComModel;
   // Model for AddDeleteRecordsList component.
   late AddDeleteRecordsListModel addDeleteRecordsListModel;
+  // Model for PendingRequestViewCom component.
+  late PendingRequestViewComModel pendingRequestViewComModel;
 
   @override
   void initState(BuildContext context) {
-    pendingRequestViewComModel =
-        createModel(context, () => PendingRequestViewComModel());
     addDeleteRecordsListModel =
         createModel(context, () => AddDeleteRecordsListModel());
+    pendingRequestViewComModel =
+        createModel(context, () => PendingRequestViewComModel());
   }
 
   @override
   void dispose() {
     paginatedDataTableController.dispose();
-    pendingRequestViewComModel.dispose();
     addDeleteRecordsListModel.dispose();
+    pendingRequestViewComModel.dispose();
   }
 }

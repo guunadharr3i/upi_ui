@@ -1,25 +1,10 @@
-import 'package:upi_ui/backend/api_requests/_/api_manager.dart';
-
 import '/backend/api_requests/api_calls.dart';
 import '/backend/schema/structs/index.dart';
 import '/components/loading_indicator_widget.dart';
-import '/flutter_flow/flutter_flow_animations.dart';
-import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
-import 'dart:math';
-import 'dart:ui';
-import '/custom_code/actions/index.dart' as actions;
-import '/flutter_flow/custom_functions.dart' as functions;
 import '/index.dart';
 import 'loginpage_widget.dart' show LoginpageWidget;
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
-import 'package:flutter_animate/flutter_animate.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 
 class LoginpageModel extends FlutterFlowModel<LoginpageWidget> {
   ///  Local state fields for this page.
@@ -29,10 +14,10 @@ class LoginpageModel extends FlutterFlowModel<LoginpageWidget> {
   ///  State fields for stateful widgets in this page.
 
   final formKey = GlobalKey<FormState>();
-  // Stores action output result for [Custom Action - generateWebDeviceHashWithTime] action in loginpage widget.
-  String? hash;
   // Stores action output result for [Custom Action - faceUserCheck] action in loginpage widget.
   FaceUserStruct? res;
+  // Stores action output result for [Custom Action - generateWebDeviceHashWithTime] action in loginpage widget.
+  String? hashval;
   // State field(s) for userName widget.
   FocusNode? userNameFocusNode;
   TextEditingController? userNameTextController;
@@ -58,6 +43,8 @@ class LoginpageModel extends FlutterFlowModel<LoginpageWidget> {
     return null;
   }
 
+  // Stores action output result for [Validate Form] action in Button widget.
+  bool? resposnevalid;
   // Stores action output result for [Backend Call - API (LDAPAuth)] action in Button widget.
   ApiCallResponse? ldapRes;
   // Model for loadingIndicator component.

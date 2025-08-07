@@ -1,15 +1,9 @@
+import '/backend/api_requests/api_calls.dart';
 import '/backend/schema/structs/index.dart';
-import '/components/new_dynamic_edit_fields_widget.dart';
-import '/flutter_flow/flutter_flow_theme.dart';
+import '/components/upi_comp_widget.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
-import '/flutter_flow/custom_functions.dart' as functions;
 import 'api_test_widget.dart' show ApiTestWidget;
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 
 class ApiTestModel extends FlutterFlowModel<ApiTestWidget> {
   ///  Local state fields for this page.
@@ -24,17 +18,24 @@ class ApiTestModel extends FlutterFlowModel<ApiTestWidget> {
 
   ///  State fields for stateful widgets in this page.
 
-  // Model for newDynamicEditFields component.
-  late NewDynamicEditFieldsModel newDynamicEditFieldsModel;
+  // Stores action output result for [Backend Call - API (userAccessMOCK)] action in apiTest widget.
+  ApiCallResponse? apiResultgb3;
+  // Model for UpiComp component.
+  late UpiCompModel upiCompModel;
+  // State field(s) for TextField widget.
+  FocusNode? textFieldFocusNode;
+  TextEditingController? textController;
+  String? Function(BuildContext, String?)? textControllerValidator;
 
   @override
   void initState(BuildContext context) {
-    newDynamicEditFieldsModel =
-        createModel(context, () => NewDynamicEditFieldsModel());
+    upiCompModel = createModel(context, () => UpiCompModel());
   }
 
   @override
   void dispose() {
-    newDynamicEditFieldsModel.dispose();
+    upiCompModel.dispose();
+    textFieldFocusNode?.dispose();
+    textController?.dispose();
   }
 }

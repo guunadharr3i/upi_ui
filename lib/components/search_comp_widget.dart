@@ -1,11 +1,8 @@
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
-import 'dart:ui';
+import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'search_comp_model.dart';
 export 'search_comp_model.dart';
@@ -14,13 +11,13 @@ class SearchCompWidget extends StatefulWidget {
   const SearchCompWidget({
     super.key,
     required this.callBack,
-    required this.inputVal,
+    required this.sidebarSelected,
     this.onChnagedCallBack,
     required this.addNewHostCalllBack,
   });
 
   final Future Function()? callBack;
-  final String? inputVal;
+  final String? sidebarSelected;
   final Future Function()? onChnagedCallBack;
   final Future Function()? addNewHostCalllBack;
 
@@ -45,6 +42,8 @@ class _SearchCompWidgetState extends State<SearchCompWidget> {
     _model.textController ??=
         TextEditingController(text: FFAppState().searchVal);
     _model.textFieldFocusNode ??= FocusNode();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -88,52 +87,42 @@ class _SearchCompWidgetState extends State<SearchCompWidget> {
                       '_model.textController',
                       Duration(milliseconds: 2000),
                       () async {
-                        await widget.onChnagedCallBack?.call();
+                        if (functions.charCheck(_model.textController.text)! >=
+                            3) {
+                          await widget.onChnagedCallBack?.call();
+                        }
                       },
                     ),
                     autofocus: false,
                     obscureText: false,
                     decoration: InputDecoration(
                       isDense: true,
-                      labelText: widget!.inputVal == 'upiHost'
-                          ? 'Enter Host here...'
-                          : 'Enter ID here...',
+                      labelText: () {
+                        if (widget.sidebarSelected == '2') {
+                          return 'Enter Host here...';
+                        } else if (widget.sidebarSelected == '3') {
+                          return 'Enter ID here...';
+                        } else if (widget.sidebarSelected == '4') {
+                          return 'Enter ID here...';
+                        } else {
+                          return 'Enter Value';
+                        }
+                      }(),
                       labelStyle: FlutterFlowTheme.of(context)
                           .labelMedium
                           .override(
-                            font: GoogleFonts.mulish(
-                              fontWeight: FontWeight.normal,
-                              fontStyle: FlutterFlowTheme.of(context)
-                                  .labelMedium
-                                  .fontStyle,
-                            ),
+                            fontFamily: 'Mulish',
                             color: FlutterFlowTheme.of(context).secondaryText,
                             fontSize: 14.0,
                             letterSpacing: 0.0,
                             fontWeight: FontWeight.normal,
-                            fontStyle: FlutterFlowTheme.of(context)
-                                .labelMedium
-                                .fontStyle,
                           ),
                       hintStyle:
                           FlutterFlowTheme.of(context).labelMedium.override(
-                                font: GoogleFonts.mulish(
-                                  fontWeight: FlutterFlowTheme.of(context)
-                                      .labelMedium
-                                      .fontWeight,
-                                  fontStyle: FlutterFlowTheme.of(context)
-                                      .labelMedium
-                                      .fontStyle,
-                                ),
+                                fontFamily: 'Mulish',
                                 color: Colors.black,
                                 fontSize: 16.0,
                                 letterSpacing: 0.0,
-                                fontWeight: FlutterFlowTheme.of(context)
-                                    .labelMedium
-                                    .fontWeight,
-                                fontStyle: FlutterFlowTheme.of(context)
-                                    .labelMedium
-                                    .fontStyle,
                               ),
                       enabledBorder: OutlineInputBorder(
                         borderSide: BorderSide(
@@ -169,18 +158,11 @@ class _SearchCompWidgetState extends State<SearchCompWidget> {
                           EdgeInsetsDirectional.fromSTEB(10.0, 0.0, 0.0, 50.0),
                     ),
                     style: FlutterFlowTheme.of(context).bodyMedium.override(
-                          font: GoogleFonts.mulish(
-                            fontWeight: FontWeight.w500,
-                            fontStyle: FlutterFlowTheme.of(context)
-                                .bodyMedium
-                                .fontStyle,
-                          ),
+                          fontFamily: 'Mulish',
                           color: Colors.black,
                           fontSize: 16.0,
                           letterSpacing: 0.0,
                           fontWeight: FontWeight.w500,
-                          fontStyle:
-                              FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                         ),
                     textAlign: TextAlign.start,
                     minLines: 1,
@@ -218,42 +200,49 @@ class _SearchCompWidgetState extends State<SearchCompWidget> {
               ),
             ),
           ),
-          InkWell(
-            splashColor: Colors.transparent,
-            focusColor: Colors.transparent,
-            hoverColor: Colors.transparent,
-            highlightColor: Colors.transparent,
-            onTap: () async {
-              await widget.addNewHostCalllBack?.call();
-            },
-            child: Container(
-              width: 200.0,
-              height: 45.0,
-              decoration: BoxDecoration(
-                color: FlutterFlowTheme.of(context).headingColor,
-                borderRadius: BorderRadius.circular(24.0),
-              ),
-              child: Align(
-                alignment: AlignmentDirectional(0.0, 0.0),
-                child: Text(
-                  'Add New Host',
-                  style: FlutterFlowTheme.of(context).bodyMedium.override(
-                        font: GoogleFonts.mulish(
+          if (functions.userTableAccess(
+                  '3',
+                  FFAppState().userDataAccess.elementAtOrNull(() {
+                    if (FFAppState().selectedSidebar == '2') {
+                      return 0;
+                    } else if (FFAppState().selectedSidebar == '3') {
+                      return 1;
+                    } else {
+                      return 2;
+                    }
+                  }())) ??
+              true)
+            InkWell(
+              splashColor: Colors.transparent,
+              focusColor: Colors.transparent,
+              hoverColor: Colors.transparent,
+              highlightColor: Colors.transparent,
+              onTap: () async {
+                await widget.addNewHostCalllBack?.call();
+              },
+              child: Container(
+                width: 200.0,
+                height: 45.0,
+                decoration: BoxDecoration(
+                  color: FlutterFlowTheme.of(context).headingColor,
+                  borderRadius: BorderRadius.circular(24.0),
+                ),
+                child: Align(
+                  alignment: AlignmentDirectional(0.0, 0.0),
+                  child: Text(
+                    'Add New Record',
+                    style: FlutterFlowTheme.of(context).bodyMedium.override(
+                          fontFamily: 'Mulish',
+                          color:
+                              FlutterFlowTheme.of(context).secondaryBackground,
+                          fontSize: 15.0,
+                          letterSpacing: 0.0,
                           fontWeight: FontWeight.w500,
-                          fontStyle:
-                              FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                         ),
-                        color: FlutterFlowTheme.of(context).secondaryBackground,
-                        fontSize: 15.0,
-                        letterSpacing: 0.0,
-                        fontWeight: FontWeight.w500,
-                        fontStyle:
-                            FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                      ),
+                  ),
                 ),
               ),
             ),
-          ),
         ],
       ),
     );

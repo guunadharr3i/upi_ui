@@ -1,6 +1,4 @@
 // Automatic FlutterFlow imports
-import 'package:upi_ui/backend/api_requests/_/api_interceptor.dart';
-
 import '/backend/schema/structs/index.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -10,7 +8,7 @@ import 'package:flutter/material.dart';
 // Begin custom action code
 // DO NOT REMOVE OR MODIFY THE CODE ABOVE!
 
-// import '/backend/api_requests/api_interceptor.dart';
+import '/backend/api_requests/api_interceptor.dart';
 
 class upiInterceptor extends FFApiInterceptor {
   @override

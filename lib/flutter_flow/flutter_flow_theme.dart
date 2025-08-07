@@ -171,6 +171,8 @@ abstract class FlutterFlowTheme {
   String get bodySmallFamily => typography.bodySmallFamily;
   bool get bodySmallIsCustom => typography.bodySmallIsCustom;
   TextStyle get bodySmall => typography.bodySmall;
+  String get customTextStyle1Family => typography.customTextStyle1Family;
+  TextStyle get customTextStyle1 => typography.customTextStyle1;
 
   Typography get typography => ThemeTypography(this);
 }
@@ -312,6 +314,8 @@ abstract class Typography {
   String get bodySmallFamily;
   bool get bodySmallIsCustom;
   TextStyle get bodySmall;
+  String get customTextStyle1Family;
+  TextStyle get customTextStyle1;
 }
 
 class ThemeTypography extends Typography {
@@ -320,109 +324,129 @@ class ThemeTypography extends Typography {
   final FlutterFlowTheme theme;
 
   String get displayLargeFamily => 'Mulish';
-  bool get displayLargeIsCustom => false;
-  TextStyle get displayLarge => GoogleFonts.mulish(
+  bool get displayLargeIsCustom => true;
+  TextStyle get displayLarge => TextStyle(
+        fontFamily: 'Mulish',
         color: theme.primaryText,
         fontWeight: FontWeight.w600,
         fontSize: 64.0,
       );
   String get displayMediumFamily => 'Mulish';
-  bool get displayMediumIsCustom => false;
-  TextStyle get displayMedium => GoogleFonts.mulish(
+  bool get displayMediumIsCustom => true;
+  TextStyle get displayMedium => TextStyle(
+        fontFamily: 'Mulish',
         color: theme.primaryText,
         fontWeight: FontWeight.w600,
         fontSize: 44.0,
       );
   String get displaySmallFamily => 'Mulish';
-  bool get displaySmallIsCustom => false;
-  TextStyle get displaySmall => GoogleFonts.mulish(
+  bool get displaySmallIsCustom => true;
+  TextStyle get displaySmall => TextStyle(
+        fontFamily: 'Mulish',
         color: theme.primaryText,
         fontWeight: FontWeight.w600,
         fontSize: 36.0,
       );
   String get headlineLargeFamily => 'Mulish';
-  bool get headlineLargeIsCustom => false;
-  TextStyle get headlineLarge => GoogleFonts.mulish(
+  bool get headlineLargeIsCustom => true;
+  TextStyle get headlineLarge => TextStyle(
+        fontFamily: 'Mulish',
         color: theme.primaryText,
         fontWeight: FontWeight.w800,
         fontSize: 32.0,
       );
   String get headlineMediumFamily => 'Mulish';
-  bool get headlineMediumIsCustom => false;
-  TextStyle get headlineMedium => GoogleFonts.mulish(
+  bool get headlineMediumIsCustom => true;
+  TextStyle get headlineMedium => TextStyle(
+        fontFamily: 'Mulish',
         color: theme.primaryText,
         fontWeight: FontWeight.w600,
         fontSize: 28.0,
       );
   String get headlineSmallFamily => 'Mulish';
-  bool get headlineSmallIsCustom => false;
-  TextStyle get headlineSmall => GoogleFonts.mulish(
+  bool get headlineSmallIsCustom => true;
+  TextStyle get headlineSmall => TextStyle(
+        fontFamily: 'Mulish',
         color: theme.tradeHighlightColor,
         fontWeight: FontWeight.w600,
         fontSize: 24.0,
       );
   String get titleLargeFamily => 'Mulish';
-  bool get titleLargeIsCustom => false;
-  TextStyle get titleLarge => GoogleFonts.mulish(
+  bool get titleLargeIsCustom => true;
+  TextStyle get titleLarge => TextStyle(
+        fontFamily: 'Mulish',
         color: theme.primaryText,
         fontWeight: FontWeight.w600,
         fontSize: 20.0,
       );
   String get titleMediumFamily => 'Mulish';
-  bool get titleMediumIsCustom => false;
-  TextStyle get titleMedium => GoogleFonts.mulish(
+  bool get titleMediumIsCustom => true;
+  TextStyle get titleMedium => TextStyle(
+        fontFamily: 'Mulish',
         color: theme.primaryTextFieldBgColor,
         fontWeight: FontWeight.w600,
         fontSize: 18.0,
       );
   String get titleSmallFamily => 'Mulish';
-  bool get titleSmallIsCustom => false;
-  TextStyle get titleSmall => GoogleFonts.mulish(
+  bool get titleSmallIsCustom => true;
+  TextStyle get titleSmall => TextStyle(
+        fontFamily: 'Mulish',
         color: theme.info,
         fontWeight: FontWeight.w600,
         fontSize: 16.0,
       );
   String get labelLargeFamily => 'Mulish';
-  bool get labelLargeIsCustom => false;
-  TextStyle get labelLarge => GoogleFonts.mulish(
+  bool get labelLargeIsCustom => true;
+  TextStyle get labelLarge => TextStyle(
+        fontFamily: 'Mulish',
         color: theme.primaryTextFieldBgColor,
         fontWeight: FontWeight.normal,
         fontSize: 16.0,
       );
   String get labelMediumFamily => 'Mulish';
-  bool get labelMediumIsCustom => false;
-  TextStyle get labelMedium => GoogleFonts.mulish(
+  bool get labelMediumIsCustom => true;
+  TextStyle get labelMedium => TextStyle(
+        fontFamily: 'Mulish',
         color: theme.secondaryText,
         fontWeight: FontWeight.normal,
         fontSize: 14.0,
       );
   String get labelSmallFamily => 'Mulish';
-  bool get labelSmallIsCustom => false;
-  TextStyle get labelSmall => GoogleFonts.mulish(
+  bool get labelSmallIsCustom => true;
+  TextStyle get labelSmall => TextStyle(
+        fontFamily: 'Mulish',
         color: theme.secondaryText,
         fontWeight: FontWeight.normal,
         fontSize: 12.0,
       );
   String get bodyLargeFamily => 'Mulish';
-  bool get bodyLargeIsCustom => false;
-  TextStyle get bodyLarge => GoogleFonts.mulish(
+  bool get bodyLargeIsCustom => true;
+  TextStyle get bodyLarge => TextStyle(
+        fontFamily: 'Mulish',
         color: theme.primaryTextFieldBgColor,
         fontWeight: FontWeight.normal,
         fontSize: 16.0,
       );
   String get bodyMediumFamily => 'Mulish';
-  bool get bodyMediumIsCustom => false;
-  TextStyle get bodyMedium => GoogleFonts.mulish(
+  bool get bodyMediumIsCustom => true;
+  TextStyle get bodyMedium => TextStyle(
+        fontFamily: 'Mulish',
         color: theme.secondaryBackground,
         fontWeight: FontWeight.normal,
         fontSize: 14.0,
       );
   String get bodySmallFamily => 'Mulish';
-  bool get bodySmallIsCustom => false;
-  TextStyle get bodySmall => GoogleFonts.mulish(
+  bool get bodySmallIsCustom => true;
+  TextStyle get bodySmall => TextStyle(
+        fontFamily: 'Mulish',
         color: theme.primaryTextFieldBgColor,
         fontWeight: FontWeight.normal,
         fontSize: 12.0,
+      );
+  String get customTextStyle1Family => 'Primary Family';
+  TextStyle get customTextStyle1 => GoogleFonts.roboto(
+        color: Colors.white,
+        fontSize: 16.0,
       );
 }
 

@@ -1,12 +1,6 @@
 import '/components/editable_field_widget.dart';
-import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
-import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'popup_edit_model.dart';
 export 'popup_edit_model.dart';
 
@@ -35,6 +29,8 @@ class _PopupEditWidgetState extends State<PopupEditWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => PopupEditModel());
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -49,7 +45,7 @@ class _PopupEditWidgetState extends State<PopupEditWidget> {
     return Builder(
       builder: (context) {
         final editData = getJsonField(
-          widget!.json,
+          widget.json,
           r'''$''',
         ).toList();
 

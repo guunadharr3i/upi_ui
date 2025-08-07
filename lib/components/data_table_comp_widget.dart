@@ -2,13 +2,8 @@ import '/backend/schema/structs/index.dart';
 import '/flutter_flow/flutter_flow_data_table.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
-import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'data_table_comp_model.dart';
 export 'data_table_comp_model.dart';
 
@@ -42,9 +37,11 @@ class _DataTableCompWidgetState extends State<DataTableCompWidget> {
 
     // On component load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
-      _model.datatable = widget!.datatableModel;
+      _model.datatable = widget.datatableModel;
       safeSetState(() {});
     });
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -62,7 +59,7 @@ class _DataTableCompWidgetState extends State<DataTableCompWidget> {
         Expanded(
           child: Builder(
             builder: (context) {
-              final test = widget!.listdatatable?.toList() ?? [];
+              final test = widget.listdatatable?.toList() ?? [];
 
               return FlutterFlowDataTable<DataStruct>(
                 controller: _model.paginatedDataTableController,
@@ -74,21 +71,8 @@ class _DataTableCompWidgetState extends State<DataTableCompWidget> {
                       child: Text(
                         'SN',
                         style: FlutterFlowTheme.of(context).labelLarge.override(
-                              font: GoogleFonts.mulish(
-                                fontWeight: FlutterFlowTheme.of(context)
-                                    .labelLarge
-                                    .fontWeight,
-                                fontStyle: FlutterFlowTheme.of(context)
-                                    .labelLarge
-                                    .fontStyle,
-                              ),
+                              fontFamily: 'Mulish',
                               letterSpacing: 0.0,
-                              fontWeight: FlutterFlowTheme.of(context)
-                                  .labelLarge
-                                  .fontWeight,
-                              fontStyle: FlutterFlowTheme.of(context)
-                                  .labelLarge
-                                  .fontStyle,
                             ),
                       ),
                     ),
@@ -99,21 +83,8 @@ class _DataTableCompWidgetState extends State<DataTableCompWidget> {
                       child: Text(
                         'HOST',
                         style: FlutterFlowTheme.of(context).labelLarge.override(
-                              font: GoogleFonts.mulish(
-                                fontWeight: FlutterFlowTheme.of(context)
-                                    .labelLarge
-                                    .fontWeight,
-                                fontStyle: FlutterFlowTheme.of(context)
-                                    .labelLarge
-                                    .fontStyle,
-                              ),
+                              fontFamily: 'Mulish',
                               letterSpacing: 0.0,
-                              fontWeight: FlutterFlowTheme.of(context)
-                                  .labelLarge
-                                  .fontWeight,
-                              fontStyle: FlutterFlowTheme.of(context)
-                                  .labelLarge
-                                  .fontStyle,
                             ),
                       ),
                     ),
@@ -124,21 +95,8 @@ class _DataTableCompWidgetState extends State<DataTableCompWidget> {
                       child: Text(
                         'URL',
                         style: FlutterFlowTheme.of(context).labelLarge.override(
-                              font: GoogleFonts.mulish(
-                                fontWeight: FlutterFlowTheme.of(context)
-                                    .labelLarge
-                                    .fontWeight,
-                                fontStyle: FlutterFlowTheme.of(context)
-                                    .labelLarge
-                                    .fontStyle,
-                              ),
+                              fontFamily: 'Mulish',
                               letterSpacing: 0.0,
-                              fontWeight: FlutterFlowTheme.of(context)
-                                  .labelLarge
-                                  .fontWeight,
-                              fontStyle: FlutterFlowTheme.of(context)
-                                  .labelLarge
-                                  .fontStyle,
                             ),
                       ),
                     ),
@@ -149,21 +107,8 @@ class _DataTableCompWidgetState extends State<DataTableCompWidget> {
                       child: Text(
                         'Modify',
                         style: FlutterFlowTheme.of(context).labelLarge.override(
-                              font: GoogleFonts.mulish(
-                                fontWeight: FlutterFlowTheme.of(context)
-                                    .labelLarge
-                                    .fontWeight,
-                                fontStyle: FlutterFlowTheme.of(context)
-                                    .labelLarge
-                                    .fontStyle,
-                              ),
+                              fontFamily: 'Mulish',
                               letterSpacing: 0.0,
-                              fontWeight: FlutterFlowTheme.of(context)
-                                  .labelLarge
-                                  .fontWeight,
-                              fontStyle: FlutterFlowTheme.of(context)
-                                  .labelLarge
-                                  .fontStyle,
                             ),
                       ),
                     ),
@@ -171,7 +116,7 @@ class _DataTableCompWidgetState extends State<DataTableCompWidget> {
                 ],
                 dataRowBuilder:
                     (testItem, testIndex, selected, onSelectChanged) => DataRow(
-                  color: MaterialStateProperty.all(
+                  color: WidgetStateProperty.all(
                     testIndex % 2 == 0
                         ? FlutterFlowTheme.of(context).secondaryBackground
                         : FlutterFlowTheme.of(context).primaryBackground,
@@ -180,62 +125,23 @@ class _DataTableCompWidgetState extends State<DataTableCompWidget> {
                     Text(
                       testItem.id.toString(),
                       style: FlutterFlowTheme.of(context).bodyMedium.override(
-                            font: GoogleFonts.mulish(
-                              fontWeight: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .fontWeight,
-                              fontStyle: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .fontStyle,
-                            ),
+                            fontFamily: 'Mulish',
                             color: FlutterFlowTheme.of(context).secondary,
                             letterSpacing: 0.0,
-                            fontWeight: FlutterFlowTheme.of(context)
-                                .bodyMedium
-                                .fontWeight,
-                            fontStyle: FlutterFlowTheme.of(context)
-                                .bodyMedium
-                                .fontStyle,
                           ),
                     ),
                     Text(
                       testItem.host,
                       style: FlutterFlowTheme.of(context).bodyMedium.override(
-                            font: GoogleFonts.mulish(
-                              fontWeight: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .fontWeight,
-                              fontStyle: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .fontStyle,
-                            ),
+                            fontFamily: 'Mulish',
                             letterSpacing: 0.0,
-                            fontWeight: FlutterFlowTheme.of(context)
-                                .bodyMedium
-                                .fontWeight,
-                            fontStyle: FlutterFlowTheme.of(context)
-                                .bodyMedium
-                                .fontStyle,
                           ),
                     ),
                     Text(
                       testItem.url,
                       style: FlutterFlowTheme.of(context).bodyMedium.override(
-                            font: GoogleFonts.mulish(
-                              fontWeight: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .fontWeight,
-                              fontStyle: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .fontStyle,
-                            ),
+                            fontFamily: 'Mulish',
                             letterSpacing: 0.0,
-                            fontWeight: FlutterFlowTheme.of(context)
-                                .bodyMedium
-                                .fontWeight,
-                            fontStyle: FlutterFlowTheme.of(context)
-                                .bodyMedium
-                                .fontStyle,
                           ),
                     ),
                     Align(

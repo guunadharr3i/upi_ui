@@ -1,19 +1,17 @@
 import '/backend/api_requests/api_calls.dart';
 import '/backend/schema/structs/index.dart';
+import '/components/error_message_dialog_widget.dart';
 import '/components/loading_indicator_widget.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import 'dart:math';
-import 'dart:ui';
 import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/custom_functions.dart' as functions;
 import '/index.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -46,11 +44,7 @@ class _LoginpageWidgetState extends State<LoginpageWidget>
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       await Future.wait([
-        Future(() async {
-          _model.hash = await actions.generateWebDeviceHashWithTime();
-          FFAppState().deviceHash = _model.hash!;
-          safeSetState(() {});
-        }),
+        Future(() async {}),
         Future(() async {
           _model.res = await actions.faceUserCheck();
           if (_model.res!.isLoggedIn) {
@@ -58,6 +52,10 @@ class _LoginpageWidgetState extends State<LoginpageWidget>
             safeSetState(() {});
 
             context.goNamed(DashboardScreenWidget.routeName);
+          } else {
+            _model.hashval = await actions.generateWebDeviceHashWithTime();
+            FFAppState().deviceHash = _model.hashval!;
+            safeSetState(() {});
           }
         }),
       ]);
@@ -153,6 +151,8 @@ class _LoginpageWidgetState extends State<LoginpageWidget>
         ],
       ),
     });
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -246,45 +246,44 @@ class _LoginpageWidgetState extends State<LoginpageWidget>
                                   ),
                                 ).animateOnPageLoad(animationsMap[
                                     'containerOnPageLoadAnimation']!),
-                                Form(
-                                  key: _model.formKey,
-                                  autovalidateMode: AutovalidateMode.disabled,
-                                  child: Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        36.0, 10.0, 36.0, 0.0),
-                                    child: Column(
-                                      mainAxisSize: MainAxisSize.max,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      children: [
-                                        Text(
-                                          'Welcome to UPI ',
-                                          textAlign: TextAlign.start,
-                                          style: FlutterFlowTheme.of(context)
-                                              .displaySmall
-                                              .override(
-                                                font: GoogleFonts.openSans(
-                                                  fontWeight: FontWeight.w800,
-                                                  fontStyle:
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .displaySmall
-                                                          .fontStyle,
-                                                ),
-                                                color: Color(0xEB041629),
-                                                fontSize: 25.0,
-                                                letterSpacing: 0.0,
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      36.0, 10.0, 36.0, 0.0),
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        'Welcome to UPI ',
+                                        textAlign: TextAlign.start,
+                                        style: FlutterFlowTheme.of(context)
+                                            .displaySmall
+                                            .override(
+                                              font: GoogleFonts.openSans(
                                                 fontWeight: FontWeight.w800,
                                                 fontStyle:
                                                     FlutterFlowTheme.of(context)
                                                         .displaySmall
                                                         .fontStyle,
                                               ),
-                                        ).animateOnPageLoad(animationsMap[
-                                            'textOnPageLoadAnimation']!),
-                                        Padding(
+                                              color: Color(0xEB041629),
+                                              fontSize: 25.0,
+                                              letterSpacing: 0.0,
+                                              fontWeight: FontWeight.w800,
+                                              fontStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .displaySmall
+                                                      .fontStyle,
+                                            ),
+                                      ).animateOnPageLoad(animationsMap[
+                                          'textOnPageLoadAnimation']!),
+                                      Form(
+                                        key: _model.formKey,
+                                        autovalidateMode:
+                                            AutovalidateMode.disabled,
+                                        child: Padding(
                                           padding:
                                               EdgeInsetsDirectional.fromSTEB(
                                                   20.0, 10.0, 20.0, 0.0),
@@ -306,64 +305,20 @@ class _LoginpageWidgetState extends State<LoginpageWidget>
                                                             .of(context)
                                                         .labelMedium
                                                         .override(
-                                                          font: GoogleFonts
-                                                              .mulish(
-                                                            fontWeight:
-                                                                FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .labelMedium
-                                                                    .fontWeight,
-                                                            fontStyle:
-                                                                FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .labelMedium
-                                                                    .fontStyle,
-                                                          ),
+                                                          fontFamily: 'Mulish',
                                                           color:
                                                               Color(0xEB041629),
                                                           letterSpacing: 0.0,
-                                                          fontWeight:
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .labelMedium
-                                                                  .fontWeight,
-                                                          fontStyle:
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .labelMedium
-                                                                  .fontStyle,
                                                         ),
                                                     hintText: 'User ID',
                                                     hintStyle: FlutterFlowTheme
                                                             .of(context)
                                                         .labelMedium
                                                         .override(
-                                                          font: GoogleFonts
-                                                              .mulish(
-                                                            fontWeight:
-                                                                FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .labelMedium
-                                                                    .fontWeight,
-                                                            fontStyle:
-                                                                FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .labelMedium
-                                                                    .fontStyle,
-                                                          ),
+                                                          fontFamily: 'Mulish',
                                                           color:
                                                               Color(0xEB041629),
                                                           letterSpacing: 0.0,
-                                                          fontWeight:
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .labelMedium
-                                                                  .fontWeight,
-                                                          fontStyle:
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .labelMedium
-                                                                  .fontStyle,
                                                           lineHeight: 1.2,
                                                         ),
                                                     enabledBorder:
@@ -422,33 +377,11 @@ class _LoginpageWidgetState extends State<LoginpageWidget>
                                                           context)
                                                       .bodyMedium
                                                       .override(
-                                                        font:
-                                                            GoogleFonts.mulish(
-                                                          fontWeight:
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .bodyMedium
-                                                                  .fontWeight,
-                                                          fontStyle:
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .bodyMedium
-                                                                  .fontStyle,
-                                                        ),
+                                                        fontFamily: 'Mulish',
                                                         color:
                                                             Color(0xEB041629),
                                                         fontSize: 16.0,
                                                         letterSpacing: 0.0,
-                                                        fontWeight:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .bodyMedium
-                                                                .fontWeight,
-                                                        fontStyle:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .bodyMedium
-                                                                .fontStyle,
                                                         lineHeight: 1.2,
                                                       ),
                                                   maxLength: 9,
@@ -480,64 +413,20 @@ class _LoginpageWidgetState extends State<LoginpageWidget>
                                                             .of(context)
                                                         .labelMedium
                                                         .override(
-                                                          font: GoogleFonts
-                                                              .mulish(
-                                                            fontWeight:
-                                                                FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .labelMedium
-                                                                    .fontWeight,
-                                                            fontStyle:
-                                                                FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .labelMedium
-                                                                    .fontStyle,
-                                                          ),
+                                                          fontFamily: 'Mulish',
                                                           color:
                                                               Color(0xEB041629),
                                                           letterSpacing: 0.0,
-                                                          fontWeight:
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .labelMedium
-                                                                  .fontWeight,
-                                                          fontStyle:
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .labelMedium
-                                                                  .fontStyle,
                                                         ),
                                                     hintText: 'Password',
                                                     hintStyle: FlutterFlowTheme
                                                             .of(context)
                                                         .labelMedium
                                                         .override(
-                                                          font: GoogleFonts
-                                                              .mulish(
-                                                            fontWeight:
-                                                                FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .labelMedium
-                                                                    .fontWeight,
-                                                            fontStyle:
-                                                                FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .labelMedium
-                                                                    .fontStyle,
-                                                          ),
+                                                          fontFamily: 'Mulish',
                                                           color:
                                                               Color(0xEB041629),
                                                           letterSpacing: 0.0,
-                                                          fontWeight:
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .labelMedium
-                                                                  .fontWeight,
-                                                          fontStyle:
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .labelMedium
-                                                                  .fontStyle,
                                                         ),
                                                     enabledBorder:
                                                         OutlineInputBorder(
@@ -615,32 +504,10 @@ class _LoginpageWidgetState extends State<LoginpageWidget>
                                                           context)
                                                       .bodyMedium
                                                       .override(
-                                                        font:
-                                                            GoogleFonts.mulish(
-                                                          fontWeight:
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .bodyMedium
-                                                                  .fontWeight,
-                                                          fontStyle:
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .bodyMedium
-                                                                  .fontStyle,
-                                                        ),
+                                                        fontFamily: 'Mulish',
                                                         color:
                                                             Color(0xEB041629),
                                                         letterSpacing: 0.0,
-                                                        fontWeight:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .bodyMedium
-                                                                .fontWeight,
-                                                        fontStyle:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .bodyMedium
-                                                                .fontStyle,
                                                         lineHeight: 1.2,
                                                       ),
                                                   cursorColor:
@@ -654,96 +521,141 @@ class _LoginpageWidgetState extends State<LoginpageWidget>
                                           ).animateOnPageLoad(animationsMap[
                                               'columnOnPageLoadAnimation2']!),
                                         ),
-                                        Builder(
-                                          builder: (context) {
-                                            if (!_model.isLoading) {
-                                              return Padding(
+                                      ),
+                                      Builder(
+                                        builder: (context) {
+                                          if (!_model.isLoading) {
+                                            return Builder(
+                                              builder: (context) => Padding(
                                                 padding: EdgeInsetsDirectional
                                                     .fromSTEB(
                                                         20.0, 10.0, 20.0, 20.0),
                                                 child: FFButtonWidget(
                                                   onPressed: () async {
-                                                    _model.ldapRes =
-                                                        await UpiAPIGroup
-                                                            .lDAPAuthCall
-                                                            .call(
-                                                      userName: _model
-                                                          .userNameTextController
-                                                          .text,
-                                                      password: _model
-                                                          .passwordTextController
-                                                          .text,
-                                                      deviceHase: FFAppState()
-                                                          .deviceHash,
-                                                    );
-
-                                                    if ((_model.ldapRes
-                                                                ?.statusCode ??
-                                                            200) ==
-                                                        200) {
-                                                      FFAppState().userid = _model
-                                                          .userNameTextController
-                                                          .text;
-                                                      FFAppState().token =
-                                                          getJsonField(
-                                                        (_model.ldapRes
-                                                                ?.jsonBody ??
-                                                            ''),
-                                                        r'''$.accessToken''',
-                                                      ).toString();
-                                                      safeSetState(() {});
-                                                      await actions
-                                                          .loadAndStartFaceID(
-                                                        context,
-                                                        functions.addEmail(_model
+                                                    _model.resposnevalid = true;
+                                                    if (_model.formKey
+                                                                .currentState ==
+                                                            null ||
+                                                        !_model.formKey
+                                                            .currentState!
+                                                            .validate()) {
+                                                      safeSetState(() =>
+                                                          _model.resposnevalid =
+                                                              false);
+                                                      return;
+                                                    }
+                                                    if (_model.resposnevalid!) {
+                                                      _model.ldapRes =
+                                                          await UpiAPIGroup
+                                                              .lDAPAuthCall
+                                                              .call(
+                                                        userName: _model
                                                             .userNameTextController
-                                                            .text),
-                                                        FFDevEnvironmentValues()
-                                                            .applicationId,
-                                                        valueOrDefault<String>(
+                                                            .text,
+                                                        password: _model
+                                                            .passwordTextController
+                                                            .text,
+                                                        deviceHase: FFAppState()
+                                                            .deviceHash,
+                                                        roleName: 'support',
+                                                      );
+
+                                                      if ((_model.ldapRes
+                                                                  ?.statusCode ??
+                                                              200) ==
+                                                          200) {
+                                                        FFAppState().userid = _model
+                                                            .userNameTextController
+                                                            .text;
+                                                        FFAppState().token =
+                                                            getJsonField(
+                                                          (_model.ldapRes
+                                                                  ?.jsonBody ??
+                                                              ''),
+                                                          r'''$.token''',
+                                                        ).toString();
+                                                        FFAppState()
+                                                                .userDataAccess =
+                                                            (getJsonField(
+                                                          (_model.ldapRes
+                                                                  ?.jsonBody ??
+                                                              ''),
+                                                          r'''$.accessSummary.accessByTable''',
+                                                          true,
+                                                        )!
+                                                                        .toList()
+                                                                        .map<AccessByTableStruct?>(AccessByTableStruct
+                                                                            .maybeFromMap)
+                                                                        .toList()
+                                                                    as Iterable<
+                                                                        AccessByTableStruct?>)
+                                                                .withoutNulls
+                                                                .toList()
+                                                                .cast<
+                                                                    AccessByTableStruct>();
+                                                        safeSetState(() {});
+                                                        await actions
+                                                            .loadAndStartFaceID(
+                                                          context,
+                                                          functions.addEmail(_model
+                                                              .userNameTextController
+                                                              .text),
+                                                          FFDevEnvironmentValues()
+                                                              .applicationId,
                                                           FFDevEnvironmentValues()
                                                               .applicationSecret,
-                                                          'icms@123\$',
-                                                        ),
-                                                        FFDevEnvironmentValues()
-                                                            .initializeFaceIDURL,
-                                                        FFDevEnvironmentValues()
-                                                            .validateFaceIDURL,
-                                                        FFDevEnvironmentValues()
-                                                            .srURL,
-                                                        FFDevEnvironmentValues()
-                                                            .erURL,
-                                                        FFDevEnvironmentValues()
-                                                            .apiKey,
-                                                      );
-                                                    } else {
-                                                      await showDialog(
-                                                        context: context,
-                                                        builder:
-                                                            (alertDialogContext) {
-                                                          return AlertDialog(
-                                                            title: Text((_model
-                                                                        .ldapRes
-                                                                        ?.jsonBody ??
-                                                                    '')
-                                                                .toString()),
-                                                            content: Text((_model
-                                                                        .ldapRes
-                                                                        ?.statusCode ??
-                                                                    200)
-                                                                .toString()),
-                                                            actions: [
-                                                              TextButton(
-                                                                onPressed: () =>
-                                                                    Navigator.pop(
-                                                                        alertDialogContext),
+                                                          FFDevEnvironmentValues()
+                                                              .initializeFaceIDURL,
+                                                          FFDevEnvironmentValues()
+                                                              .validateFaceIDURL,
+                                                          FFDevEnvironmentValues()
+                                                              .srURL,
+                                                          FFDevEnvironmentValues()
+                                                              .erURL,
+                                                          FFDevEnvironmentValues()
+                                                              .apiKey,
+                                                        );
+                                                      } else {
+                                                        await showDialog(
+                                                          context: context,
+                                                          builder:
+                                                              (dialogContext) {
+                                                            return Dialog(
+                                                              elevation: 0,
+                                                              insetPadding:
+                                                                  EdgeInsets
+                                                                      .zero,
+                                                              backgroundColor:
+                                                                  Colors
+                                                                      .transparent,
+                                                              alignment: AlignmentDirectional(
+                                                                      0.0, 0.0)
+                                                                  .resolve(
+                                                                      Directionality.of(
+                                                                          context)),
+                                                              child:
+                                                                  GestureDetector(
+                                                                onTap: () {
+                                                                  FocusScope.of(
+                                                                          dialogContext)
+                                                                      .unfocus();
+                                                                  FocusManager
+                                                                      .instance
+                                                                      .primaryFocus
+                                                                      ?.unfocus();
+                                                                },
                                                                 child:
-                                                                    Text('Ok'),
+                                                                    ErrorMessageDialogWidget(
+                                                                  errorMessageBody:
+                                                                      'Please try again',
+                                                                  titleValue:
+                                                                      'AUTHENTICATION FAILED',
+                                                                ),
                                                               ),
-                                                            ],
-                                                          );
-                                                        },
-                                                      );
+                                                            );
+                                                          },
+                                                        );
+                                                      }
                                                     }
 
                                                     safeSetState(() {});
@@ -799,25 +711,24 @@ class _LoginpageWidgetState extends State<LoginpageWidget>
                                                   ),
                                                 ).animateOnPageLoad(animationsMap[
                                                     'buttonOnPageLoadAnimation']!),
-                                              );
-                                            } else {
-                                              return Container(
-                                                height: 85.0,
-                                                decoration: BoxDecoration(),
-                                                child: wrapWithModel(
-                                                  model: _model
-                                                      .loadingIndicatorModel,
-                                                  updateCallback: () =>
-                                                      safeSetState(() {}),
-                                                  child:
-                                                      LoadingIndicatorWidget(),
-                                                ),
-                                              );
-                                            }
-                                          },
-                                        ),
-                                      ].divide(SizedBox(height: 15.0)),
-                                    ),
+                                              ),
+                                            );
+                                          } else {
+                                            return Container(
+                                              height: 85.0,
+                                              decoration: BoxDecoration(),
+                                              child: wrapWithModel(
+                                                model: _model
+                                                    .loadingIndicatorModel,
+                                                updateCallback: () =>
+                                                    safeSetState(() {}),
+                                                child: LoadingIndicatorWidget(),
+                                              ),
+                                            );
+                                          }
+                                        },
+                                      ),
+                                    ].divide(SizedBox(height: 15.0)),
                                   ),
                                 ),
                               ].divide(SizedBox(height: 10.0)),

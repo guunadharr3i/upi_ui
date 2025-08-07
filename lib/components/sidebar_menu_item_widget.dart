@@ -1,11 +1,6 @@
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
-import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'sidebar_menu_item_model.dart';
 export 'sidebar_menu_item_model.dart';
 
@@ -38,6 +33,8 @@ class _SidebarMenuItemWidgetState extends State<SidebarMenuItemWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => SidebarMenuItemModel());
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -53,7 +50,7 @@ class _SidebarMenuItemWidgetState extends State<SidebarMenuItemWidget> {
       width: 330.0,
       height: 50.0,
       decoration: BoxDecoration(
-        color: widget!.cardColor,
+        color: widget.cardColor,
         borderRadius: BorderRadius.circular(5.0),
       ),
       child: Padding(
@@ -67,28 +64,22 @@ class _SidebarMenuItemWidgetState extends State<SidebarMenuItemWidget> {
                 alignment: AlignmentDirectional(-1.0, 0.0),
                 child: Text(
                   valueOrDefault<String>(
-                    widget!.name,
+                    widget.name,
                     'Pending Requests',
                   ),
                   style: FlutterFlowTheme.of(context).bodyMedium.override(
-                        font: GoogleFonts.mulish(
-                          fontWeight: FontWeight.w600,
-                          fontStyle:
-                              FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                        ),
-                        color: widget!.nameColor,
+                        fontFamily: 'Mulish',
+                        color: widget.nameColor,
                         fontSize: 16.0,
                         letterSpacing: 0.0,
                         fontWeight: FontWeight.w600,
-                        fontStyle:
-                            FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                       ),
                 ),
               ),
             ),
             Icon(
               Icons.arrow_forward_rounded,
-              color: widget!.nameColor,
+              color: widget.nameColor,
               size: 30.0,
             ),
           ],

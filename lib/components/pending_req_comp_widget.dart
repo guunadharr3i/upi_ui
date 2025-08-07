@@ -2,12 +2,7 @@ import '/components/chips_widget.dart';
 import '/components/upi_host_component_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
-import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'pending_req_comp_model.dart';
 export 'pending_req_comp_model.dart';
 
@@ -31,6 +26,8 @@ class _PendingReqCompWidgetState extends State<PendingReqCompWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => PendingReqCompModel());
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -54,16 +51,10 @@ class _PendingReqCompWidgetState extends State<PendingReqCompWidget> {
             Text(
               'Pending Requests',
               style: FlutterFlowTheme.of(context).bodyMedium.override(
-                    font: GoogleFonts.mulish(
-                      fontWeight: FontWeight.w600,
-                      fontStyle:
-                          FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                    ),
+                    fontFamily: 'Mulish',
                     fontSize: 30.0,
                     letterSpacing: 0.0,
                     fontWeight: FontWeight.w600,
-                    fontStyle:
-                        FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                   ),
             ),
             Padding(

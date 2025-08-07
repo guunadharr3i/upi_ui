@@ -1,12 +1,7 @@
 import '/backend/schema/structs/index.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
-import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'dummyyy_model.dart';
 export 'dummyyy_model.dart';
 
@@ -35,6 +30,8 @@ class _DummyyyWidgetState extends State<DummyyyWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => DummyyyModel());
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -54,7 +51,7 @@ class _DummyyyWidgetState extends State<DummyyyWidget> {
       ),
       child: Builder(
         builder: (context) {
-          final holaaa = widget!.qwerty?.toList() ?? [];
+          final holaaa = widget.qwerty?.toList() ?? [];
 
           return Column(
             mainAxisSize: MainAxisSize.max,
@@ -63,17 +60,8 @@ class _DummyyyWidgetState extends State<DummyyyWidget> {
               return Text(
                 (holaaaItem.toMap()).toString(),
                 style: FlutterFlowTheme.of(context).bodyMedium.override(
-                      font: GoogleFonts.mulish(
-                        fontWeight:
-                            FlutterFlowTheme.of(context).bodyMedium.fontWeight,
-                        fontStyle:
-                            FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                      ),
+                      fontFamily: 'Mulish',
                       letterSpacing: 0.0,
-                      fontWeight:
-                          FlutterFlowTheme.of(context).bodyMedium.fontWeight,
-                      fontStyle:
-                          FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                     ),
               );
             }),
