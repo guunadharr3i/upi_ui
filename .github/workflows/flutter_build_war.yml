@@ -4,7 +4,7 @@ on:
   push:
     tags:
       - '*-v*.*.*'  # Matches uat-v1.0.0, cug-v1.2.3, prod-v2.0.0
-      
+
   workflow_dispatch:
     inputs:
       tag_name:
@@ -57,7 +57,7 @@ jobs:
         run: flutter pub get
 
       - name: Build Flutter Web App
-        run: flutter build web --web-renderer html
+        run: flutter build web
 
       - name: Create WAR File from Flutter Web Build
         run: |
