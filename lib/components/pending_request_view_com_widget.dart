@@ -801,7 +801,11 @@ class _PendingRequestViewComWidgetState
                                                                         10.0,
                                                                         5.0),
                                                             child: Text(
-                                                              oldDataItem,
+                                                              valueOrDefault<
+                                                                  String>(
+                                                                oldDataItem,
+                                                                '-',
+                                                              ),
                                                               style: FlutterFlowTheme
                                                                       .of(context)
                                                                   .bodyMedium
@@ -855,7 +859,11 @@ class _PendingRequestViewComWidgetState
                                                                     0.0,
                                                                     0.0),
                                                         child: Text(
-                                                          oldDataItem,
+                                                          valueOrDefault<
+                                                              String>(
+                                                            oldDataItem,
+                                                            '-',
+                                                          ),
                                                           style: FlutterFlowTheme
                                                                   .of(context)
                                                               .bodyMedium
@@ -972,7 +980,11 @@ class _PendingRequestViewComWidgetState
                                                                         10.0,
                                                                         5.0),
                                                             child: Text(
-                                                              newDataItem,
+                                                              valueOrDefault<
+                                                                  String>(
+                                                                newDataItem,
+                                                                '-',
+                                                              ),
                                                               style: FlutterFlowTheme
                                                                       .of(context)
                                                                   .bodyMedium
@@ -1026,7 +1038,11 @@ class _PendingRequestViewComWidgetState
                                                                     0.0,
                                                                     0.0),
                                                         child: Text(
-                                                          newDataItem,
+                                                          valueOrDefault<
+                                                              String>(
+                                                            newDataItem,
+                                                            '-',
+                                                          ),
                                                           style: FlutterFlowTheme
                                                                   .of(context)
                                                               .bodyMedium

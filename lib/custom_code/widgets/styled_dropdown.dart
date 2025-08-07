@@ -94,33 +94,38 @@ class _StyledDropdownState extends State<StyledDropdown> {
                     color: widget.dropdownListBackgroundColor,
                     borderRadius: BorderRadius.circular(widget.borderRadius),
                   ),
-                  child: ListView(
-                    padding: EdgeInsets.zero,
-                    shrinkWrap: true,
-                    children: widget.items.map((item) {
-                      final isSelected = item == _selectedValue;
-                      return ListTile(
-                        title: Text(
-                          item,
-                          style: TextStyle(
-                            fontSize: widget.fontSize,
-                            color: isSelected
-                                ? widget.menuTextColor
-                                : widget.listTextColor,
-                            fontWeight: isSelected
-                                ? FontWeight.bold
-                                : FontWeight.normal,
+                  child: Container(
+                    constraints: BoxConstraints(
+                      maxHeight: widget.fontSize * 4.4 * 4, // Show max 5 items
+                    ),
+                    child: ListView(
+                      padding: EdgeInsets.zero,
+                      shrinkWrap: true,
+                      children: widget.items.map((item) {
+                        final isSelected = item == _selectedValue;
+                        return ListTile(
+                          title: Text(
+                            item,
+                            style: TextStyle(
+                              fontSize: widget.fontSize,
+                              color: isSelected
+                                  ? widget.menuTextColor
+                                  : widget.listTextColor,
+                              fontWeight: isSelected
+                                  ? FontWeight.bold
+                                  : FontWeight.normal,
+                            ),
                           ),
-                        ),
-                        onTap: () {
-                          setState(() {
-                            _selectedValue = item;
-                          });
-                          widget.onItemSelected?.call(item);
-                          _closeDropdown();
-                        },
-                      );
-                    }).toList(),
+                          onTap: () {
+                            setState(() {
+                              _selectedValue = item;
+                            });
+                            widget.onItemSelected?.call(item);
+                            _closeDropdown();
+                          },
+                        );
+                      }).toList(),
+                    ),
                   ),
                 ),
               ),

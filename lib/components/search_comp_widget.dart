@@ -207,8 +207,26 @@ class _SearchCompWidgetState extends State<SearchCompWidget> {
                       return 0;
                     } else if (FFAppState().selectedSidebar == '3') {
                       return 1;
-                    } else {
+                    } else if (FFAppState().selectedSidebar == '4') {
                       return 2;
+                    } else if (FFAppState().selectedSidebar == '5') {
+                      return 3;
+                    } else if (FFAppState().selectedSidebar == '6') {
+                      return 4;
+                    } else if (FFAppState().selectedSidebar == '7') {
+                      return 5;
+                    } else if (FFAppState().selectedSidebar == '8') {
+                      return 6;
+                    } else if (FFAppState().selectedSidebar == '9') {
+                      return 7;
+                    } else if (FFAppState().selectedSidebar == '10') {
+                      return 8;
+                    } else if (FFAppState().selectedSidebar == '11') {
+                      return 9;
+                    } else if (FFAppState().selectedSidebar == '12') {
+                      return 10;
+                    } else {
+                      return 0;
                     }
                   }())) ??
               true)

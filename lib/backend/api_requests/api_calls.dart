@@ -762,18 +762,18 @@ class DeleteOperationApiCall {
     final data = _serializeJson(dataJson);
     final ffApiRequestBody = '''
 {
-  "operationType": "${escapeStringForJson(operationType)}",
+  "operationType": "${operationType}",
   "data": {
-     "tableId": "${escapeStringForJson(tableId)}",
-    "createdBy": "${escapeStringForJson(createdBy)}",
-    "recordId": "${escapeStringForJson(recordId)}"
+     "tableId": "${tableId}",
+    "createdBy": "${createdBy}",
+    "recordId": "${recordId}"
   }
 }''';
     return FFApiInterceptor.makeApiCall(
       // ignore: prefer_const_constructors - can be mutated by interceptors
       ApiCallOptions(
         callName: 'DeleteOperationApi',
-        apiUrl: 'https://icmsuat.icicibank.com/upiapi/operations',
+        apiUrl: 'http://localhost:8080/operations',
         callType: ApiCallType.POST,
         // ignore: prefer_const_literals_to_create_immutables - can be mutated by interceptors
         headers: {
