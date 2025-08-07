@@ -72,7 +72,7 @@ jobs:
       - name: Create WAR File from Flutter Web Build
         run: |
           cd build/web
-          zip -r ../../flutter_web.war .
+          zip -r ../../UPIUI.war .
           cd ../..
 
       - name: Upload WAR to GitHub Release
