@@ -3,8 +3,7 @@ name: Build and Upload Flutter Web WAR to pCloud by Tag
 on:
   push:
     tags:
-      - '*-v*.*.*'  # Matches uat-v1.0.0, cug-v1.2.3, prod-v2.0.0
-
+      - '*-v*.*.*'  # e.g., uat-v1.0.0, prod-v2.0.0
   workflow_dispatch:
     inputs:
       tag_name:
@@ -13,19 +12,30 @@ on:
         default: 'uat-v1.0.0'
 
 permissions:
-  contents: write  # Needed for creating GitHub releases
+  contents: write  # Needed for GitHub releases
 
 jobs:
   build:
     runs-on: ubuntu-latest
     outputs:
       env_name: ${{ steps.set_env.outputs.env_name }}
+      tag_name: ${{ steps.set_tag.outputs.tag_name }}
 
     steps:
+      - name: Determine Tag Name
+        id: set_tag
+        run: |
+          if [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
+            TAG_NAME="${{ github.event.inputs.tag_name }}"
+          else
+            TAG_NAME="${GITHUB_REF##*/}"
+          fi
+          echo "tag_name=$TAG_NAME" >> $GITHUB_OUTPUT
+
       - name: Extract Environment from Tag
         id: extract_env
         run: |
-          TAG_NAME="${GITHUB_REF##*/}"
+          TAG_NAME="${{ steps.set_tag.outputs.tag_name }}"
           ENV_PREFIX="${TAG_NAME%%-*}"
           echo "env_prefix=$ENV_PREFIX" >> $GITHUB_OUTPUT
 
@@ -69,6 +79,7 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           files: flutter_web.war
+          tag_name: ${{ needs.build.outputs.tag_name }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -84,8 +95,6 @@ jobs:
           echo "[Pcloud]" > ~/.config/rclone/rclone.conf
           echo "type = pcloud" >> ~/.config/rclone/rclone.conf
           echo "token = ${RCLONE_PCLOUD_TOKEN_JSON}" >> ~/.config/rclone/rclone.conf
-
-
 
       - name: Upload WAR to pCloud
         run: |
