@@ -7,9 +7,9 @@ on:
   workflow_dispatch:
     inputs:
       env_name:
-        description: 'Deployment environment'
-        required: false
-        default: 'UAT'
+        description: 'Git Tag to build and deploy (e.g., uat-v1.0.0)'
+        required: true
+        type: string
 
 permissions:
   contents: write  # Needed for creating GitHub releases
@@ -46,11 +46,13 @@ jobs:
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
+        with:
+          ref: refs/tags/${{ inputs.tag_name }}
 
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.27.3'
+          flutter-version: '3.32.4'
 
       - name: Get Dependencies
         run: flutter pub get
@@ -61,13 +63,13 @@ jobs:
       - name: Create WAR File from Flutter Web Build
         run: |
           cd build/web
-          zip -r ../../flutter_web.war .
+          zip -r ../../UPIUI.war .
           cd ../..
 
       - name: Upload WAR to GitHub Release
         uses: softprops/action-gh-release@v1
         with:
-          files: flutter_web.war
+          files: UPIUI.war
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -91,4 +93,4 @@ jobs:
           ENV=${{ needs.build.outputs.env_name }}
           TARGET_DIR="Pcloud:/GitHubFlutterBuilds/$ENV"
           rclone mkdir "$TARGET_DIR"
-          rclone copy flutter_web.war "$TARGET_DIR" --progress+
+          rclone copy UPIUI.war "$TARGET_DIR" --progress+
