@@ -1489,6 +1489,13 @@ class _PendingRequestWidgetState extends State<PendingRequestWidget> {
                                                                 );
                                                               }
                                                             } else {
+                                                              FFAppState()
+                                                                      .editJson =
+                                                                  functions
+                                                                      .rawjsonTojson(
+                                                                          pdRequestTableItem);
+                                                              safeSetState(
+                                                                  () {});
                                                               _model.searchID =
                                                                   functions.extractIdHostUrl(
                                                                       getJsonField(

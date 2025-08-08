@@ -1,9 +1,7 @@
-import '/components/user_info_comp_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:badges/badges.dart' as badges;
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'header_model.dart';
 export 'header_model.dart';
 
@@ -40,8 +38,6 @@ class _HeaderWidgetState extends State<HeaderWidget> {
 
   @override
   Widget build(BuildContext context) {
-    context.watch<FFAppState>();
-
     return Container(
       width: double.infinity,
       height: 85.0,
@@ -188,43 +184,35 @@ class _HeaderWidgetState extends State<HeaderWidget> {
                     position: badges.BadgePosition.topEnd(),
                     animationType: badges.BadgeAnimationType.scale,
                     toAnimate: true,
+                    child: Icon(
+                      Icons.notifications_none_rounded,
+                      color:
+                          FlutterFlowTheme.of(context).secondaryNavBarFillColor,
+                      size: 24.0,
+                    ),
                   ),
                 ),
-                Container(
-                  width: 50.0,
-                  height: 50.0,
-                  decoration: BoxDecoration(
-                    color: Color(0xFFFFE3CA),
-                    shape: BoxShape.circle,
-                  ),
-                  child: Builder(
-                    builder: (context) => InkWell(
-                      splashColor: Colors.transparent,
-                      focusColor: Colors.transparent,
-                      hoverColor: Colors.transparent,
-                      highlightColor: Colors.transparent,
-                      onTap: () async {
-                        await showDialog(
-                          context: context,
-                          builder: (dialogContext) {
-                            return Dialog(
-                              elevation: 0,
-                              insetPadding: EdgeInsets.zero,
-                              backgroundColor: Colors.transparent,
-                              alignment: AlignmentDirectional(0.0, 0.0)
-                                  .resolve(Directionality.of(context)),
-                              child: UserInfoCompWidget(
-                                userId: FFAppState().userid,
-                              ),
-                            );
-                          },
-                        );
-                      },
-                      child: Icon(
-                        Icons.person_outline_sharp,
-                        color: Color(0xFFF06321),
-                        size: 24.0,
-                      ),
+                InkWell(
+                  splashColor: Colors.transparent,
+                  focusColor: Colors.transparent,
+                  hoverColor: Colors.transparent,
+                  highlightColor: Colors.transparent,
+                  onTap: () async {
+                    FFAppState().isUserInfo =
+                        !(FFAppState().isUserInfo ?? true);
+                    _model.updatePage(() {});
+                  },
+                  child: Container(
+                    width: 50.0,
+                    height: 50.0,
+                    decoration: BoxDecoration(
+                      color: Color(0xFFFFE3CA),
+                      shape: BoxShape.circle,
+                    ),
+                    child: Icon(
+                      Icons.person_outline_sharp,
+                      color: Color(0xFFF06321),
+                      size: 24.0,
                     ),
                   ),
                 ),
