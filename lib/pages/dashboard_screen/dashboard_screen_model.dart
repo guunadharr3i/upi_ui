@@ -4,6 +4,7 @@ import '/components/header/header_widget.dart';
 import '/components/new_sidebar/new_sidebar_widget.dart';
 import '/components/pending_request_widget.dart';
 import '/components/upi_comp_widget.dart';
+import '/components/user_info_comp_widget.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'dashboard_screen_widget.dart' show DashboardScreenWidget;
 import 'package:flutter/material.dart';
@@ -47,6 +48,8 @@ class DashboardScreenModel extends FlutterFlowModel<DashboardScreenWidget> {
   late UpiCompModel upiCompModel;
   // Model for footer component.
   late FooterModel footerModel;
+  // Model for UserInfoComp component.
+  late UserInfoCompModel userInfoCompModel;
 
   @override
   void initState(BuildContext context) {
@@ -55,6 +58,7 @@ class DashboardScreenModel extends FlutterFlowModel<DashboardScreenWidget> {
     pendingRequestModel = createModel(context, () => PendingRequestModel());
     upiCompModel = createModel(context, () => UpiCompModel());
     footerModel = createModel(context, () => FooterModel());
+    userInfoCompModel = createModel(context, () => UserInfoCompModel());
   }
 
   @override
@@ -64,5 +68,6 @@ class DashboardScreenModel extends FlutterFlowModel<DashboardScreenWidget> {
     pendingRequestModel.dispose();
     upiCompModel.dispose();
     footerModel.dispose();
+    userInfoCompModel.dispose();
   }
 }

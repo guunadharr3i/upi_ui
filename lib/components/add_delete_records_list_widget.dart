@@ -47,8 +47,6 @@ class _AddDeleteRecordsListWidgetState
 
     // On component load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
-      _model.dataOld =
-          functions.dynamicDataTableConvertCopy(FFAppState().djson);
       _model.dataNew =
           functions.dynamicDataTableConvertCopy(FFAppState().editJson);
       _model.updatePage(() {});
@@ -772,9 +770,6 @@ class _AddDeleteRecordsListWidgetState
                                                         child: Container(
                                                           decoration:
                                                               BoxDecoration(
-                                                            color: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .bgColor1,
                                                             borderRadius:
                                                                 BorderRadius
                                                                     .circular(
@@ -782,7 +777,7 @@ class _AddDeleteRecordsListWidgetState
                                                             border: Border.all(
                                                               color: FlutterFlowTheme
                                                                       .of(context)
-                                                                  .tableText1,
+                                                                  .primaryText,
                                                               width: 1.0,
                                                             ),
                                                           ),
@@ -810,7 +805,7 @@ class _AddDeleteRecordsListWidgetState
                                                                             (_model.dataNew?.value.firstOrNull?.modelList.elementAtOrNull(
                                                                                 newDataIndex))
                                                                         ? FlutterFlowTheme.of(context)
-                                                                            .tableText1
+                                                                            .primaryText
                                                                         : FlutterFlowTheme.of(context)
                                                                             .primaryText,
                                                                     letterSpacing:
