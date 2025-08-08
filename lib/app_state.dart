@@ -419,6 +419,12 @@ class FFAppState extends ChangeNotifier {
   set headerJsonForView(dynamic value) {
     _headerJsonForView = value;
   }
+
+  bool _isUserInfo = false;
+  bool get isUserInfo => _isUserInfo;
+  set isUserInfo(bool value) {
+    _isUserInfo = value;
+  }
 }
 
 void _safeInit(Function() initializeField) {

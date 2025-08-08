@@ -1,5 +1,5 @@
 {
-  "url": "http://localhost:8080/",
+  "url": "https://uat-onprem-dmz-hybrid.icicibank.com/fileflick/database/services",
 "applicationId": "15000000010849",
 "apiKey": "mcl6Aov7fz41veXi5zHaehuouFfTjVFfjtdNGAShmsjVRTMy",
 "applicationSecret": "cCG2oZgc",
