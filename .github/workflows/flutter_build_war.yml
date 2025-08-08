@@ -3,7 +3,7 @@ name: Build and Upload Flutter Web WAR to pCloud by Tag
 on:
   push:
     tags:
-      - '*-v*.*.*'  # e.g., uat-v1.0.0, prod-v2.0.0
+      - '*-v*.*.*' # e.g., uat-v1.0.0, prod-v2.0.0
   workflow_dispatch:
     inputs:
       tag_name:
@@ -46,7 +46,9 @@ jobs:
           echo "env_name=$ENV_NAME" >> $GITHUB_OUTPUT
 
       - name: Setup Environment Context
-        run: echo "Selected environment is ${{ steps.set_env.outputs.env_name }}"
+        run: |
+          echo "Selected environment is ${{ steps.set_env.outputs.env_name }}"
+          echo "Tag for build is ${{ steps.set_tag.outputs.tag_name }}"
 
   deploy:
     name: Deploy WAR and Upload
@@ -55,7 +57,7 @@ jobs:
     environment: ${{ needs.build.outputs.env_name }}
 
     steps:
-      - name: Checkout Code (tag or main)
+      - name: Checkout Code (tag or branch)
         uses: actions/checkout@v4
         with:
           ref: ${{ needs.build.outputs.tag_name }}
