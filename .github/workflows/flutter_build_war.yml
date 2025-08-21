@@ -1,17 +1,16 @@
 name: Build and Upload Flutter Web WAR to pCloud by Tag
-
-run-name: Build WAR for ${{ inputs.tag_name }}
+run-name: Build WAR for ${{ inputs.tag_name || 'manual-run' }}
 
 on:
   workflow_dispatch:
     inputs:
       tag_name:
-        description: 'Git Tag to build and deploy (e.g., uat-v1.0.0)'
+        description: "Git Tag to build and deploy (e.g., uat-v1.0.0)"
         required: true
         type: string
 
 permissions:
-  contents: write  # Needed for creating GitHub releases
+  contents: write  # for GitHub Release upload
 
 jobs:
   build:
@@ -21,29 +20,38 @@ jobs:
       tag_name: ${{ steps.extract_env.outputs.tag_name }}
 
     steps:
-      - name: Validate input
+      - name: Validate input is non-empty
         if: ${{ inputs.tag_name == '' || inputs.tag_name == null }}
         run: |
           echo "ERROR: You must provide a tag name when running manually."
           exit 1
+
+      - name: Validate tag format (expects <env>-<rest>)
+        run: |
+          if ! echo "${{ inputs.tag_name }}" | grep -Eq '^[a-zA-Z0-9]+-'; then
+            echo "ERROR: Tag should start with an environment prefix followed by a dash (e.g., uat-v1.0.0)."
+            exit 1
+          fi
 
       - name: Extract Environment from Tag
         id: extract_env
         run: |
           TAG_NAME="${{ inputs.tag_name }}"
           ENV_PREFIX="${TAG_NAME%%-*}"
-          echo "env_prefix=$ENV_PREFIX" >> $GITHUB_OUTPUT
-          echo "tag_name=$TAG_NAME" >> $GITHUB_OUTPUT
+          echo "env_prefix=$ENV_PREFIX" >> "$GITHUB_OUTPUT"
+          echo "tag_name=$TAG_NAME" >> "$GITHUB_OUTPUT"
 
-      - name: Set GitHub Environment
+      - name: Set GitHub Environment name (uppercased)
         id: set_env
         run: |
-          PREFIX=${{ steps.extract_env.outputs.env_prefix }}
+          PREFIX='${{ steps.extract_env.outputs.env_prefix }}'
           ENV_NAME=$(echo "$PREFIX" | tr '[:lower:]' '[:upper:]')
-          echo "env_name=$ENV_NAME" >> $GITHUB_OUTPUT
+          echo "env_name=$ENV_NAME" >> "$GITHUB_OUTPUT"
 
-      - name: Setup Environment Context
-        run: echo "Selected environment is ${{ steps.set_env.outputs.env_name }}"
+      - name: Show selected environment
+        run: |
+          echo "Selected environment is: ${{ steps.set_env.outputs.env_name }}"
+          echo "Tag to deploy:          ${{ steps.extract_env.outputs.tag_name }}"
 
   deploy:
     needs: build
@@ -51,21 +59,44 @@ jobs:
     environment: ${{ needs.build.outputs.env_name }}
 
     steps:
-      - name: Checkout Code at Tag
-        uses: actions/checkout@v3
-        with:
-          ref: refs/tags/${{ needs.build.outputs.tag_name }}
-          fetch-depth: 0  # Ensure full tag content
+      - name: Assert tag_name propagated from build
+        run: |
+          echo "Tag from build outputs: '${{ needs.build.outputs.tag_name }}'"
+          if [ -z "${{ needs.build.outputs.tag_name }}" ]; then
+            echo "ERROR: Empty tag_name from build job outputs."
+            exit 1
+          fi
 
-      - name: Set up Flutter
-        uses: subosito/flutter-action@v2.12.0
+      - name: Checkout Code at Tag
+        uses: actions/checkout@v4
         with:
-          flutter-version: '3.32.4'
+          # Pass the plain tag name; checkout handles tags/branches/SHAs
+          ref: ${{ needs.build.outputs.tag_name }}
+          fetch-depth: 0
+          fetch-tags: true
+
+      - name: Set up Flutter (stable channel)
+        uses: subosito/flutter-action@v2
+        with:
+          channel: "stable"   # use flutter-version: '3.32.4' if you must pin
+
+      - name: Flutter doctor (diagnostics)
+        run: flutter doctor -v
+
+      - name: Cache Pub dependencies
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.pub-cache
+            **/.dart_tool/package_config.json
+          key: ${{ runner.os }}-pub-${{ hashFiles('**/pubspec.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-pub-
 
       - name: Get Dependencies
         run: flutter pub get
 
-      - name: Build Flutter Web App
+      - name: Build Flutter Web App (HTML renderer)
         run: flutter build web --web-renderer html
 
       - name: Create WAR File
@@ -73,29 +104,44 @@ jobs:
           cd build/web
           zip -r ../../UPIUI.war .
           cd ../..
+          ls -lh UPIUI.war
 
-      - name: Upload WAR to GitHub Release
+      - name: Upload WAR to GitHub Release (attach to provided tag)
         uses: softprops/action-gh-release@v2
         with:
+          tag_name: ${{ needs.build.outputs.tag_name }}
           files: UPIUI.war
+          fail_on_unmatched_files: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Install rclone
-        run: curl https://rclone.org/install.sh | sudo bash
+        run: curl -fsSL https://rclone.org/install.sh | sudo bash
 
       - name: Configure rclone for pCloud
         env:
           RCLONE_PCLOUD_TOKEN_JSON: ${{ secrets.RCLONE_PCLOUD_TOKEN_JSON }}
         run: |
           mkdir -p ~/.config/rclone
-          echo "[Pcloud]" > ~/.config/rclone/rclone.conf
-          echo "type = pcloud" >> ~/.config/rclone/rclone.conf
-          echo "token = ${RCLONE_PCLOUD_TOKEN_JSON}" >> ~/.config/rclone/rclone.conf
+          {
+            echo "[pcloud]"
+            echo "type = pcloud"
+            echo "token = ${RCLONE_PCLOUD_TOKEN_JSON}"
+          } > ~/.config/rclone/rclone.conf
+
+          echo "Configured remotes:"
+          rclone listremotes || { echo "rclone config invalid"; cat ~/.config/rclone/rclone.conf; exit 1; }
 
       - name: Upload WAR to pCloud
         run: |
-          ENV=${{ needs.build.outputs.env_name }}
-          TARGET_DIR="Pcloud:/GitHubFlutterBuilds/$ENV"
+          ENV='${{ needs.build.outputs.env_name }}'
+          TARGET_DIR="pcloud:/GitHubFlutterBuilds/${ENV}"
+
+          echo "Creating target dir: $TARGET_DIR"
           rclone mkdir "$TARGET_DIR"
-          rclone copy UPIUI.war "$TARGET_DIR" --progress
+
+          echo "Uploading UPIUI.war to $TARGET_DIR"
+          rclone copy "UPIUI.war" "$TARGET_DIR" --progress --checksum --transfers=4
+
+          echo "Listing uploaded file:"
+          rclone ls "$TARGET_DIR" | grep UPIUI.war || { echo "Upload not found in listing"; exit 1; }
