@@ -96,6 +96,10 @@ abstract class FlutterFlowTheme {
   late Color tableHeaderColor;
   late Color tableRowColor;
   late Color bgColor4;
+  late Color userinfoback;
+  late Color slideBarTabBG;
+  late Color searchBg;
+  late Color tableCustomHeader;
 
   @Deprecated('Use displaySmallFamily instead')
   String get title1Family => displaySmallFamily;
@@ -266,6 +270,10 @@ class LightModeTheme extends FlutterFlowTheme {
   late Color tableHeaderColor = const Color(0xFFFCFCFC);
   late Color tableRowColor = const Color(0xFFFFF2E7);
   late Color bgColor4 = const Color(0xE9F0D4B6);
+  late Color userinfoback = const Color(0xFFF4F3F3);
+  late Color slideBarTabBG = const Color(0xFFFFE3CA);
+  late Color searchBg = const Color(0xFFD0C6C6);
+  late Color tableCustomHeader = const Color(0xFFEEEEEE);
 }
 
 abstract class Typography {

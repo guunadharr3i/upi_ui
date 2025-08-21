@@ -32,20 +32,20 @@ class UpiCompModel extends FlutterFlowModel<UpiCompWidget> {
     updateFn(dataTableStructure ??= DataTableNewModelStruct());
   }
 
-  int? totalPages = 5;
+  int? totalPages = 0;
 
   dynamic jsonBodyReqRes;
 
   bool initialView = false;
+
+  bool searchedIndex = false;
 
   ///  State fields for stateful widgets in this component.
 
   // Model for SearchComp component.
   late SearchCompModel searchCompModel;
   // Stores action output result for [Backend Call - API (TablesGetApiCall)] action in SearchComp widget.
-  ApiCallResponse? apiResult2;
-  // Stores action output result for [Backend Call - API (TablesGetApiCall)] action in SearchComp widget.
-  ApiCallResponse? searchApi;
+  ApiCallResponse? searchAPIs;
   // Stores action output result for [Backend Call - API (TablesGetApiCall)] action in SearchComp widget.
   ApiCallResponse? fieldsdetails;
   // State field(s) for PaginatedDataTable widget.

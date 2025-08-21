@@ -72,7 +72,7 @@ class _UpiCompWidgetState extends State<UpiCompWidget> {
               Align(
                 alignment: AlignmentDirectional(-1.0, 0.0),
                 child: Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 40.0, 0.0, 12.0),
+                  padding: EdgeInsetsDirectional.fromSTEB(10.0, 5.0, 0.0, 15.0),
                   child: Text(
                     () {
                       if (widget.sidebarSelected == '2') {
@@ -106,7 +106,7 @@ class _UpiCompWidgetState extends State<UpiCompWidget> {
                           color: FlutterFlowTheme.of(context).headingColor,
                           fontSize: 32.0,
                           letterSpacing: 0.0,
-                          fontWeight: FontWeight.w500,
+                          fontWeight: FontWeight.bold,
                         ),
                   ),
                 ),
@@ -124,7 +124,7 @@ class _UpiCompWidgetState extends State<UpiCompWidget> {
                       child: Builder(
                         builder: (context) => Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(
-                              18.0, 14.0, 18.0, 0.0),
+                              10.0, 14.0, 18.0, 0.0),
                           child: wrapWithModel(
                             model: _model.searchCompModel,
                             updateCallback: () => safeSetState(() {}),
@@ -134,57 +134,152 @@ class _UpiCompWidgetState extends State<UpiCompWidget> {
                                 if (_model.searchCompModel.textController
                                             .text !=
                                         '') {
-                                  _model.isSuccess = false;
-                                  _model.viewClick = false;
-                                  _model.updatePage(() {});
                                   FFAppState().searchVal = _model
                                       .searchCompModel.textController.text;
-                                  FFAppState().update(() {});
-                                  _model.isLoading = true;
+                                  _model.initialView = false;
+                                  _model.searchedIndex = false;
                                   _model.updatePage(() {});
-                                  _model.apiResult2 =
+                                  _model.searchAPIs =
                                       await TablesGetApiCallCall.call(
                                     tableCode: () {
-                                      if (widget.sidebarSelected ==
-                                          'upiHost') {
+                                      if (widget.sidebarSelected == '2') {
                                         return 'UPIHOST';
                                       } else if (widget.sidebarSelected ==
-                                          'upiSms') {
-                                        return 'UPISMS';
-                                      } else {
+                                          '3') {
                                         return 'SYS';
+                                      } else if (widget.sidebarSelected ==
+                                          '4') {
+                                        return 'UPICOMPLAINT';
+                                      } else if (widget.sidebarSelected ==
+                                          '5') {
+                                        return 'UPICOUNTRY';
+                                      } else if (widget.sidebarSelected ==
+                                          '6') {
+                                        return 'UPISMS';
+                                      } else if (widget.sidebarSelected ==
+                                          '7') {
+                                        return 'UPISOURCESUB';
+                                      } else if (widget.sidebarSelected ==
+                                          '8') {
+                                        return 'UPIFRM';
+                                      } else if (widget.sidebarSelected ==
+                                          '9') {
+                                        return 'UPITRANSACTION';
+                                      } else if (widget.sidebarSelected ==
+                                          '10') {
+                                        return 'UPIBANK';
+                                      } else if (widget.sidebarSelected ==
+                                          '11') {
+                                        return 'UPISOURCECHANNELS';
+                                      } else if (widget.sidebarSelected ==
+                                          '12') {
+                                        return 'UPIINTEROPERABLE';
+                                      } else {
+                                        return 'UPIHOST';
                                       }
                                     }(),
-                                    limit: 1,
+                                    limit: 5,
                                     offset: 0,
-                                    sortColumn: 'ID',
                                     direction: 'ASC',
-                                    filtersColumn: () {
-                                      if (widget.sidebarSelected ==
-                                          'upiHost') {
+                                    operator: 'LIKE',
+                                    sortColumn: () {
+                                      if (widget.sidebarSelected == '2') {
                                         return 'HOST';
                                       } else if (widget.sidebarSelected ==
-                                          'upiSms') {
+                                          '3') {
                                         return 'ID';
+                                      } else if (widget.sidebarSelected ==
+                                          '4') {
+                                        return 'ID';
+                                      } else if (widget.sidebarSelected ==
+                                          '5') {
+                                        return 'UPICOUNTRY';
+                                      } else if (widget.sidebarSelected ==
+                                          '6') {
+                                        return 'NAME';
+                                      } else if (widget.sidebarSelected ==
+                                          '7') {
+                                        return 'NAME';
+                                      } else if (widget.sidebarSelected ==
+                                          '8') {
+                                        return 'ACCOUNT_NUMBER';
+                                      } else if (widget.sidebarSelected ==
+                                          '9') {
+                                        return 'CHANNEL_CODE';
+                                      } else if (FFAppState().selectedSidebar ==
+                                          '10') {
+                                        return 'ACCOUNT_NUMBER';
+                                      } else if (FFAppState().selectedSidebar ==
+                                          '11') {
+                                        return 'NAME';
+                                      } else if (FFAppState().selectedSidebar ==
+                                          '12') {
+                                        return '12';
                                       } else {
+                                        return 'HOST';
+                                      }
+                                    }(),
+                                    filtersColumn: () {
+                                      if (widget.sidebarSelected == '2') {
+                                        return 'HOST';
+                                      } else if (widget.sidebarSelected ==
+                                          '3') {
                                         return 'ID';
+                                      } else if (widget.sidebarSelected ==
+                                          '4') {
+                                        return 'ID';
+                                      } else if (widget.sidebarSelected ==
+                                          '5') {
+                                        return 'COUNTRY_NAME';
+                                      } else if (widget.sidebarSelected ==
+                                          '6') {
+                                        return 'NAME';
+                                      } else if (widget.sidebarSelected ==
+                                          '7') {
+                                        return 'NAME';
+                                      } else if (widget.sidebarSelected ==
+                                          '8') {
+                                        return 'ACCOUNT_NUMBER';
+                                      } else if (widget.sidebarSelected ==
+                                          '9') {
+                                        return 'CHANNEL_CODE';
+                                      } else if (widget.sidebarSelected ==
+                                          '10') {
+                                        return 'ACCOUNT_NUMBER';
+                                      } else if (widget.sidebarSelected ==
+                                          '11') {
+                                        return 'NAME';
+                                      } else if (widget.sidebarSelected ==
+                                          '12') {
+                                        return 'NAME';
+                                      } else {
+                                        return 'HOST';
                                       }
                                     }(),
                                     filterValue: _model
                                         .searchCompModel.textController.text,
                                   );
 
-                                  if ((_model.apiResult2?.succeeded ?? true)) {
-                                    _model.dataTableStructure =
-                                        functions.dynamicDataTableConvert(
-                                            (_model.apiResult2?.jsonBody ??
-                                                ''));
-                                    _model.viewClick = true;
-                                    _model.isSuccess = true;
-                                    _model.isLoading = false;
+                                  if ((_model.searchAPIs?.succeeded ?? true)) {
+                                    FFAppState().token = getJsonField(
+                                      (_model.searchAPIs?.jsonBody ?? ''),
+                                      r'''$.token''',
+                                    ).toString();
+                                    FFAppState().isInitialSearch = true;
+                                    FFAppState().update(() {});
+                                    _model.jsonBodyReqRes = getJsonField(
+                                      (_model.searchAPIs?.jsonBody ?? ''),
+                                      r'''$.data''',
+                                    );
+                                    _model.initialView = true;
+                                    _model.totalPages = getJsonField(
+                                      (_model.searchAPIs?.jsonBody ?? ''),
+                                      r'''$.pageCount''',
+                                    );
                                     _model.updatePage(() {});
                                   } else {
                                     _model.isLoading = false;
+                                    _model.initialView = false;
                                     _model.updatePage(() {});
                                     await showDialog(
                                       context: context,
@@ -205,151 +300,11 @@ class _UpiCompWidgetState extends State<UpiCompWidget> {
                                         );
                                       },
                                     );
+
+                                    FFAppState().isInitialSearch = false;
+                                    FFAppState().update(() {});
                                   }
                                 } else {
-                                  _model.isSuccess = false;
-                                  safeSetState(() {});
-                                  await showDialog(
-                                    context: context,
-                                    builder: (dialogContext) {
-                                      return Dialog(
-                                        elevation: 0,
-                                        insetPadding: EdgeInsets.zero,
-                                        backgroundColor: Colors.transparent,
-                                        alignment:
-                                            AlignmentDirectional(0.0, 0.0)
-                                                .resolve(
-                                                    Directionality.of(context)),
-                                        child: ErrorMessageDialogWidget(
-                                          errorMessageBody: 'Please enter Host',
-                                          titleValue: 'Alert',
-                                        ),
-                                      );
-                                    },
-                                  );
-                                }
-
-                                safeSetState(() {});
-                              },
-                              onChnagedCallBack: () async {
-                                _model.initialView = false;
-                                _model.updatePage(() {});
-                                _model.searchApi =
-                                    await TablesGetApiCallCall.call(
-                                  tableCode: () {
-                                    if (widget.sidebarSelected == '2') {
-                                      return 'UPIHOST';
-                                    } else if (widget.sidebarSelected == '3') {
-                                      return 'SYS';
-                                    } else if (widget.sidebarSelected == '4') {
-                                      return 'UPICOMPLAINT';
-                                    } else if (widget.sidebarSelected == '5') {
-                                      return 'UPICOUNTRY';
-                                    } else if (widget.sidebarSelected == '6') {
-                                      return 'UPISMS';
-                                    } else if (widget.sidebarSelected == '7') {
-                                      return 'UPISOURCESUB';
-                                    } else if (widget.sidebarSelected == '8') {
-                                      return 'UPIFRM';
-                                    } else if (widget.sidebarSelected == '9') {
-                                      return 'UPITRANSACTION';
-                                    } else if (widget.sidebarSelected ==
-                                        '10') {
-                                      return 'UPIBANK';
-                                    } else if (widget.sidebarSelected ==
-                                        '11') {
-                                      return 'UPISOURCECHANNELS';
-                                    } else if (widget.sidebarSelected ==
-                                        '12') {
-                                      return 'UPIINTEROPERABLE';
-                                    } else {
-                                      return 'UPIHOST';
-                                    }
-                                  }(),
-                                  limit: 5,
-                                  offset: 0,
-                                  sortColumn: () {
-                                    if (widget.sidebarSelected == '2') {
-                                      return 'HOST';
-                                    } else if (widget.sidebarSelected == '3') {
-                                      return 'ID';
-                                    } else if (widget.sidebarSelected == '4') {
-                                      return 'ID';
-                                    } else if (widget.sidebarSelected == '5') {
-                                      return 'UPICOUNTRY';
-                                    } else if (widget.sidebarSelected == '6') {
-                                      return 'NAME';
-                                    } else if (widget.sidebarSelected == '7') {
-                                      return 'NAME';
-                                    } else if (widget.sidebarSelected == '8') {
-                                      return 'ACCOUNT_NUMBER';
-                                    } else if (widget.sidebarSelected == '9') {
-                                      return 'CHANNEL_CODE';
-                                    } else if (FFAppState().selectedSidebar ==
-                                        '10') {
-                                      return 'ACCOUNT_NUMBER';
-                                    } else if (FFAppState().selectedSidebar ==
-                                        '11') {
-                                      return 'NAME';
-                                    } else if (FFAppState().selectedSidebar ==
-                                        '12') {
-                                      return '12';
-                                    } else {
-                                      return 'HOST';
-                                    }
-                                  }(),
-                                  direction: 'ASC',
-                                  filtersColumn: () {
-                                    if (widget.sidebarSelected == '2') {
-                                      return 'HOST';
-                                    } else if (widget.sidebarSelected == '3') {
-                                      return 'ID';
-                                    } else if (widget.sidebarSelected == '4') {
-                                      return 'ID';
-                                    } else if (widget.sidebarSelected == '5') {
-                                      return 'COUNTRY_NAME';
-                                    } else if (widget.sidebarSelected == '6') {
-                                      return 'NAME';
-                                    } else if (widget.sidebarSelected == '7') {
-                                      return 'NAME';
-                                    } else if (widget.sidebarSelected == '8') {
-                                      return 'ACCOUNT_NUMBER';
-                                    } else if (widget.sidebarSelected == '9') {
-                                      return 'CHANNEL_CODE';
-                                    } else if (widget.sidebarSelected ==
-                                        '10') {
-                                      return 'ACCOUNT_NUMBER';
-                                    } else if (widget.sidebarSelected ==
-                                        '11') {
-                                      return 'NAME';
-                                    } else if (widget.sidebarSelected ==
-                                        '12') {
-                                      return 'NAME';
-                                    } else {
-                                      return 'HOST';
-                                    }
-                                  }(),
-                                  filterValue: _model
-                                      .searchCompModel.textController.text,
-                                  operator: 'LIKE',
-                                );
-
-                                if ((_model.searchApi?.succeeded ?? true)) {
-                                  FFAppState().token = getJsonField(
-                                    (_model.searchApi?.jsonBody ?? ''),
-                                    r'''$.token''',
-                                  ).toString();
-                                  FFAppState().update(() {});
-                                  _model.jsonBodyReqRes = getJsonField(
-                                    (_model.searchApi?.jsonBody ?? ''),
-                                    r'''$.data''',
-                                  );
-                                  _model.initialView = true;
-                                  _model.updatePage(() {});
-                                } else {
-                                  _model.isLoading = false;
-                                  _model.initialView = false;
-                                  _model.updatePage(() {});
                                   await showDialog(
                                     context: context,
                                     builder: (dialogContext) {
@@ -363,7 +318,7 @@ class _UpiCompWidgetState extends State<UpiCompWidget> {
                                                     Directionality.of(context)),
                                         child: ErrorMessageDialogWidget(
                                           errorMessageBody:
-                                              'Something went wrong',
+                                              'Please search something',
                                           titleValue: 'Alert',
                                         ),
                                       );
@@ -373,6 +328,7 @@ class _UpiCompWidgetState extends State<UpiCompWidget> {
 
                                 safeSetState(() {});
                               },
+                              onChnagedCallBack: () async {},
                               addNewHostCalllBack: () async {
                                 var _shouldSetState = false;
                                 _model.fieldsdetails =
@@ -510,22 +466,36 @@ class _UpiCompWidgetState extends State<UpiCompWidget> {
                                       children: [
                                         if (functions
                                                 .jsonEmptyCheck(getJsonField(
-                                              (_model.searchApi?.jsonBody ??
+                                              (_model.searchAPIs?.jsonBody ??
                                                   ''),
                                               r'''$.data''',
-                                            )) ??
-                                            true)
+                                            ))! &&
+                                            FFAppState().isInitialSearch)
                                           Padding(
                                             padding:
                                                 EdgeInsetsDirectional.fromSTEB(
                                                     10.0, 0.0, 10.0, 0.0),
                                             child: Builder(
                                               builder: (context) {
-                                                final db = getJsonField(
-                                                  (_model.searchApi?.jsonBody ??
-                                                      ''),
-                                                  r'''$.data''',
-                                                ).toList();
+                                                final db =
+                                                    (_model.searchedIndex ==
+                                                                    true
+                                                                ? getJsonField(
+                                                                    (_model.searchApiPaged
+                                                                            ?.jsonBody ??
+                                                                        ''),
+                                                                    r'''$.data''',
+                                                                    true,
+                                                                  )
+                                                                : getJsonField(
+                                                                    (_model.searchAPIs
+                                                                            ?.jsonBody ??
+                                                                        ''),
+                                                                    r'''$.data''',
+                                                                    true,
+                                                                  ))
+                                                            ?.toList() ??
+                                                        [];
 
                                                 return FlutterFlowDataTable<
                                                     dynamic>(
@@ -1062,123 +1032,139 @@ class _UpiCompWidgetState extends State<UpiCompWidget> {
                                                                 ),
                                                               ),
                                                             ),
-                                                          Container(
-                                                            width: 45.0,
-                                                            height: 45.0,
-                                                            decoration:
-                                                                BoxDecoration(
-                                                              color: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .bgColor4,
+                                                          Material(
+                                                            color: Colors
+                                                                .transparent,
+                                                            elevation: 0.1,
+                                                            shape:
+                                                                RoundedRectangleBorder(
                                                               borderRadius:
                                                                   BorderRadius
                                                                       .circular(
                                                                           24.0),
                                                             ),
-                                                            child: Align(
-                                                              alignment:
-                                                                  AlignmentDirectional(
-                                                                      0.0, 0.0),
-                                                              child: Builder(
-                                                                builder:
-                                                                    (context) =>
-                                                                        InkWell(
-                                                                  splashColor:
-                                                                      Colors
-                                                                          .transparent,
-                                                                  focusColor: Colors
-                                                                      .transparent,
-                                                                  hoverColor: Colors
-                                                                      .transparent,
-                                                                  highlightColor:
-                                                                      Colors
-                                                                          .transparent,
-                                                                  onTap:
-                                                                      () async {
-                                                                    if (functions
-                                                                        .userTableAccess(
-                                                                            '2',
-                                                                            FFAppState().userDataAccess.elementAtOrNull(() {
-                                                                              if (FFAppState().selectedSidebar == '2') {
-                                                                                return 0;
-                                                                              } else if (FFAppState().selectedSidebar == '3') {
-                                                                                return 1;
-                                                                              } else if (FFAppState().selectedSidebar == '4') {
-                                                                                return 2;
-                                                                              } else if (FFAppState().selectedSidebar == '5') {
-                                                                                return 3;
-                                                                              } else if (FFAppState().selectedSidebar == '6') {
-                                                                                return 4;
-                                                                              } else if (FFAppState().selectedSidebar == '7') {
-                                                                                return 5;
-                                                                              } else if (FFAppState().selectedSidebar == '8') {
-                                                                                return 6;
-                                                                              } else if (FFAppState().selectedSidebar == '9') {
-                                                                                return 7;
-                                                                              } else if (FFAppState().selectedSidebar == '10') {
-                                                                                return 8;
-                                                                              } else if (FFAppState().selectedSidebar == '11') {
-                                                                                return 9;
-                                                                              } else if (FFAppState().selectedSidebar == '12') {
-                                                                                return 10;
-                                                                              } else {
-                                                                                return 0;
-                                                                              }
-                                                                            }()))!) {
-                                                                      await showDialog(
-                                                                        context:
-                                                                            context,
-                                                                        builder:
-                                                                            (dialogContext) {
-                                                                          return Dialog(
-                                                                            elevation:
-                                                                                0,
-                                                                            insetPadding:
-                                                                                EdgeInsets.zero,
-                                                                            backgroundColor:
-                                                                                Colors.transparent,
-                                                                            alignment:
-                                                                                AlignmentDirectional(0.0, 0.0).resolve(Directionality.of(context)),
-                                                                            child:
-                                                                                NewDynamicEditFieldsWidget(
-                                                                              indexEdit: dbIndex,
-                                                                              dataTableNewModel: functions.dynamicDataTableConvertCopy(dbItem),
-                                                                            ),
-                                                                          );
-                                                                        },
-                                                                      );
-                                                                    } else {
-                                                                      await showDialog(
-                                                                        context:
-                                                                            context,
-                                                                        builder:
-                                                                            (dialogContext) {
-                                                                          return Dialog(
-                                                                            elevation:
-                                                                                0,
-                                                                            insetPadding:
-                                                                                EdgeInsets.zero,
-                                                                            backgroundColor:
-                                                                                Colors.transparent,
-                                                                            alignment:
-                                                                                AlignmentDirectional(0.0, 0.0).resolve(Directionality.of(context)),
-                                                                            child:
-                                                                                ErrorMessageDialogWidget(
-                                                                              errorMessageBody: 'Operation Restricted',
-                                                                              titleValue: 'RESTRICTED',
-                                                                            ),
-                                                                          );
-                                                                        },
-                                                                      );
-                                                                    }
-                                                                  },
-                                                                  child: Icon(
-                                                                    Icons
-                                                                        .edit_square,
-                                                                    color: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .primary,
-                                                                    size: 24.0,
+                                                            child: Container(
+                                                              width: 45.0,
+                                                              height: 45.0,
+                                                              decoration:
+                                                                  BoxDecoration(
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bgColor4,
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            24.0),
+                                                              ),
+                                                              child: Align(
+                                                                alignment:
+                                                                    AlignmentDirectional(
+                                                                        0.0,
+                                                                        0.0),
+                                                                child: Builder(
+                                                                  builder:
+                                                                      (context) =>
+                                                                          InkWell(
+                                                                    splashColor:
+                                                                        Colors
+                                                                            .transparent,
+                                                                    focusColor:
+                                                                        Colors
+                                                                            .transparent,
+                                                                    hoverColor:
+                                                                        Colors
+                                                                            .transparent,
+                                                                    highlightColor:
+                                                                        Colors
+                                                                            .transparent,
+                                                                    onTap:
+                                                                        () async {
+                                                                      if (functions.userTableAccess(
+                                                                          '2',
+                                                                          FFAppState().userDataAccess.elementAtOrNull(() {
+                                                                            if (FFAppState().selectedSidebar ==
+                                                                                '2') {
+                                                                              return 0;
+                                                                            } else if (FFAppState().selectedSidebar ==
+                                                                                '3') {
+                                                                              return 1;
+                                                                            } else if (FFAppState().selectedSidebar ==
+                                                                                '4') {
+                                                                              return 2;
+                                                                            } else if (FFAppState().selectedSidebar ==
+                                                                                '5') {
+                                                                              return 3;
+                                                                            } else if (FFAppState().selectedSidebar ==
+                                                                                '6') {
+                                                                              return 4;
+                                                                            } else if (FFAppState().selectedSidebar ==
+                                                                                '7') {
+                                                                              return 5;
+                                                                            } else if (FFAppState().selectedSidebar ==
+                                                                                '8') {
+                                                                              return 6;
+                                                                            } else if (FFAppState().selectedSidebar ==
+                                                                                '9') {
+                                                                              return 7;
+                                                                            } else if (FFAppState().selectedSidebar ==
+                                                                                '10') {
+                                                                              return 8;
+                                                                            } else if (FFAppState().selectedSidebar ==
+                                                                                '11') {
+                                                                              return 9;
+                                                                            } else if (FFAppState().selectedSidebar ==
+                                                                                '12') {
+                                                                              return 10;
+                                                                            } else {
+                                                                              return 0;
+                                                                            }
+                                                                          }()))!) {
+                                                                        await showDialog(
+                                                                          context:
+                                                                              context,
+                                                                          builder:
+                                                                              (dialogContext) {
+                                                                            return Dialog(
+                                                                              elevation: 0,
+                                                                              insetPadding: EdgeInsets.zero,
+                                                                              backgroundColor: Colors.transparent,
+                                                                              alignment: AlignmentDirectional(0.0, 0.0).resolve(Directionality.of(context)),
+                                                                              child: NewDynamicEditFieldsWidget(
+                                                                                indexEdit: dbIndex,
+                                                                                dataTableNewModel: functions.dynamicDataTableConvertCopy(dbItem),
+                                                                              ),
+                                                                            );
+                                                                          },
+                                                                        );
+                                                                      } else {
+                                                                        await showDialog(
+                                                                          context:
+                                                                              context,
+                                                                          builder:
+                                                                              (dialogContext) {
+                                                                            return Dialog(
+                                                                              elevation: 0,
+                                                                              insetPadding: EdgeInsets.zero,
+                                                                              backgroundColor: Colors.transparent,
+                                                                              alignment: AlignmentDirectional(0.0, 0.0).resolve(Directionality.of(context)),
+                                                                              child: ErrorMessageDialogWidget(
+                                                                                errorMessageBody: 'Operation Restricted',
+                                                                                titleValue: 'RESTRICTED',
+                                                                              ),
+                                                                            );
+                                                                          },
+                                                                        );
+                                                                      }
+                                                                    },
+                                                                    child: Icon(
+                                                                      Icons
+                                                                          .edit_square,
+                                                                      color: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .primary,
+                                                                      size:
+                                                                          24.0,
+                                                                    ),
                                                                   ),
                                                                 ),
                                                               ),
@@ -1335,7 +1321,7 @@ class _UpiCompWidgetState extends State<UpiCompWidget> {
                                                                     },
                                                                   );
 
-                                                                  if (functions
+                                                                  if (!functions
                                                                       .userTableAccess(
                                                                           '4',
                                                                           FFAppState()
@@ -1378,7 +1364,6 @@ class _UpiCompWidgetState extends State<UpiCompWidget> {
                                                                               return 0;
                                                                             }
                                                                           }()))!) {
-                                                                  } else {
                                                                     await showDialog(
                                                                       context:
                                                                           context,
@@ -1408,32 +1393,46 @@ class _UpiCompWidgetState extends State<UpiCompWidget> {
                                                                   safeSetState(
                                                                       () {});
                                                                 },
-                                                                child:
-                                                                    Container(
-                                                                  width: 45.0,
-                                                                  height: 45.0,
-                                                                  decoration:
-                                                                      BoxDecoration(
-                                                                    color: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .bgColor2,
+                                                                child: Material(
+                                                                  color: Colors
+                                                                      .transparent,
+                                                                  elevation:
+                                                                      0.1,
+                                                                  shape:
+                                                                      RoundedRectangleBorder(
                                                                     borderRadius:
                                                                         BorderRadius.circular(
                                                                             24.0),
                                                                   ),
-                                                                  child: Align(
-                                                                    alignment:
-                                                                        AlignmentDirectional(
-                                                                            0.0,
-                                                                            0.0),
-                                                                    child: Icon(
-                                                                      Icons
-                                                                          .delete,
+                                                                  child:
+                                                                      Container(
+                                                                    width: 45.0,
+                                                                    height:
+                                                                        45.0,
+                                                                    decoration:
+                                                                        BoxDecoration(
                                                                       color: FlutterFlowTheme.of(
                                                                               context)
-                                                                          .tableText2,
-                                                                      size:
-                                                                          24.0,
+                                                                          .bgColor2,
+                                                                      borderRadius:
+                                                                          BorderRadius.circular(
+                                                                              24.0),
+                                                                    ),
+                                                                    child:
+                                                                        Align(
+                                                                      alignment:
+                                                                          AlignmentDirectional(
+                                                                              0.0,
+                                                                              0.0),
+                                                                      child:
+                                                                          Icon(
+                                                                        Icons
+                                                                            .delete,
+                                                                        color: FlutterFlowTheme.of(context)
+                                                                            .tableText2,
+                                                                        size:
+                                                                            24.0,
+                                                                      ),
                                                                     ),
                                                                   ),
                                                                 ),
@@ -1476,7 +1475,7 @@ class _UpiCompWidgetState extends State<UpiCompWidget> {
                                           ),
                                         if (!functions
                                             .jsonEmptyCheck(getJsonField(
-                                          (_model.searchApi?.jsonBody ?? ''),
+                                          (_model.searchAPIs?.jsonBody ?? ''),
                                           r'''$.data''',
                                         ))!)
                                           Align(
@@ -1547,7 +1546,7 @@ class _UpiCompWidgetState extends State<UpiCompWidget> {
                                     Align(
                                       alignment: AlignmentDirectional(0.0, 0.0),
                                       child: Text(
-                                        'Please Search For the Data........',
+                                        'Please search for the data',
                                         style: FlutterFlowTheme.of(context)
                                             .titleLarge
                                             .override(
@@ -1578,7 +1577,6 @@ class _UpiCompWidgetState extends State<UpiCompWidget> {
                     phone: false,
                     tablet: false,
                     tabletLandscape: false,
-                    desktop: false,
                   ))
                 Align(
                   alignment: AlignmentDirectional(1.0, 0.0),
@@ -1601,19 +1599,84 @@ class _UpiCompWidgetState extends State<UpiCompWidget> {
                                   return 'UPIHOST';
                                 } else if (widget.sidebarSelected == '3') {
                                   return 'SYS';
+                                } else if (widget.sidebarSelected == '4') {
+                                  return 'UPICOMPLAINT';
+                                } else if (widget.sidebarSelected == '5') {
+                                  return 'UPICOUNTRY';
+                                } else if (widget.sidebarSelected == '6') {
+                                  return 'UPISMS';
+                                } else if (widget.sidebarSelected == '7') {
+                                  return 'UPISOURCESUB';
+                                } else if (widget.sidebarSelected == '8') {
+                                  return 'UPIFRM';
+                                } else if (widget.sidebarSelected == '9') {
+                                  return 'UPITRANSACTION';
+                                } else if (widget.sidebarSelected == '10') {
+                                  return 'UPIBANK';
+                                } else if (widget.sidebarSelected == '11') {
+                                  return 'UPISOURCECHANNELS';
+                                } else if (widget.sidebarSelected == '12') {
+                                  return 'UPIINTEROPERABLE';
                                 } else {
                                   return 'UPIHOST';
                                 }
                               }(),
                               limit: 5,
                               offset: indexSelected,
-                              sortColumn: 'HOST',
-                              direction: 'ASC',
+                              sortColumn: () {
+                                if (widget.sidebarSelected == '2') {
+                                  return 'HOST';
+                                } else if (widget.sidebarSelected == '3') {
+                                  return 'ID';
+                                } else if (widget.sidebarSelected == '4') {
+                                  return 'ID';
+                                } else if (widget.sidebarSelected == '5') {
+                                  return 'UPICOUNTRY';
+                                } else if (widget.sidebarSelected == '6') {
+                                  return 'ID';
+                                } else if (widget.sidebarSelected == '7') {
+                                  return 'NAME';
+                                } else if (widget.sidebarSelected == '8') {
+                                  return 'ACCOUNT_NUMBER';
+                                } else if (widget.sidebarSelected == '9') {
+                                  return 'CHANNEL_CODE';
+                                } else if (FFAppState().selectedSidebar ==
+                                    '10') {
+                                  return 'ACCOUNT_NUMBER';
+                                } else if (FFAppState().selectedSidebar ==
+                                    '11') {
+                                  return 'NAME';
+                                } else if (FFAppState().selectedSidebar ==
+                                    '12') {
+                                  return '12';
+                                } else {
+                                  return 'HOST';
+                                }
+                              }(),
+                              direction: 'DESC',
                               filtersColumn: () {
                                 if (widget.sidebarSelected == '2') {
                                   return 'HOST';
                                 } else if (widget.sidebarSelected == '3') {
                                   return 'ID';
+                                } else if (widget.sidebarSelected == '4') {
+                                  return 'ID';
+                                } else if (widget.sidebarSelected == '5') {
+                                  return 'COUNTRY_NAME';
+                                } else if (widget.sidebarSelected == '6') {
+                                  return '';
+                                } else if (widget.sidebarSelected == '7') {
+                                  return 'NAME';
+                                } else if (widget.sidebarSelected == '8') {
+                                  return 'ACCOUNT_NUMBER';
+                                } else if (widget.sidebarSelected == '9') {
+                                  return 'CHANNEL_CODE';
+                                } else if (widget.sidebarSelected == '10') {
+                                  return 'ACCOUNT_NUMBER';
+                                } else if (widget.sidebarSelected == '11') {
+                                  return 'NAME';
+                                } else if (widget.sidebarSelected == '12') {
+                                  return 'NAME';
                                 } else {
                                   return 'HOST';
                                 }
@@ -1644,6 +1707,7 @@ class _UpiCompWidgetState extends State<UpiCompWidget> {
                                 (_model.searchApiPaged?.jsonBody ?? ''),
                                 r'''$.data''',
                               );
+                              _model.searchedIndex = true;
                               _model.updatePage(() {});
                             } else {
                               await showDialog(

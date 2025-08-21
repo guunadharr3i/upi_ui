@@ -291,3 +291,60 @@ bool? jsonEmptyCheck(dynamic json) {
   //  if json is empty then return false else return true
   return json != null && json.isNotEmpty;
 }
+
+List<String> mergedropdowncount(
+  List<String> dropdownlist,
+  List<dynamic> data,
+) {
+  print("dfghjdfghj");
+  print(dropdownlist);
+  print(data);
+
+  final List<String> result = [];
+
+  for (final name in dropdownlist) {
+    final normalizedName = name.replaceAll(' ', '').toUpperCase();
+
+    final match = data.firstWhere(
+      (item) =>
+          item is Map<String, dynamic> &&
+          item['TABLE_ID']?.toString()?.toUpperCase() == normalizedName,
+      orElse: () => null,
+    );
+
+    if (match != null && match is Map<String, dynamic>) {
+      final count = match['NAME_COUNT']?.toString() ?? '0';
+      result.add('$name - $count');
+    } else {
+      result.add(name);
+    }
+  }
+  print(result);
+
+  return result;
+}
+
+dynamic checkTableIdMatch(
+  List<dynamic> data,
+  String tableId,
+) {
+  try {
+    print("datasdxfchgvjbkn");
+    print(data);
+    return false;
+    // final decoded = json.decode(data);
+    // print(decoded);
+    // if (decoded is List) {
+    //   for (var item in decoded) {
+    //     if (item is Map<String, dynamic>) {
+    //       if (item['tableId']?.toString() == tableId) {
+    //         return true;
+    //       }
+    //     }
+    //   }
+    // }
+  } catch (e) {
+    print('Error parsing JSON: $e');
+  }
+  return false;
+}

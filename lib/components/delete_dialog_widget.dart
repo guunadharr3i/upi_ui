@@ -49,7 +49,10 @@ class _DeleteDialogWidgetState extends State<DeleteDialogWidget> {
       height: 275.0,
       decoration: BoxDecoration(
         color: FlutterFlowTheme.of(context).secondaryBackground,
-        borderRadius: BorderRadius.circular(12.0),
+        borderRadius: BorderRadius.circular(6.0),
+        border: Border.all(
+          color: Color(0xFFEF6812),
+        ),
       ),
       child: Padding(
         padding: EdgeInsets.all(12.0),
@@ -65,10 +68,10 @@ class _DeleteDialogWidgetState extends State<DeleteDialogWidget> {
                   'Alert',
                   style: FlutterFlowTheme.of(context).bodyMedium.override(
                         fontFamily: 'Mulish',
-                        color: FlutterFlowTheme.of(context).tradeHighlightColor,
-                        fontSize: 20.0,
+                        color: Color(0xFFEF6812),
+                        fontSize: 18.0,
                         letterSpacing: 0.0,
-                        fontWeight: FontWeight.w500,
+                        fontWeight: FontWeight.w600,
                       ),
                 ),
                 InkWell(
@@ -79,21 +82,17 @@ class _DeleteDialogWidgetState extends State<DeleteDialogWidget> {
                   onTap: () async {
                     Navigator.pop(context);
                   },
-                  child: Container(
-                    width: 30.0,
-                    height: 30.0,
-                    decoration: BoxDecoration(
-                      color: FlutterFlowTheme.of(context).tEimanFont,
-                      borderRadius: BorderRadius.circular(24.0),
-                    ),
-                    child: Icon(
-                      Icons.close,
-                      color: FlutterFlowTheme.of(context).secondaryBackground,
-                      size: 20.0,
-                    ),
+                  child: Icon(
+                    Icons.close,
+                    color: FlutterFlowTheme.of(context).secondaryText,
+                    size: 24.0,
                   ),
                 ),
               ],
+            ),
+            Divider(
+              thickness: 2.0,
+              color: FlutterFlowTheme.of(context).alternate,
             ),
             Padding(
               padding: EdgeInsetsDirectional.fromSTEB(0.0, 75.0, 0.0, 0.0),
@@ -101,10 +100,10 @@ class _DeleteDialogWidgetState extends State<DeleteDialogWidget> {
                 widget.messageBody,
                 style: FlutterFlowTheme.of(context).bodyMedium.override(
                       fontFamily: 'Mulish',
-                      color: FlutterFlowTheme.of(context).primaryText,
-                      fontSize: 20.0,
+                      color: FlutterFlowTheme.of(context).secondaryText,
+                      fontSize: 16.0,
                       letterSpacing: 0.0,
-                      fontWeight: FontWeight.w500,
+                      fontWeight: FontWeight.w600,
                     ),
               ),
             ),
@@ -123,10 +122,10 @@ class _DeleteDialogWidgetState extends State<DeleteDialogWidget> {
                       await widget.actionCallback?.call();
                     },
                     child: Container(
-                      width: 85.0,
-                      height: 45.0,
+                      width: 100.0,
+                      height: 42.0,
                       decoration: BoxDecoration(
-                        color: FlutterFlowTheme.of(context).buttonBorderColor,
+                        color: FlutterFlowTheme.of(context).tradeHighlightColor,
                         borderRadius: BorderRadius.circular(24.0),
                       ),
                       child: Align(
@@ -136,9 +135,9 @@ class _DeleteDialogWidgetState extends State<DeleteDialogWidget> {
                           style:
                               FlutterFlowTheme.of(context).bodyMedium.override(
                                     fontFamily: 'Mulish',
-                                    fontSize: 18.0,
+                                    fontSize: 16.0,
                                     letterSpacing: 0.0,
-                                    fontWeight: FontWeight.w500,
+                                    fontWeight: FontWeight.w600,
                                   ),
                         ),
                       ),
@@ -153,10 +152,10 @@ class _DeleteDialogWidgetState extends State<DeleteDialogWidget> {
                       Navigator.pop(context);
                     },
                     child: Container(
-                      width: 85.0,
-                      height: 45.0,
+                      width: 100.0,
+                      height: 42.0,
                       decoration: BoxDecoration(
-                        color: FlutterFlowTheme.of(context).buttonBorderColor,
+                        color: FlutterFlowTheme.of(context).tradeHighlightColor,
                         borderRadius: BorderRadius.circular(24.0),
                       ),
                       child: Align(
@@ -166,15 +165,15 @@ class _DeleteDialogWidgetState extends State<DeleteDialogWidget> {
                           style:
                               FlutterFlowTheme.of(context).bodyMedium.override(
                                     fontFamily: 'Mulish',
-                                    fontSize: 18.0,
+                                    fontSize: 16.0,
                                     letterSpacing: 0.0,
-                                    fontWeight: FontWeight.w500,
+                                    fontWeight: FontWeight.w600,
                                   ),
                         ),
                       ),
                     ),
                   ),
-                ].divide(SizedBox(width: 45.0)),
+                ].divide(SizedBox(width: 42.0)),
               ),
             ),
           ],

@@ -39,8 +39,7 @@ class _SearchCompWidgetState extends State<SearchCompWidget> {
     super.initState();
     _model = createModel(context, () => SearchCompModel());
 
-    _model.textController ??=
-        TextEditingController(text: FFAppState().searchVal);
+    _model.textController ??= TextEditingController();
     _model.textFieldFocusNode ??= FocusNode();
 
     WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
@@ -61,142 +60,156 @@ class _SearchCompWidgetState extends State<SearchCompWidget> {
       padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 12.0, 0.0),
       child: Row(
         mainAxisSize: MainAxisSize.max,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          Container(
-            decoration: BoxDecoration(
-              color: Color(0xFFD0C6C6),
+          Material(
+            color: Colors.transparent,
+            elevation: 1.0,
+            shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(50.0),
             ),
             child: Container(
-              width: 500.0,
-              height: 60.0,
               decoration: BoxDecoration(
-                color: Color(0xFFD0C6C6),
+                color: FlutterFlowTheme.of(context).searchBg,
                 borderRadius: BorderRadius.circular(50.0),
-                border: Border.all(
-                  color: FlutterFlowTheme.of(context).alternate,
-                ),
               ),
-              child: Stack(
-                children: [
-                  TextFormField(
-                    controller: _model.textController,
-                    focusNode: _model.textFieldFocusNode,
-                    onChanged: (_) => EasyDebounce.debounce(
-                      '_model.textController',
-                      Duration(milliseconds: 2000),
-                      () async {
-                        if (functions.charCheck(_model.textController.text)! >=
-                            3) {
-                          await widget.onChnagedCallBack?.call();
-                        }
-                      },
-                    ),
-                    autofocus: false,
-                    obscureText: false,
-                    decoration: InputDecoration(
-                      isDense: true,
-                      labelText: () {
-                        if (widget.sidebarSelected == '2') {
-                          return 'Enter Host here...';
-                        } else if (widget.sidebarSelected == '3') {
-                          return 'Enter ID here...';
-                        } else if (widget.sidebarSelected == '4') {
-                          return 'Enter ID here...';
-                        } else {
-                          return 'Enter Value';
-                        }
-                      }(),
-                      labelStyle: FlutterFlowTheme.of(context)
-                          .labelMedium
-                          .override(
-                            fontFamily: 'Mulish',
-                            color: FlutterFlowTheme.of(context).secondaryText,
-                            fontSize: 14.0,
-                            letterSpacing: 0.0,
-                            fontWeight: FontWeight.normal,
-                          ),
-                      hintStyle:
-                          FlutterFlowTheme.of(context).labelMedium.override(
-                                fontFamily: 'Mulish',
-                                color: Colors.black,
-                                fontSize: 16.0,
-                                letterSpacing: 0.0,
-                              ),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: FlutterFlowTheme.of(context).accent3,
-                          width: 1.0,
-                        ),
-                        borderRadius: BorderRadius.circular(50.0),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: FlutterFlowTheme.of(context).tertiary,
-                          width: 1.0,
-                        ),
-                        borderRadius: BorderRadius.circular(50.0),
-                      ),
-                      errorBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: FlutterFlowTheme.of(context).error,
-                          width: 1.0,
-                        ),
-                        borderRadius: BorderRadius.circular(50.0),
-                      ),
-                      focusedErrorBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: FlutterFlowTheme.of(context).error,
-                          width: 1.0,
-                        ),
-                        borderRadius: BorderRadius.circular(50.0),
-                      ),
-                      filled: true,
-                      fillColor: FlutterFlowTheme.of(context).tableHeaderColor,
-                      contentPadding:
-                          EdgeInsetsDirectional.fromSTEB(10.0, 0.0, 0.0, 50.0),
-                    ),
-                    style: FlutterFlowTheme.of(context).bodyMedium.override(
-                          fontFamily: 'Mulish',
-                          color: Colors.black,
-                          fontSize: 16.0,
-                          letterSpacing: 0.0,
-                          fontWeight: FontWeight.w500,
-                        ),
-                    textAlign: TextAlign.start,
-                    minLines: 1,
-                    cursorColor: FlutterFlowTheme.of(context).primaryText,
-                    validator:
-                        _model.textControllerValidator.asValidator(context),
+              child: Container(
+                width: 500.0,
+                height: 53.3,
+                decoration: BoxDecoration(
+                  color: FlutterFlowTheme.of(context).searchBg,
+                  borderRadius: BorderRadius.circular(50.0),
+                  border: Border.all(
+                    color: FlutterFlowTheme.of(context).alternate,
                   ),
-                  Align(
-                    alignment: AlignmentDirectional(0.91, -0.08),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: FlutterFlowTheme.of(context).secondaryBackground,
-                        borderRadius: BorderRadius.circular(24.0),
-                      ),
-                      child: Padding(
-                        padding: EdgeInsets.all(4.0),
-                        child: InkWell(
-                          splashColor: Colors.transparent,
-                          focusColor: Colors.transparent,
-                          hoverColor: Colors.transparent,
-                          highlightColor: Colors.transparent,
-                          onTap: () async {
-                            await widget.callBack?.call();
+                ),
+                child: Stack(
+                  children: [
+                    Container(
+                      height: 53.3,
+                      decoration: BoxDecoration(),
+                      child: TextFormField(
+                        controller: _model.textController,
+                        focusNode: _model.textFieldFocusNode,
+                        onChanged: (_) => EasyDebounce.debounce(
+                          '_model.textController',
+                          Duration(milliseconds: 2000),
+                          () async {
+                            if (functions
+                                    .charCheck(_model.textController.text)! >=
+                                3) {
+                              await widget.onChnagedCallBack?.call();
+                            }
                           },
-                          child: Icon(
-                            Icons.search_rounded,
-                            color: FlutterFlowTheme.of(context).tertiary,
-                            size: 40.0,
+                        ),
+                        autofocus: false,
+                        obscureText: false,
+                        decoration: InputDecoration(
+                          isDense: true,
+                          labelText: () {
+                            if (widget.sidebarSelected == '2') {
+                              return 'Enter Host here...';
+                            } else if (widget.sidebarSelected == '3') {
+                              return 'Enter ID here...';
+                            } else if (widget.sidebarSelected == '4') {
+                              return 'Enter ID here...';
+                            } else {
+                              return 'Enter Value';
+                            }
+                          }(),
+                          labelStyle: FlutterFlowTheme.of(context)
+                              .labelMedium
+                              .override(
+                                fontFamily: 'Mulish',
+                                color:
+                                    FlutterFlowTheme.of(context).secondaryText,
+                                fontSize: 14.0,
+                                letterSpacing: 0.0,
+                                fontWeight: FontWeight.normal,
+                              ),
+                          hintStyle:
+                              FlutterFlowTheme.of(context).labelMedium.override(
+                                    fontFamily: 'Mulish',
+                                    color: Colors.black,
+                                    fontSize: 16.0,
+                                    letterSpacing: 0.0,
+                                  ),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: FlutterFlowTheme.of(context).accent3,
+                              width: 1.0,
+                            ),
+                            borderRadius: BorderRadius.circular(50.0),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: FlutterFlowTheme.of(context).tertiary,
+                              width: 1.0,
+                            ),
+                            borderRadius: BorderRadius.circular(50.0),
+                          ),
+                          errorBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: FlutterFlowTheme.of(context).error,
+                              width: 1.0,
+                            ),
+                            borderRadius: BorderRadius.circular(50.0),
+                          ),
+                          focusedErrorBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: FlutterFlowTheme.of(context).error,
+                              width: 1.0,
+                            ),
+                            borderRadius: BorderRadius.circular(50.0),
+                          ),
+                          filled: true,
+                          fillColor:
+                              FlutterFlowTheme.of(context).tableHeaderColor,
+                          contentPadding: EdgeInsetsDirectional.fromSTEB(
+                              18.0, 0.0, 0.0, 42.0),
+                        ),
+                        style: FlutterFlowTheme.of(context).bodyMedium.override(
+                              fontFamily: 'Mulish',
+                              color: FlutterFlowTheme.of(context).primaryText,
+                              fontSize: 16.0,
+                              letterSpacing: 0.0,
+                              fontWeight: FontWeight.w500,
+                            ),
+                        textAlign: TextAlign.start,
+                        minLines: 1,
+                        cursorColor: FlutterFlowTheme.of(context).primaryText,
+                        validator:
+                            _model.textControllerValidator.asValidator(context),
+                      ),
+                    ),
+                    Align(
+                      alignment: AlignmentDirectional(0.91, -0.08),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: Color(0x00FFFFFF),
+                          borderRadius: BorderRadius.circular(24.0),
+                        ),
+                        child: Padding(
+                          padding: EdgeInsets.all(4.0),
+                          child: InkWell(
+                            splashColor: Colors.transparent,
+                            focusColor: Colors.transparent,
+                            hoverColor: Colors.transparent,
+                            highlightColor: Colors.transparent,
+                            onTap: () async {
+                              await widget.callBack?.call();
+                            },
+                            child: Icon(
+                              Icons.search_rounded,
+                              color: FlutterFlowTheme.of(context).tertiary,
+                              size: 40.0,
+                            ),
                           ),
                         ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),
@@ -238,30 +251,37 @@ class _SearchCompWidgetState extends State<SearchCompWidget> {
               onTap: () async {
                 await widget.addNewHostCalllBack?.call();
               },
-              child: Container(
-                width: 200.0,
-                height: 45.0,
-                decoration: BoxDecoration(
-                  color: FlutterFlowTheme.of(context).headingColor,
+              child: Material(
+                color: Colors.transparent,
+                elevation: 1.0,
+                shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(24.0),
                 ),
-                child: Align(
-                  alignment: AlignmentDirectional(0.0, 0.0),
-                  child: Text(
-                    'Add New Record',
-                    style: FlutterFlowTheme.of(context).bodyMedium.override(
-                          fontFamily: 'Mulish',
-                          color:
-                              FlutterFlowTheme.of(context).secondaryBackground,
-                          fontSize: 15.0,
-                          letterSpacing: 0.0,
-                          fontWeight: FontWeight.w500,
-                        ),
+                child: Container(
+                  width: 237.0,
+                  height: 53.3,
+                  decoration: BoxDecoration(
+                    color: FlutterFlowTheme.of(context).headingColor,
+                    borderRadius: BorderRadius.circular(24.0),
+                  ),
+                  child: Align(
+                    alignment: AlignmentDirectional(0.0, 0.0),
+                    child: Text(
+                      'Add New Record',
+                      style: FlutterFlowTheme.of(context).bodyMedium.override(
+                            fontFamily: 'Mulish',
+                            color: FlutterFlowTheme.of(context)
+                                .secondaryBackground,
+                            fontSize: 16.0,
+                            letterSpacing: 0.0,
+                            fontWeight: FontWeight.w500,
+                          ),
+                    ),
                   ),
                 ),
               ),
             ),
-        ],
+        ].divide(SizedBox(width: 30.0)),
       ),
     );
   }

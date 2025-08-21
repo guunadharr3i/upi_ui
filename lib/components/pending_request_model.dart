@@ -4,6 +4,7 @@ import '/components/add_delete_records_list_widget.dart';
 import '/components/pending_request_view_com_widget.dart';
 import '/flutter_flow/flutter_flow_data_table.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/form_field_controller.dart';
 import 'pending_request_widget.dart' show PendingRequestWidget;
 import 'package:flutter/material.dart';
 
@@ -71,12 +72,23 @@ class PendingRequestModel extends FlutterFlowModel<PendingRequestWidget> {
 
   String dropdownSelectedValue = 'UPIHOST';
 
+  int apicount = 0;
+
+  int totalcount = 0;
+
+  bool loader = false;
+
   ///  State fields for stateful widgets in this component.
 
   // Stores action output result for [Backend Call - API (TablesGetApiCall)] action in PendingRequest widget.
   ApiCallResponse? pendingRequestApi;
-  // Stores action output result for [Backend Call - API (TablesGetApiCall)] action in StyledDropdown widget.
-  ApiCallResponse? dropDownChanged;
+  // Stores action output result for [Backend Call - API (PendingRequestCount)] action in PendingRequest widget.
+  ApiCallResponse? apiResultcountt;
+  // State field(s) for DropDown widget.
+  String? dropDownValue;
+  FormFieldController<String>? dropDownValueController;
+  // Stores action output result for [Backend Call - API (TablesGetApiCall)] action in DropDown widget.
+  ApiCallResponse? ggs;
   // State field(s) for PaginatedDataTable widget.
   final paginatedDataTableController =
       FlutterFlowDataTableController<dynamic>();

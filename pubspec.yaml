@@ -119,25 +119,6 @@ flutter:
 
     - assets/environment_values/
   fonts:
-    - family: 'icomoon'
-      fonts:
-        - asset: assets/fonts/icomoon.ttf
-          weight: 100
-        - asset: assets/fonts/icomoon.ttf
-          weight: 200
-        - asset: assets/fonts/icomoon.ttf
-          weight: 300
-        - asset: assets/fonts/icomoon.ttf
-        - asset: assets/fonts/icomoon.ttf
-          weight: 500
-        - asset: assets/fonts/icomoon.ttf
-          weight: 600
-        - asset: assets/fonts/icomoon.ttf
-          weight: 700
-        - asset: assets/fonts/icomoon.ttf
-          weight: 800
-        - asset: assets/fonts/icomoon.ttf
-          weight: 900
     - family: 'Mulish'
       fonts:
         - asset: assets/fonts/Mulish-ExtraLight.ttf

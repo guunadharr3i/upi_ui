@@ -1,4 +1,3 @@
-import '/backend/api_requests/api_calls.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'new_sidebar_widget.dart' show NewSidebarWidget;
 import 'package:flutter/material.dart';
@@ -33,13 +32,6 @@ class NewSidebarModel extends FlutterFlowModel<NewSidebarWidget> {
   bool? upiInteroperable = false;
 
   bool? upiSourceSub = false;
-
-  ///  State fields for stateful widgets in this component.
-
-  // Stores action output result for [Backend Call - API (Logout)] action in Row widget.
-  ApiCallResponse? apiResult3re;
-  // Stores action output result for [Backend Call - API (Logout)] action in Logout widget.
-  ApiCallResponse? apiResulttjt;
 
   @override
   void initState(BuildContext context) {}
