@@ -1,12 +1,11 @@
 name: Build and Upload Flutter Web WAR to pCloud by Tag
 
+run-name: Build WAR for ${{ inputs.tag_name }}
+
 on:
-  push:
-    tags:
-      - '*-v*.*.*'  # Matches uat-v1.0.0, cug-v1.2.3, prod-v2.0.0
   workflow_dispatch:
     inputs:
-      env_name:
+      tag_name:
         description: 'Git Tag to build and deploy (e.g., uat-v1.0.0)'
         required: true
         type: string
@@ -19,20 +18,28 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       env_name: ${{ steps.set_env.outputs.env_name }}
+      tag_name: ${{ steps.extract_env.outputs.tag_name }}
 
     steps:
+      - name: Validate input
+        if: ${{ inputs.tag_name == '' || inputs.tag_name == null }}
+        run: |
+          echo "ERROR: You must provide a tag name when running manually."
+          exit 1
+
       - name: Extract Environment from Tag
         id: extract_env
         run: |
-          TAG_NAME="${GITHUB_REF##*/}"
+          TAG_NAME="${{ inputs.tag_name }}"
           ENV_PREFIX="${TAG_NAME%%-*}"
           echo "env_prefix=$ENV_PREFIX" >> $GITHUB_OUTPUT
+          echo "tag_name=$TAG_NAME" >> $GITHUB_OUTPUT
 
       - name: Set GitHub Environment
         id: set_env
         run: |
           PREFIX=${{ steps.extract_env.outputs.env_prefix }}
-          ENV_NAME=$(echo $PREFIX | tr '[:lower:]' '[:upper:]')
+          ENV_NAME=$(echo "$PREFIX" | tr '[:lower:]' '[:upper:]')
           echo "env_name=$ENV_NAME" >> $GITHUB_OUTPUT
 
       - name: Setup Environment Context
@@ -44,13 +51,14 @@ jobs:
     environment: ${{ needs.build.outputs.env_name }}
 
     steps:
-      - name: Checkout Code
-        uses: actions/checkout@v4
+      - name: Checkout Code at Tag
+        uses: actions/checkout@v3
         with:
-          ref: refs/tags/${{ inputs.tag_name }}
+          ref: refs/tags/${{ needs.build.outputs.tag_name }}
+          fetch-depth: 0  # Ensure full tag content
 
       - name: Set up Flutter
-        uses: subosito/flutter-action@v2
+        uses: subosito/flutter-action@v2.12.0
         with:
           flutter-version: '3.32.4'
 
@@ -60,22 +68,21 @@ jobs:
       - name: Build Flutter Web App
         run: flutter build web --web-renderer html
 
-      - name: Create WAR File from Flutter Web Build
+      - name: Create WAR File
         run: |
           cd build/web
           zip -r ../../UPIUI.war .
           cd ../..
 
       - name: Upload WAR to GitHub Release
-        uses: softprops/action-gh-release@v1
+        uses: softprops/action-gh-release@v2
         with:
           files: UPIUI.war
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Install rclone
-        run: |
-          curl https://rclone.org/install.sh | sudo bash
+        run: curl https://rclone.org/install.sh | sudo bash
 
       - name: Configure rclone for pCloud
         env:
@@ -86,11 +93,9 @@ jobs:
           echo "type = pcloud" >> ~/.config/rclone/rclone.conf
           echo "token = ${RCLONE_PCLOUD_TOKEN_JSON}" >> ~/.config/rclone/rclone.conf
 
-
-
       - name: Upload WAR to pCloud
         run: |
           ENV=${{ needs.build.outputs.env_name }}
           TARGET_DIR="Pcloud:/GitHubFlutterBuilds/$ENV"
           rclone mkdir "$TARGET_DIR"
-          rclone copy UPIUI.war "$TARGET_DIR" --progress+
+          rclone copy UPIUI.war "$TARGET_DIR" --progress
