@@ -4,7 +4,6 @@ import '/flutter_flow/flutter_flow_util.dart';
 import 'package:aligned_tooltip/aligned_tooltip.dart';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'editable_field_model.dart';
 export 'editable_field_model.dart';
 
@@ -437,9 +436,6 @@ class _EditableFieldWidgetState extends State<EditableFieldWidget> {
                     cursorColor: FlutterFlowTheme.of(context).primaryText,
                     validator:
                         _model.textController2Validator.asValidator(context),
-                    inputFormatters: [
-                      FilteringTextInputFormatter.allow(RegExp('[0-9]'))
-                    ],
                   ),
                 ),
             ],

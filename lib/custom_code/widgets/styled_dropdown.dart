@@ -10,21 +10,21 @@ import 'package:flutter/material.dart';
 // DO NOT REMOVE OR MODIFY THE CODE ABOVE!
 
 class StyledDropdown extends StatefulWidget {
-  const StyledDropdown({
-    super.key,
-    this.width,
-    this.height,
-    required this.items,
-    required this.fontSize,
-    required this.borderRadius,
-    required this.menuBackgroundColor,
-    required this.dropdownListBackgroundColor,
-    required this.listTextColor,
-    required this.menuTextColor,
-    required this.dropdownOffsetY,
-    this.onItemSelected,
-    required this.initialValue,
-  });
+  const StyledDropdown(
+      {super.key,
+      this.width,
+      this.height,
+      required this.items,
+      required this.fontSize,
+      required this.borderRadius,
+      required this.menuBackgroundColor,
+      required this.dropdownListBackgroundColor,
+      required this.listTextColor,
+      required this.menuTextColor,
+      required this.dropdownOffsetY,
+      this.onItemSelected,
+      required this.initialValue,
+      required this.labels});
 
   final double? width;
   final double? height;
@@ -38,6 +38,7 @@ class StyledDropdown extends StatefulWidget {
   final double dropdownOffsetY;
   final Future Function(String onSelect)? onItemSelected;
   final String initialValue;
+  final List<String> labels;
 
   @override
   State<StyledDropdown> createState() => _StyledDropdownState();
@@ -52,7 +53,18 @@ class _StyledDropdownState extends State<StyledDropdown> {
   @override
   void initState() {
     super.initState();
-    _selectedValue = widget.initialValue;
+    // Run after first build to avoid null context & data
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted && widget.items.isNotEmpty) {
+        setState(() {
+          _selectedValue = widget.initialValue.isNotEmpty &&
+                  widget.items.contains(widget.initialValue)
+              ? widget.initialValue
+              : widget.items.first;
+        });
+      }
+    });
+    // _selectedValue = widget.initialValue;
   }
 
   void _toggleDropdown() {
@@ -72,7 +84,6 @@ class _StyledDropdownState extends State<StyledDropdown> {
       builder: (context) {
         return Stack(
           children: [
-            // Tap outside to close
             Positioned.fill(
               child: GestureDetector(
                 onTap: _closeDropdown,
@@ -80,8 +91,6 @@ class _StyledDropdownState extends State<StyledDropdown> {
                 child: Container(),
               ),
             ),
-
-            // Dropdown list
             Positioned(
               left: position.dx,
               top: position.dy + renderBox.size.height + widget.dropdownOffsetY,
@@ -94,38 +103,42 @@ class _StyledDropdownState extends State<StyledDropdown> {
                     color: widget.dropdownListBackgroundColor,
                     borderRadius: BorderRadius.circular(widget.borderRadius),
                   ),
-                  child: Container(
-                    constraints: BoxConstraints(
-                      maxHeight: widget.fontSize * 4.4 * 4, // Show max 5 items
-                    ),
-                    child: ListView(
-                      padding: EdgeInsets.zero,
-                      shrinkWrap: true,
-                      children: widget.items.map((item) {
-                        final isSelected = item == _selectedValue;
-                        return ListTile(
-                          title: Text(
-                            item,
-                            style: TextStyle(
-                              fontSize: widget.fontSize,
-                              color: isSelected
-                                  ? widget.menuTextColor
-                                  : widget.listTextColor,
-                              fontWeight: isSelected
-                                  ? FontWeight.bold
-                                  : FontWeight.normal,
-                            ),
+                  // Limit dropdown height to show only 5 items max
+                  constraints: const BoxConstraints(
+                    maxHeight: 56.0 * 5, // Approx. height for 5 ListTile items
+                  ),
+                  child: ListView(
+                    padding: EdgeInsets.zero,
+                    shrinkWrap: true,
+                    children: widget.items.map((item) {
+                      final label =
+                          (widget.labels.length == widget.items.length)
+                              ? widget.labels[widget.items.indexOf(item)]
+                              : item;
+
+                      final isSelected = item == _selectedValue;
+                      return ListTile(
+                        title: Text(
+                          label,
+                          style: TextStyle(
+                            fontSize: widget.fontSize,
+                            color: isSelected
+                                ? widget.menuTextColor
+                                : widget.listTextColor,
+                            fontWeight: isSelected
+                                ? FontWeight.bold
+                                : FontWeight.normal,
                           ),
-                          onTap: () {
-                            setState(() {
-                              _selectedValue = item;
-                            });
-                            widget.onItemSelected?.call(item);
-                            _closeDropdown();
-                          },
-                        );
-                      }).toList(),
-                    ),
+                        ),
+                        onTap: () {
+                          setState(() {
+                            _selectedValue = item;
+                          });
+                          widget.onItemSelected?.call(item);
+                          _closeDropdown();
+                        },
+                      );
+                    }).toList(),
                   ),
                 ),
               ),
@@ -151,6 +164,24 @@ class _StyledDropdownState extends State<StyledDropdown> {
 
   @override
   Widget build(BuildContext context) {
+    // Null or empty safety check for FlutterFlow binding delay
+    if (widget.items == null ||
+        widget.labels == null ||
+        widget.items.isEmpty ||
+        widget.labels.isEmpty ||
+        widget.labels.length != widget.items.length) {
+      return const SizedBox.shrink();
+    }
+
+    // Fallback for selected value if not initialized
+    _selectedValue ??= widget.initialValue.isNotEmpty &&
+            widget.items.contains(widget.initialValue)
+        ? widget.initialValue
+        : widget.items.first;
+
+    final displayText =
+        widget.labels[widget.items.indexOf(_selectedValue ?? '')];
+
     return GestureDetector(
       key: _key,
       onTap: _toggleDropdown,
@@ -165,7 +196,7 @@ class _StyledDropdownState extends State<StyledDropdown> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              _selectedValue ?? 'Select',
+              displayText,
               style: TextStyle(
                 fontSize: widget.fontSize,
                 color: widget.menuTextColor,

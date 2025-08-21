@@ -18,6 +18,10 @@ class LoginpageModel extends FlutterFlowModel<LoginpageWidget> {
   FaceUserStruct? res;
   // Stores action output result for [Custom Action - generateWebDeviceHashWithTime] action in loginpage widget.
   String? hashval;
+  // Stores action output result for [Validate Form] action in Text widget.
+  bool? resposnevalidCopy2;
+  // Stores action output result for [Backend Call - API (LDAPAuth)] action in Text widget.
+  ApiCallResponse? ldapResCopy2;
   // State field(s) for userName widget.
   FocusNode? userNameFocusNode;
   TextEditingController? userNameTextController;
@@ -43,6 +47,10 @@ class LoginpageModel extends FlutterFlowModel<LoginpageWidget> {
     return null;
   }
 
+  // Stores action output result for [Validate Form] action in Password widget.
+  bool? resposnevalidCopy;
+  // Stores action output result for [Backend Call - API (LDAPAuth)] action in Password widget.
+  ApiCallResponse? ldapResCopy;
   // Stores action output result for [Validate Form] action in Button widget.
   bool? resposnevalid;
   // Stores action output result for [Backend Call - API (LDAPAuth)] action in Button widget.

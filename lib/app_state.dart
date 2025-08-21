@@ -28,6 +28,9 @@ class FFAppState extends ChangeNotifier {
     _safeInit(() {
       _deviceHash = prefs.getString('ff_deviceHash') ?? _deviceHash;
     });
+    _safeInit(() {
+      _lastLogin = prefs.getString('ff_lastLogin') ?? _lastLogin;
+    });
   }
 
   void update(VoidCallback callback) {
@@ -350,7 +353,7 @@ class FFAppState extends ChangeNotifier {
     _addjsonconfig = value;
   }
 
-  String _dropdownSelectedValue = 'UPIHOST';
+  String _dropdownSelectedValue = 'UPI Host';
   String get dropdownSelectedValue => _dropdownSelectedValue;
   set dropdownSelectedValue(String value) {
     _dropdownSelectedValue = value;
@@ -424,6 +427,38 @@ class FFAppState extends ChangeNotifier {
   bool get isUserInfo => _isUserInfo;
   set isUserInfo(bool value) {
     _isUserInfo = value;
+  }
+
+  dynamic _countJSon = jsonDecode('null');
+  dynamic get countJSon => _countJSon;
+  set countJSon(dynamic value) {
+    _countJSon = value;
+  }
+
+  int _totalpendingcount = 0;
+  int get totalpendingcount => _totalpendingcount;
+  set totalpendingcount(int value) {
+    _totalpendingcount = value;
+  }
+
+  dynamic _countdefaultjson = jsonDecode(
+      '[{\"TABLE_ID\":\"SYS\",\"NAME_COUNT\":0},{\"TABLE_ID\":\"UPIBANK\",\"NAME_COUNT\":0},{\"TABLE_ID\":\"UPICOMPLAINT\",\"NAME_COUNT\":0},{\"TABLE_ID\":\"UPICOUNTRY\",\"NAME_COUNT\":0},{\"TABLE_ID\":\"UPIFRM\",\"NAME_COUNT\":0},{\"TABLE_ID\":\"UPIHOST\",\"NAME_COUNT\":0},{\"TABLE_ID\":\"UPIINTEROPERABLE\",\"NAME_COUNT\":0},{\"TABLE_ID\":\"UPISMS\",\"NAME_COUNT\":0},{\"TABLE_ID\":\"UPISOURCESUB\",\"NAME_COUNT\":0}]');
+  dynamic get countdefaultjson => _countdefaultjson;
+  set countdefaultjson(dynamic value) {
+    _countdefaultjson = value;
+  }
+
+  String _lastLogin = '0000-00-00 00:00:00';
+  String get lastLogin => _lastLogin;
+  set lastLogin(String value) {
+    _lastLogin = value;
+    prefs.setString('ff_lastLogin', value);
+  }
+
+  bool _isInitialSearch = false;
+  bool get isInitialSearch => _isInitialSearch;
+  set isInitialSearch(bool value) {
+    _isInitialSearch = value;
   }
 }
 

@@ -437,7 +437,12 @@ class TablesGetApiCallCall {
     String? tempTableName = '',
     String? token = '',
     String? deviceHash = '',
+    String? headerURL,
+    String? baseURL,
   }) async {
+    headerURL ??= FFDevEnvironmentValues().erURL;
+    baseURL ??= FFDevEnvironmentValues().baseUrl;
+
     final ffApiRequestBody = '''
 {
   "tableCode": "${tableCode}",
@@ -461,7 +466,77 @@ class TablesGetApiCallCall {
       // ignore: prefer_const_constructors - can be mutated by interceptors
       ApiCallOptions(
         callName: 'TablesGetApiCall',
-        apiUrl: 'http://localhost:8080/tableData',
+        apiUrl: '${baseURL}upiapi/tableData',
+        callType: ApiCallType.POST,
+        // ignore: prefer_const_literals_to_create_immutables - can be mutated by interceptors
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': '${token}',
+          'DeviceHash': '${deviceHash}',
+        },
+        // ignore: prefer_const_literals_to_create_immutables - can be mutated by interceptors
+        params: {},
+        body: ffApiRequestBody,
+        bodyType: BodyType.JSON,
+        returnBody: true,
+        encodeBodyUtf8: false,
+        decodeUtf8: false,
+        cache: false,
+        isStreamingApi: false,
+        alwaysAllowBody: false,
+      ),
+
+      interceptors,
+    );
+  }
+
+  static final interceptors = [
+    upiInterceptor(),
+  ];
+}
+
+class PendingRequestCountCall {
+  static Future<ApiCallResponse> call({
+    String? tableCode = '',
+    int? limit,
+    int? offset,
+    String? sortColumn = '',
+    String? direction = '',
+    String? filtersColumn = '',
+    String? filterValue = '',
+    String? userId = '',
+    String? operator = '',
+    String? tempTableName = '',
+    String? token = '',
+    String? deviceHash = '',
+    String? headerURL,
+    String? baseURL,
+  }) async {
+    headerURL ??= FFDevEnvironmentValues().erURL;
+    baseURL ??= FFDevEnvironmentValues().baseUrl;
+
+    final ffApiRequestBody = '''
+{
+  "userId": "${userId}",
+  "tableIds": [
+    "UPIHOST",
+    "SYS",
+    "UPISMS",
+    "UPICOUNTRY",
+    "UPICOMPLAINT",
+    "UPISOURCESUB",
+    "UPIFRM",
+    "UPIINTEROPERABLE",
+    "UPIBANK",
+    "UPITRANSACTION",
+    "UPISOURCECHANNELS"
+  ]
+}''';
+    return FFApiInterceptor.makeApiCall(
+      // ignore: prefer_const_constructors - can be mutated by interceptors
+      ApiCallOptions(
+        callName: 'PendingRequestCount',
+        apiUrl: '${baseURL}upiapi/upiTempCount',
         callType: ApiCallType.POST,
         // ignore: prefer_const_literals_to_create_immutables - can be mutated by interceptors
         headers: {
@@ -688,7 +763,12 @@ class HostOpeartionsCall {
     dynamic dataJson,
     String? tableID = '',
     String? dateTime = '',
+    String? headerURL,
+    String? baseURL,
   }) async {
+    headerURL ??= FFDevEnvironmentValues().erURL;
+    baseURL ??= FFDevEnvironmentValues().baseUrl;
+
     final data = _serializeJson(dataJson);
     final ffApiRequestBody = '''
 {
@@ -705,7 +785,7 @@ class HostOpeartionsCall {
       // ignore: prefer_const_constructors - can be mutated by interceptors
       ApiCallOptions(
         callName: 'HostOpeartions',
-        apiUrl: 'http://localhost:8080/operations',
+        apiUrl: '${baseURL}upiapi/operations',
         callType: ApiCallType.POST,
         // ignore: prefer_const_literals_to_create_immutables - can be mutated by interceptors
         headers: {},
@@ -758,7 +838,12 @@ class DeleteOperationApiCall {
     String? createdBy = '',
     String? token = '',
     String? deviceHash = '',
+    String? headerURL,
+    String? baseURL,
   }) async {
+    headerURL ??= FFDevEnvironmentValues().erURL;
+    baseURL ??= FFDevEnvironmentValues().baseUrl;
+
     final data = _serializeJson(dataJson);
     final ffApiRequestBody = '''
 {
@@ -773,7 +858,7 @@ class DeleteOperationApiCall {
       // ignore: prefer_const_constructors - can be mutated by interceptors
       ApiCallOptions(
         callName: 'DeleteOperationApi',
-        apiUrl: 'http://localhost:8080/operations',
+        apiUrl: '${baseURL}upiapi/operations',
         callType: ApiCallType.POST,
         // ignore: prefer_const_literals_to_create_immutables - can be mutated by interceptors
         headers: {
@@ -810,7 +895,12 @@ class PendingRequestApproveCall {
     String? userId = '',
     String? token = '',
     String? deviceHash = '',
+    String? headerURL,
+    String? baseURL,
   }) async {
+    headerURL ??= FFDevEnvironmentValues().erURL;
+    baseURL ??= FFDevEnvironmentValues().baseUrl;
+
     final ffApiRequestBody = '''
 {
   "tableId": "${tableId}",
@@ -822,8 +912,7 @@ class PendingRequestApproveCall {
       // ignore: prefer_const_constructors - can be mutated by interceptors
       ApiCallOptions(
         callName: 'PendingRequestApprove',
-        apiUrl:
-            'https://icmsuat.icicibank.com/upi_maker_checker/approval-action',
+        apiUrl: '${baseURL}upi_maker_checker/approval-action',
         callType: ApiCallType.POST,
         // ignore: prefer_const_literals_to_create_immutables - can be mutated by interceptors
         headers: {
@@ -853,12 +942,16 @@ class PendingRequestApproveCall {
 }
 
 class LogoutCall {
-  static Future<ApiCallResponse> call() async {
+  static Future<ApiCallResponse> call({
+    String? baseURL,
+  }) async {
+    baseURL ??= FFDevEnvironmentValues().baseUrl;
+
     return FFApiInterceptor.makeApiCall(
       // ignore: prefer_const_constructors - can be mutated by interceptors
       ApiCallOptions(
         callName: 'Logout',
-        apiUrl: 'https://icmsuat.icicibank.com/upiauth/logout',
+        apiUrl: '${baseURL}upiauth/logout',
         callType: ApiCallType.POST,
         // ignore: prefer_const_literals_to_create_immutables - can be mutated by interceptors
         headers: {},

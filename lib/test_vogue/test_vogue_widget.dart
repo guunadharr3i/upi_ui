@@ -1,3 +1,7 @@
+import '/components/alert_successfull_dialog_widget.dart';
+import '/components/delete_dialog_widget.dart';
+import '/components/error_message_dialog_widget.dart';
+import '/components/user_info_comp_widget.dart';
 import '/flutter_flow/flutter_flow_drop_down.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -146,6 +150,211 @@ class _TestVogueWidgetState extends State<TestVogueWidget> {
                 decoration: BoxDecoration(
                   color: FlutterFlowTheme.of(context).bgColor4,
                   borderRadius: BorderRadius.circular(18.0),
+                ),
+                child: Builder(
+                  builder: (context) => InkWell(
+                    splashColor: Colors.transparent,
+                    focusColor: Colors.transparent,
+                    hoverColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
+                    onTap: () async {
+                      await showDialog(
+                        context: context,
+                        builder: (dialogContext) {
+                          return Dialog(
+                            elevation: 0,
+                            insetPadding: EdgeInsets.zero,
+                            backgroundColor: Colors.transparent,
+                            alignment: AlignmentDirectional(0.0, 0.0)
+                                .resolve(Directionality.of(context)),
+                            child: GestureDetector(
+                              onTap: () {
+                                FocusScope.of(dialogContext).unfocus();
+                                FocusManager.instance.primaryFocus?.unfocus();
+                              },
+                              child: AlertSuccessfullDialogWidget(
+                                alertText: 'dialog1',
+                                messageBody: 'dialo1',
+                                callback: () async {},
+                              ),
+                            ),
+                          );
+                        },
+                      );
+                    },
+                    child: Text(
+                      'Dialog1button',
+                      style: FlutterFlowTheme.of(context).bodyMedium.override(
+                            fontFamily: 'Mulish',
+                            letterSpacing: 0.0,
+                          ),
+                    ),
+                  ),
+                ),
+              ),
+              Builder(
+                builder: (context) => InkWell(
+                  splashColor: Colors.transparent,
+                  focusColor: Colors.transparent,
+                  hoverColor: Colors.transparent,
+                  highlightColor: Colors.transparent,
+                  onTap: () async {
+                    await showDialog(
+                      context: context,
+                      builder: (dialogContext) {
+                        return Dialog(
+                          elevation: 0,
+                          insetPadding: EdgeInsets.zero,
+                          backgroundColor: Colors.transparent,
+                          alignment: AlignmentDirectional(0.0, 0.0)
+                              .resolve(Directionality.of(context)),
+                          child: GestureDetector(
+                            onTap: () {
+                              FocusScope.of(dialogContext).unfocus();
+                              FocusManager.instance.primaryFocus?.unfocus();
+                            },
+                            child: AlertSuccessfullDialogWidget(
+                              alertText: 'Alert',
+                              messageBody: 'Data Successfully added',
+                              callback: () async {},
+                            ),
+                          ),
+                        );
+                      },
+                    );
+                  },
+                  child: Text(
+                    'Hello World',
+                    style: FlutterFlowTheme.of(context).bodyMedium.override(
+                          fontFamily: 'Mulish',
+                          color: FlutterFlowTheme.of(context)
+                              .primaryButtonFillColor,
+                          letterSpacing: 0.0,
+                        ),
+                  ),
+                ),
+              ),
+              Builder(
+                builder: (context) => InkWell(
+                  splashColor: Colors.transparent,
+                  focusColor: Colors.transparent,
+                  hoverColor: Colors.transparent,
+                  highlightColor: Colors.transparent,
+                  onTap: () async {
+                    await showDialog(
+                      context: context,
+                      builder: (dialogContext) {
+                        return Dialog(
+                          elevation: 0,
+                          insetPadding: EdgeInsets.zero,
+                          backgroundColor: Colors.transparent,
+                          alignment: AlignmentDirectional(0.0, 0.0)
+                              .resolve(Directionality.of(context)),
+                          child: GestureDetector(
+                            onTap: () {
+                              FocusScope.of(dialogContext).unfocus();
+                              FocusManager.instance.primaryFocus?.unfocus();
+                            },
+                            child: ErrorMessageDialogWidget(
+                              errorMessageBody:
+                                  'Delete request sent successfully',
+                              titleValue: 'Alert',
+                            ),
+                          ),
+                        );
+                      },
+                    );
+                  },
+                  child: Text(
+                    'Hello World error dialog',
+                    style: FlutterFlowTheme.of(context).bodyMedium.override(
+                          fontFamily: 'Mulish',
+                          color: FlutterFlowTheme.of(context).primary,
+                          letterSpacing: 0.0,
+                        ),
+                  ),
+                ),
+              ),
+              Builder(
+                builder: (context) => InkWell(
+                  splashColor: Colors.transparent,
+                  focusColor: Colors.transparent,
+                  hoverColor: Colors.transparent,
+                  highlightColor: Colors.transparent,
+                  onTap: () async {
+                    await showDialog(
+                      context: context,
+                      builder: (dialogContext) {
+                        return Dialog(
+                          elevation: 0,
+                          insetPadding: EdgeInsets.zero,
+                          backgroundColor: Colors.transparent,
+                          alignment: AlignmentDirectional(0.0, 0.0)
+                              .resolve(Directionality.of(context)),
+                          child: GestureDetector(
+                            onTap: () {
+                              FocusScope.of(dialogContext).unfocus();
+                              FocusManager.instance.primaryFocus?.unfocus();
+                            },
+                            child: DeleteDialogWidget(
+                              messageBody: 'Are you sure want to delete?',
+                              actionCallback: () async {
+                                Navigator.pop(context);
+                              },
+                            ),
+                          ),
+                        );
+                      },
+                    );
+                  },
+                  child: Text(
+                    'Hello World delete dialog',
+                    style: FlutterFlowTheme.of(context).bodyMedium.override(
+                          fontFamily: 'Mulish',
+                          color: FlutterFlowTheme.of(context).success,
+                          letterSpacing: 0.0,
+                        ),
+                  ),
+                ),
+              ),
+              Builder(
+                builder: (context) => InkWell(
+                  splashColor: Colors.transparent,
+                  focusColor: Colors.transparent,
+                  hoverColor: Colors.transparent,
+                  highlightColor: Colors.transparent,
+                  onTap: () async {
+                    await showDialog(
+                      context: context,
+                      builder: (dialogContext) {
+                        return Dialog(
+                          elevation: 0,
+                          insetPadding: EdgeInsets.zero,
+                          backgroundColor: Colors.transparent,
+                          alignment: AlignmentDirectional(1.0, -1.0)
+                              .resolve(Directionality.of(context)),
+                          child: GestureDetector(
+                            onTap: () {
+                              FocusScope.of(dialogContext).unfocus();
+                              FocusManager.instance.primaryFocus?.unfocus();
+                            },
+                            child: UserInfoCompWidget(
+                              userId: '1234',
+                            ),
+                          ),
+                        );
+                      },
+                    );
+                  },
+                  child: Text(
+                    'userinfo',
+                    style: FlutterFlowTheme.of(context).bodyMedium.override(
+                          fontFamily: 'Mulish',
+                          color: FlutterFlowTheme.of(context).primary,
+                          fontSize: 33.0,
+                          letterSpacing: 0.0,
+                        ),
+                  ),
                 ),
               ),
             ],

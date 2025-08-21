@@ -11,6 +11,7 @@ import '/flutter_flow/custom_functions.dart' as functions;
 import '/index.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -255,30 +256,151 @@ class _LoginpageWidgetState extends State<LoginpageWidget>
                                     crossAxisAlignment:
                                         CrossAxisAlignment.center,
                                     children: [
-                                      Text(
-                                        'Welcome to UPI ',
-                                        textAlign: TextAlign.start,
-                                        style: FlutterFlowTheme.of(context)
-                                            .displaySmall
-                                            .override(
-                                              font: GoogleFonts.openSans(
-                                                fontWeight: FontWeight.w800,
-                                                fontStyle:
-                                                    FlutterFlowTheme.of(context)
-                                                        .displaySmall
-                                                        .fontStyle,
-                                              ),
-                                              color: Color(0xEB041629),
-                                              fontSize: 25.0,
-                                              letterSpacing: 0.0,
-                                              fontWeight: FontWeight.w800,
-                                              fontStyle:
-                                                  FlutterFlowTheme.of(context)
-                                                      .displaySmall
-                                                      .fontStyle,
-                                            ),
-                                      ).animateOnPageLoad(animationsMap[
-                                          'textOnPageLoadAnimation']!),
+                                      Builder(
+                                        builder: (context) => InkWell(
+                                          splashColor: Colors.transparent,
+                                          focusColor: Colors.transparent,
+                                          hoverColor: Colors.transparent,
+                                          highlightColor: Colors.transparent,
+                                          onTap: () async {
+                                            _model.resposnevalidCopy2 = true;
+                                            if (_model.formKey.currentState ==
+                                                    null ||
+                                                !_model.formKey.currentState!
+                                                    .validate()) {
+                                              safeSetState(() => _model
+                                                  .resposnevalidCopy2 = false);
+                                              return;
+                                            }
+                                            if (_model.resposnevalidCopy2!) {
+                                              _model.ldapResCopy2 =
+                                                  await UpiAPIGroup.lDAPAuthCall
+                                                      .call(
+                                                userName: _model
+                                                    .userNameTextController
+                                                    .text,
+                                                password: _model
+                                                    .passwordTextController
+                                                    .text,
+                                                deviceHase:
+                                                    FFAppState().deviceHash,
+                                                roleName: 'support',
+                                              );
+
+                                              if ((_model.ldapResCopy2
+                                                          ?.statusCode ??
+                                                      200) ==
+                                                  200) {
+                                                FFAppState().userid = _model
+                                                    .userNameTextController
+                                                    .text;
+                                                FFAppState().token =
+                                                    getJsonField(
+                                                  (_model.ldapResCopy2
+                                                          ?.jsonBody ??
+                                                      ''),
+                                                  r'''$.token''',
+                                                ).toString();
+                                                FFAppState().userDataAccess =
+                                                    (getJsonField(
+                                                  (_model.ldapResCopy2
+                                                          ?.jsonBody ??
+                                                      ''),
+                                                  r'''$.accessSummary.accessByTable''',
+                                                  true,
+                                                )!
+                                                                .toList()
+                                                                .map<AccessByTableStruct?>(
+                                                                    AccessByTableStruct
+                                                                        .maybeFromMap)
+                                                                .toList()
+                                                            as Iterable<
+                                                                AccessByTableStruct?>)
+                                                        .withoutNulls
+                                                        .toList()
+                                                        .cast<
+                                                            AccessByTableStruct>();
+                                                FFAppState().lastLogin =
+                                                    getJsonField(
+                                                  (_model.ldapResCopy2
+                                                          ?.jsonBody ??
+                                                      ''),
+                                                  r'''$.lastLogIn''',
+                                                ).toString();
+                                                safeSetState(() {});
+
+                                                context.goNamed(
+                                                    DashboardScreenWidget
+                                                        .routeName);
+                                              } else {
+                                                await showDialog(
+                                                  context: context,
+                                                  builder: (dialogContext) {
+                                                    return Dialog(
+                                                      elevation: 0,
+                                                      insetPadding:
+                                                          EdgeInsets.zero,
+                                                      backgroundColor:
+                                                          Colors.transparent,
+                                                      alignment:
+                                                          AlignmentDirectional(
+                                                                  0.0, 0.0)
+                                                              .resolve(
+                                                                  Directionality.of(
+                                                                      context)),
+                                                      child: GestureDetector(
+                                                        onTap: () {
+                                                          FocusScope.of(
+                                                                  dialogContext)
+                                                              .unfocus();
+                                                          FocusManager.instance
+                                                              .primaryFocus
+                                                              ?.unfocus();
+                                                        },
+                                                        child:
+                                                            ErrorMessageDialogWidget(
+                                                          errorMessageBody:
+                                                              'Please try again',
+                                                          titleValue:
+                                                              'AUTHENTICATION FAILED',
+                                                        ),
+                                                      ),
+                                                    );
+                                                  },
+                                                );
+                                              }
+                                            }
+
+                                            safeSetState(() {});
+                                          },
+                                          child: Text(
+                                            'Welcome to UPI ',
+                                            textAlign: TextAlign.start,
+                                            style: FlutterFlowTheme.of(context)
+                                                .displaySmall
+                                                .override(
+                                                  font: GoogleFonts.openSans(
+                                                    fontWeight: FontWeight.w800,
+                                                    fontStyle:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .displaySmall
+                                                            .fontStyle,
+                                                  ),
+                                                  color: Color(0xEB041629),
+                                                  fontSize: 25.0,
+                                                  letterSpacing: 0.0,
+                                                  fontWeight: FontWeight.w800,
+                                                  fontStyle:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .displaySmall
+                                                          .fontStyle,
+                                                ),
+                                          ),
+                                        ).animateOnPageLoad(animationsMap[
+                                            'textOnPageLoadAnimation']!),
+                                      ),
                                       Form(
                                         key: _model.formKey,
                                         autovalidateMode:
@@ -298,6 +420,11 @@ class _LoginpageWidgetState extends State<LoginpageWidget>
                                                   focusNode:
                                                       _model.userNameFocusNode,
                                                   autofocus: false,
+                                                  textCapitalization:
+                                                      TextCapitalization
+                                                          .characters,
+                                                  textInputAction:
+                                                      TextInputAction.next,
                                                   obscureText: false,
                                                   decoration: InputDecoration(
                                                     isDense: true,
@@ -395,126 +522,288 @@ class _LoginpageWidgetState extends State<LoginpageWidget>
                                                   validator: _model
                                                       .userNameTextControllerValidator
                                                       .asValidator(context),
+                                                  inputFormatters: [
+                                                    if (!isAndroid && !isiOS)
+                                                      TextInputFormatter
+                                                          .withFunction(
+                                                              (oldValue,
+                                                                  newValue) {
+                                                        return TextEditingValue(
+                                                          selection: newValue
+                                                              .selection,
+                                                          text: newValue.text
+                                                              .toCapitalization(
+                                                                  TextCapitalization
+                                                                      .characters),
+                                                        );
+                                                      }),
+                                                  ],
                                                 ),
                                               ),
-                                              Container(
-                                                width: double.infinity,
-                                                child: TextFormField(
-                                                  controller: _model
-                                                      .passwordTextController,
-                                                  focusNode:
-                                                      _model.passwordFocusNode,
-                                                  autofocus: false,
-                                                  obscureText: !_model
-                                                      .passwordVisibility,
-                                                  decoration: InputDecoration(
-                                                    isDense: true,
-                                                    labelStyle: FlutterFlowTheme
-                                                            .of(context)
-                                                        .labelMedium
+                                              Builder(
+                                                builder: (context) => Container(
+                                                  width: double.infinity,
+                                                  child: TextFormField(
+                                                    controller: _model
+                                                        .passwordTextController,
+                                                    focusNode: _model
+                                                        .passwordFocusNode,
+                                                    onFieldSubmitted:
+                                                        (_) async {
+                                                      _model.resposnevalidCopy =
+                                                          true;
+                                                      if (_model.formKey
+                                                                  .currentState ==
+                                                              null ||
+                                                          !_model.formKey
+                                                              .currentState!
+                                                              .validate()) {
+                                                        safeSetState(() => _model
+                                                                .resposnevalidCopy =
+                                                            false);
+                                                        return;
+                                                      }
+                                                      if (_model
+                                                          .resposnevalidCopy!) {
+                                                        _model.ldapResCopy =
+                                                            await UpiAPIGroup
+                                                                .lDAPAuthCall
+                                                                .call(
+                                                          userName: _model
+                                                              .userNameTextController
+                                                              .text,
+                                                          password: _model
+                                                              .passwordTextController
+                                                              .text,
+                                                          deviceHase:
+                                                              FFAppState()
+                                                                  .deviceHash,
+                                                          roleName: 'support',
+                                                        );
+
+                                                        if ((_model.ldapResCopy
+                                                                    ?.statusCode ??
+                                                                200) ==
+                                                            200) {
+                                                          FFAppState().userid =
+                                                              _model
+                                                                  .userNameTextController
+                                                                  .text;
+                                                          FFAppState().token =
+                                                              getJsonField(
+                                                            (_model.ldapResCopy
+                                                                    ?.jsonBody ??
+                                                                ''),
+                                                            r'''$.token''',
+                                                          ).toString();
+                                                          FFAppState()
+                                                                  .userDataAccess =
+                                                              (getJsonField(
+                                                            (_model.ldapResCopy
+                                                                    ?.jsonBody ??
+                                                                ''),
+                                                            r'''$.accessSummary.accessByTable''',
+                                                            true,
+                                                          )!
+                                                                          .toList()
+                                                                          .map<AccessByTableStruct?>(AccessByTableStruct
+                                                                              .maybeFromMap)
+                                                                          .toList()
+                                                                      as Iterable<
+                                                                          AccessByTableStruct?>)
+                                                                  .withoutNulls
+                                                                  .toList()
+                                                                  .cast<
+                                                                      AccessByTableStruct>();
+                                                          safeSetState(() {});
+                                                          await actions
+                                                              .loadAndStartFaceID(
+                                                            context,
+                                                            functions.addEmail(
+                                                                _model
+                                                                    .userNameTextController
+                                                                    .text),
+                                                            FFDevEnvironmentValues()
+                                                                .applicationId,
+                                                            FFDevEnvironmentValues()
+                                                                .applicationSecret,
+                                                            FFDevEnvironmentValues()
+                                                                .initializeFaceIDURL,
+                                                            FFDevEnvironmentValues()
+                                                                .validateFaceIDURL,
+                                                            FFDevEnvironmentValues()
+                                                                .srURL,
+                                                            FFDevEnvironmentValues()
+                                                                .erURL,
+                                                            FFDevEnvironmentValues()
+                                                                .apiKey,
+                                                          );
+                                                        } else {
+                                                          await showDialog(
+                                                            context: context,
+                                                            builder:
+                                                                (dialogContext) {
+                                                              return Dialog(
+                                                                elevation: 0,
+                                                                insetPadding:
+                                                                    EdgeInsets
+                                                                        .zero,
+                                                                backgroundColor:
+                                                                    Colors
+                                                                        .transparent,
+                                                                alignment: AlignmentDirectional(
+                                                                        0.0,
+                                                                        0.0)
+                                                                    .resolve(
+                                                                        Directionality.of(
+                                                                            context)),
+                                                                child:
+                                                                    GestureDetector(
+                                                                  onTap: () {
+                                                                    FocusScope.of(
+                                                                            dialogContext)
+                                                                        .unfocus();
+                                                                    FocusManager
+                                                                        .instance
+                                                                        .primaryFocus
+                                                                        ?.unfocus();
+                                                                  },
+                                                                  child:
+                                                                      ErrorMessageDialogWidget(
+                                                                    errorMessageBody:
+                                                                        'Please try again',
+                                                                    titleValue:
+                                                                        'AUTHENTICATION FAILED',
+                                                                  ),
+                                                                ),
+                                                              );
+                                                            },
+                                                          );
+                                                        }
+                                                      }
+
+                                                      safeSetState(() {});
+                                                    },
+                                                    autofocus: false,
+                                                    textInputAction:
+                                                        TextInputAction.go,
+                                                    obscureText: !_model
+                                                        .passwordVisibility,
+                                                    decoration: InputDecoration(
+                                                      isDense: true,
+                                                      labelStyle:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .labelMedium
+                                                              .override(
+                                                                fontFamily:
+                                                                    'Mulish',
+                                                                color: Color(
+                                                                    0xEB041629),
+                                                                letterSpacing:
+                                                                    0.0,
+                                                              ),
+                                                      hintText: 'Password',
+                                                      hintStyle:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .labelMedium
+                                                              .override(
+                                                                fontFamily:
+                                                                    'Mulish',
+                                                                color: Color(
+                                                                    0xEB041629),
+                                                                letterSpacing:
+                                                                    0.0,
+                                                              ),
+                                                      enabledBorder:
+                                                          OutlineInputBorder(
+                                                        borderSide: BorderSide(
+                                                          color:
+                                                              Color(0xFFCBD5E0),
+                                                          width: 1.2,
+                                                        ),
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(8.0),
+                                                      ),
+                                                      focusedBorder:
+                                                          OutlineInputBorder(
+                                                        borderSide: BorderSide(
+                                                          color:
+                                                              Color(0x00000000),
+                                                          width: 1.2,
+                                                        ),
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(8.0),
+                                                      ),
+                                                      errorBorder:
+                                                          OutlineInputBorder(
+                                                        borderSide: BorderSide(
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .error,
+                                                          width: 1.2,
+                                                        ),
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(8.0),
+                                                      ),
+                                                      focusedErrorBorder:
+                                                          OutlineInputBorder(
+                                                        borderSide: BorderSide(
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .error,
+                                                          width: 1.2,
+                                                        ),
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(8.0),
+                                                      ),
+                                                      filled: true,
+                                                      fillColor:
+                                                          Color(0xFFF7FAFC),
+                                                      suffixIcon: InkWell(
+                                                        onTap: () =>
+                                                            safeSetState(
+                                                          () => _model
+                                                                  .passwordVisibility =
+                                                              !_model
+                                                                  .passwordVisibility,
+                                                        ),
+                                                        focusNode: FocusNode(
+                                                            skipTraversal:
+                                                                true),
+                                                        child: Icon(
+                                                          _model.passwordVisibility
+                                                              ? Icons
+                                                                  .visibility_outlined
+                                                              : Icons
+                                                                  .visibility_off_outlined,
+                                                          color:
+                                                              Color(0xEB041629),
+                                                          size: 22,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
+                                                        .bodyMedium
                                                         .override(
                                                           fontFamily: 'Mulish',
                                                           color:
                                                               Color(0xEB041629),
                                                           letterSpacing: 0.0,
+                                                          lineHeight: 1.2,
                                                         ),
-                                                    hintText: 'Password',
-                                                    hintStyle: FlutterFlowTheme
-                                                            .of(context)
-                                                        .labelMedium
-                                                        .override(
-                                                          fontFamily: 'Mulish',
-                                                          color:
-                                                              Color(0xEB041629),
-                                                          letterSpacing: 0.0,
-                                                        ),
-                                                    enabledBorder:
-                                                        OutlineInputBorder(
-                                                      borderSide: BorderSide(
-                                                        color:
-                                                            Color(0xFFCBD5E0),
-                                                        width: 1.2,
-                                                      ),
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              8.0),
-                                                    ),
-                                                    focusedBorder:
-                                                        OutlineInputBorder(
-                                                      borderSide: BorderSide(
-                                                        color:
-                                                            Color(0x00000000),
-                                                        width: 1.2,
-                                                      ),
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              8.0),
-                                                    ),
-                                                    errorBorder:
-                                                        OutlineInputBorder(
-                                                      borderSide: BorderSide(
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .error,
-                                                        width: 1.2,
-                                                      ),
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              8.0),
-                                                    ),
-                                                    focusedErrorBorder:
-                                                        OutlineInputBorder(
-                                                      borderSide: BorderSide(
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .error,
-                                                        width: 1.2,
-                                                      ),
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              8.0),
-                                                    ),
-                                                    filled: true,
-                                                    fillColor:
-                                                        Color(0xFFF7FAFC),
-                                                    suffixIcon: InkWell(
-                                                      onTap: () => safeSetState(
-                                                        () => _model
-                                                                .passwordVisibility =
-                                                            !_model
-                                                                .passwordVisibility,
-                                                      ),
-                                                      focusNode: FocusNode(
-                                                          skipTraversal: true),
-                                                      child: Icon(
-                                                        _model.passwordVisibility
-                                                            ? Icons
-                                                                .visibility_outlined
-                                                            : Icons
-                                                                .visibility_off_outlined,
-                                                        color:
-                                                            Color(0xEB041629),
-                                                        size: 22,
-                                                      ),
-                                                    ),
+                                                    cursorColor:
+                                                        Color(0xEB041629),
+                                                    validator: _model
+                                                        .passwordTextControllerValidator
+                                                        .asValidator(context),
                                                   ),
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily: 'Mulish',
-                                                        color:
-                                                            Color(0xEB041629),
-                                                        letterSpacing: 0.0,
-                                                        lineHeight: 1.2,
-                                                      ),
-                                                  cursorColor:
-                                                      Color(0xEB041629),
-                                                  validator: _model
-                                                      .passwordTextControllerValidator
-                                                      .asValidator(context),
                                                 ),
                                               ),
                                             ].divide(SizedBox(height: 15.0)),
@@ -593,6 +882,13 @@ class _LoginpageWidgetState extends State<LoginpageWidget>
                                                                 .toList()
                                                                 .cast<
                                                                     AccessByTableStruct>();
+                                                        FFAppState().lastLogin =
+                                                            getJsonField(
+                                                          (_model.ldapRes
+                                                                  ?.jsonBody ??
+                                                              ''),
+                                                          r'''$.lastLogIn''',
+                                                        ).toString();
                                                         safeSetState(() {});
                                                         await actions
                                                             .loadAndStartFaceID(
@@ -649,7 +945,7 @@ class _LoginpageWidgetState extends State<LoginpageWidget>
                                                                   errorMessageBody:
                                                                       'Please try again',
                                                                   titleValue:
-                                                                      'AUTHENTICATION FAILED',
+                                                                      'Authentication Failed',
                                                                 ),
                                                               ),
                                                             );

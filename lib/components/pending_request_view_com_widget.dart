@@ -106,7 +106,7 @@ class _PendingRequestViewComWidgetState
                                     Icons.remove_red_eye_outlined,
                                     color: FlutterFlowTheme.of(context)
                                         .primaryText,
-                                    size: 30.0,
+                                    size: 24.0,
                                   ),
                                 ],
                               ),
@@ -123,8 +123,12 @@ class _PendingRequestViewComWidgetState
                                             .bodyMedium
                                             .override(
                                               fontFamily: 'Mulish',
-                                              fontSize: 20.0,
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .primaryText,
+                                              fontSize: 18.0,
                                               letterSpacing: 0.0,
+                                              fontWeight: FontWeight.w600,
                                             ),
                                       ),
                                     ],
@@ -145,7 +149,7 @@ class _PendingRequestViewComWidgetState
                                                 fontFamily: 'Mulish',
                                                 color:
                                                     FlutterFlowTheme.of(context)
-                                                        .tertiary,
+                                                        .headingColor,
                                                 fontSize: 24.0,
                                                 letterSpacing: 0.0,
                                                 fontWeight: FontWeight.w500,
@@ -267,7 +271,7 @@ class _PendingRequestViewComWidgetState
                                             text: 'Approve',
                                             options: FFButtonOptions(
                                               width: 120.0,
-                                              height: 40.0,
+                                              height: 42.0,
                                               padding: EdgeInsetsDirectional
                                                   .fromSTEB(
                                                       16.0, 0.0, 16.0, 0.0),
@@ -287,9 +291,9 @@ class _PendingRequestViewComWidgetState
                                                                 .tableText1,
                                                         letterSpacing: 0.0,
                                                       ),
-                                              elevation: 0.0,
+                                              elevation: 0.1,
                                               borderRadius:
-                                                  BorderRadius.circular(15.0),
+                                                  BorderRadius.circular(24.0),
                                             ),
                                           ),
                                         ),
@@ -383,7 +387,7 @@ class _PendingRequestViewComWidgetState
                                             text: 'Reject',
                                             options: FFButtonOptions(
                                               width: 120.0,
-                                              height: 40.0,
+                                              height: 42.0,
                                               padding: EdgeInsetsDirectional
                                                   .fromSTEB(
                                                       16.0, 0.0, 16.0, 0.0),
@@ -403,9 +407,9 @@ class _PendingRequestViewComWidgetState
                                                                 .tableText2,
                                                         letterSpacing: 0.0,
                                                       ),
-                                              elevation: 0.0,
+                                              elevation: 0.1,
                                               borderRadius:
-                                                  BorderRadius.circular(15.0),
+                                                  BorderRadius.circular(24.0),
                                             ),
                                           ),
                                         ),
@@ -476,7 +480,8 @@ class _PendingRequestViewComWidgetState
                               width: double.infinity,
                               height: 40.0,
                               decoration: BoxDecoration(
-                                color: Color(0xFFEEEEEE),
+                                color: FlutterFlowTheme.of(context)
+                                    .tableCustomHeader,
                                 border: Border.all(
                                   width: 0.5,
                                 ),
@@ -493,10 +498,10 @@ class _PendingRequestViewComWidgetState
                                         .override(
                                           fontFamily: 'Mulish',
                                           color: FlutterFlowTheme.of(context)
-                                              .customColor1,
-                                          fontSize: 24.0,
+                                              .primaryText,
+                                          fontSize: 18.0,
                                           letterSpacing: 0.0,
-                                          fontWeight: FontWeight.bold,
+                                          fontWeight: FontWeight.w600,
                                         ),
                                   ),
                                   Text(
@@ -506,10 +511,10 @@ class _PendingRequestViewComWidgetState
                                         .override(
                                           fontFamily: 'Mulish',
                                           color: FlutterFlowTheme.of(context)
-                                              .tableText1,
-                                          fontSize: 24.0,
+                                              .primaryText,
+                                          fontSize: 18.0,
                                           letterSpacing: 0.0,
-                                          fontWeight: FontWeight.bold,
+                                          fontWeight: FontWeight.w600,
                                         ),
                                   ),
                                 ],
@@ -780,7 +785,7 @@ class _PendingRequestViewComWidgetState
                                                               BoxDecoration(
                                                             color: FlutterFlowTheme
                                                                     .of(context)
-                                                                .bgColor2,
+                                                                .tableCustomHeader,
                                                             borderRadius:
                                                                 BorderRadius
                                                                     .circular(
@@ -788,7 +793,7 @@ class _PendingRequestViewComWidgetState
                                                             border: Border.all(
                                                               color: FlutterFlowTheme
                                                                       .of(context)
-                                                                  .tableText2,
+                                                                  .secondaryText,
                                                               width: 1.0,
                                                             ),
                                                           ),

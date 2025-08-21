@@ -54,9 +54,9 @@ class _AlertSuccessfullDialogWidgetState
       height: 275.0,
       decoration: BoxDecoration(
         color: FlutterFlowTheme.of(context).secondaryBackground,
-        borderRadius: BorderRadius.circular(12.0),
+        borderRadius: BorderRadius.circular(6.0),
         border: Border.all(
-          color: FlutterFlowTheme.of(context).primaryTextBoxColor,
+          color: FlutterFlowTheme.of(context).secondaryNavBarFillColor,
         ),
       ),
       child: Padding(
@@ -71,45 +71,40 @@ class _AlertSuccessfullDialogWidgetState
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  valueOrDefault<String>(
-                    widget.alertText,
-                    'Alert',
-                  ),
+                  widget.alertText,
                   style: FlutterFlowTheme.of(context).headlineSmall.override(
                         fontFamily: 'Mulish',
-                        fontSize: 20.0,
+                        color: FlutterFlowTheme.of(context)
+                            .secondaryNavBarFillColor,
+                        fontSize: 18.0,
                         letterSpacing: 0.0,
                         fontWeight: FontWeight.w500,
                       ),
                 ),
-                Container(
-                  width: 30.0,
-                  height: 30.0,
-                  decoration: BoxDecoration(
-                    color: FlutterFlowTheme.of(context).tEimanFont,
-                    borderRadius: BorderRadius.circular(24.0),
-                  ),
-                  child: InkWell(
-                    splashColor: Colors.transparent,
-                    focusColor: Colors.transparent,
-                    hoverColor: Colors.transparent,
-                    highlightColor: Colors.transparent,
-                    onTap: () async {
-                      Navigator.pop(context);
-                    },
-                    child: Icon(
-                      Icons.close,
-                      color: FlutterFlowTheme.of(context).secondaryBackground,
-                      size: 20.0,
-                    ),
+                InkWell(
+                  splashColor: Colors.transparent,
+                  focusColor: Colors.transparent,
+                  hoverColor: Colors.transparent,
+                  highlightColor: Colors.transparent,
+                  onTap: () async {
+                    Navigator.pop(context);
+                  },
+                  child: Icon(
+                    Icons.close,
+                    color: FlutterFlowTheme.of(context).secondaryText,
+                    size: 24.0,
                   ),
                 ),
               ],
             ),
+            Divider(
+              thickness: 2.0,
+              color: FlutterFlowTheme.of(context).alternate,
+            ),
             Align(
               alignment: AlignmentDirectional(0.0, 0.0),
               child: Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(0.0, 85.0, 0.0, 0.0),
+                padding: EdgeInsetsDirectional.fromSTEB(0.0, 75.0, 0.0, 0.0),
                 child: Text(
                   valueOrDefault<String>(
                     widget.messageBody,
@@ -117,9 +112,10 @@ class _AlertSuccessfullDialogWidgetState
                   ),
                   style: FlutterFlowTheme.of(context).bodyMedium.override(
                         fontFamily: 'Mulish',
-                        color: FlutterFlowTheme.of(context).primaryText,
-                        fontSize: 20.0,
+                        color: FlutterFlowTheme.of(context).secondaryText,
+                        fontSize: 16.0,
                         letterSpacing: 0.0,
+                        fontWeight: FontWeight.w600,
                       ),
                 ),
               ),
@@ -127,19 +123,18 @@ class _AlertSuccessfullDialogWidgetState
             Align(
               alignment: AlignmentDirectional(0.0, 0.0),
               child: Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(0.0, 45.0, 0.0, 0.0),
+                padding: EdgeInsetsDirectional.fromSTEB(0.0, 38.0, 0.0, 0.0),
                 child: InkWell(
                   splashColor: Colors.transparent,
                   focusColor: Colors.transparent,
                   hoverColor: Colors.transparent,
                   highlightColor: Colors.transparent,
                   onTap: () async {
-                    await widget.callback?.call();
                     Navigator.pop(context);
                   },
                   child: Container(
-                    width: 85.0,
-                    height: 50.0,
+                    width: 100.0,
+                    height: 42.0,
                     decoration: BoxDecoration(
                       color: FlutterFlowTheme.of(context).tradeHighlightColor,
                       borderRadius: BorderRadius.circular(35.0),
@@ -150,7 +145,7 @@ class _AlertSuccessfullDialogWidgetState
                         'OK',
                         style: FlutterFlowTheme.of(context).bodyMedium.override(
                               fontFamily: 'Mulish',
-                              fontSize: 14.0,
+                              fontSize: 16.0,
                               letterSpacing: 0.0,
                               fontWeight: FontWeight.w600,
                             ),

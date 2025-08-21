@@ -1,7 +1,6 @@
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'user_info_comp_model.dart';
 export 'user_info_comp_model.dart';
 
@@ -43,61 +42,111 @@ class _UserInfoCompWidgetState extends State<UserInfoCompWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 141.0,
-      height: 170.0,
-      decoration: BoxDecoration(
-        color: FlutterFlowTheme.of(context).bgColor2,
+    return Material(
+      color: Colors.transparent,
+      elevation: 3.0,
+      shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10.0),
       ),
-      child: Column(
-        mainAxisSize: MainAxisSize.max,
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          Container(
-            width: 66.0,
-            height: 66.0,
-            decoration: BoxDecoration(
-              color: FlutterFlowTheme.of(context).bgColor4,
-              borderRadius: BorderRadius.circular(55.0),
-            ),
-            child: Align(
-              alignment: AlignmentDirectional(0.0, 0.0),
-              child: FaIcon(
-                FontAwesomeIcons.user,
-                color: FlutterFlowTheme.of(context).headingColor,
-                size: 30.0,
+      child: Container(
+        width: 142.0,
+        height: 100.0,
+        decoration: BoxDecoration(
+          color: FlutterFlowTheme.of(context).userinfoback,
+          borderRadius: BorderRadius.circular(10.0),
+        ),
+        child: Padding(
+          padding: EdgeInsetsDirectional.fromSTEB(4.0, 0.0, 0.0, 0.0),
+          child: Column(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  Text(
+                    'User :  ',
+                    style: FlutterFlowTheme.of(context).bodyMedium.override(
+                          fontFamily: 'Mulish',
+                          color: FlutterFlowTheme.of(context).primaryText,
+                          letterSpacing: 0.0,
+                          fontWeight: FontWeight.w600,
+                        ),
+                  ),
+                  Text(
+                    valueOrDefault<String>(
+                      widget.userId,
+                      'BAN741655',
+                    ),
+                    style: FlutterFlowTheme.of(context).bodyMedium.override(
+                          fontFamily: 'Mulish',
+                          color: FlutterFlowTheme.of(context).headingColor,
+                          fontSize: 12.0,
+                          letterSpacing: 0.0,
+                          fontWeight: FontWeight.w600,
+                        ),
+                  ),
+                ],
               ),
-            ),
-          ),
-          SizedBox(
-            width: 108.0,
-            child: Divider(
-              thickness: 1.0,
-              color: FlutterFlowTheme.of(context).secondaryText,
-            ),
-          ),
-          Text(
-            valueOrDefault<String>(
-              widget.userId,
-              'BAN741655',
-            ),
-            style: FlutterFlowTheme.of(context).bodyMedium.override(
-                  fontFamily: 'Mulish',
-                  color: FlutterFlowTheme.of(context).headingColor,
-                  letterSpacing: 0.0,
-                  fontWeight: FontWeight.bold,
+              Row(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Text(
+                    'Role :  ',
+                    style: FlutterFlowTheme.of(context).bodyMedium.override(
+                          fontFamily: 'Mulish',
+                          color: FlutterFlowTheme.of(context).primaryText,
+                          fontSize: 14.0,
+                          letterSpacing: 0.0,
+                          fontWeight: FontWeight.w600,
+                        ),
+                  ),
+                  Text(
+                    'Support',
+                    style: FlutterFlowTheme.of(context).bodyMedium.override(
+                          fontFamily: 'Mulish',
+                          color: FlutterFlowTheme.of(context).headingColor,
+                          fontSize: 12.0,
+                          letterSpacing: 0.0,
+                          fontWeight: FontWeight.w600,
+                        ),
+                  ),
+                ],
+              ),
+              if (responsiveVisibility(
+                context: context,
+                phone: false,
+                tablet: false,
+                tabletLandscape: false,
+                desktop: false,
+              ))
+                Align(
+                  alignment: AlignmentDirectional(1.0, 0.0),
+                  child: Padding(
+                    padding:
+                        EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 12.0, 0.0),
+                    child: InkWell(
+                      splashColor: Colors.transparent,
+                      focusColor: Colors.transparent,
+                      hoverColor: Colors.transparent,
+                      highlightColor: Colors.transparent,
+                      onTap: () async {
+                        FFAppState().isUserInfo = false;
+                        _model.updatePage(() {});
+                      },
+                      child: Icon(
+                        Icons.close_sharp,
+                        color: FlutterFlowTheme.of(context).primaryText,
+                        size: 24.0,
+                      ),
+                    ),
+                  ),
                 ),
+            ].divide(SizedBox(height: 12.0)),
           ),
-          Text(
-            'Support',
-            style: FlutterFlowTheme.of(context).bodyMedium.override(
-                  fontFamily: 'Mulish',
-                  color: FlutterFlowTheme.of(context).primaryText,
-                  letterSpacing: 0.0,
-                ),
-          ),
-        ],
+        ),
       ),
     );
   }
