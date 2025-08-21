@@ -97,7 +97,7 @@ jobs:
         run: flutter pub get
 
       - name: Build Flutter Web App (HTML renderer)
-        run: flutter build web --web-renderer html
+        run: flutter build web
 
       - name: Create WAR File
         run: |
