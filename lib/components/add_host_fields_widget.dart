@@ -231,6 +231,10 @@ class _AddHostFieldsWidgetState extends State<AddHostFieldsWidget> {
                       );
 
                       if ((_model.addfieldsapires?.succeeded ?? true)) {
+                        FFAppState().apiConfigJson = null;
+                        FFAppState().addjsonconfig = null;
+                        safeSetState(() {});
+                        Navigator.pop(context);
                         await showDialog(
                           context: context,
                           builder: (dialogContext) {
@@ -244,19 +248,13 @@ class _AddHostFieldsWidgetState extends State<AddHostFieldsWidget> {
                                 alertText: 'Alert',
                                 messageBody:
                                     'Data add request sent successfully',
-                                callback: () async {
-                                  Navigator.pop(context);
-                                  Navigator.pop(context);
-                                },
+                                callback: () async {},
                               ),
                             );
                           },
                         );
-
-                        FFAppState().apiConfigJson = null;
-                        FFAppState().addjsonconfig = null;
-                        safeSetState(() {});
                       } else {
+                        Navigator.pop(context);
                         await showDialog(
                           context: context,
                           builder: (dialogContext) {

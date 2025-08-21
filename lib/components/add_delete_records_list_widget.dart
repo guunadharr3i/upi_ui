@@ -104,7 +104,7 @@ class _AddDeleteRecordsListWidgetState
                                     Icons.remove_red_eye_outlined,
                                     color: FlutterFlowTheme.of(context)
                                         .primaryText,
-                                    size: 30.0,
+                                    size: 24.0,
                                   ),
                                 ],
                               ),
@@ -121,8 +121,12 @@ class _AddDeleteRecordsListWidgetState
                                             .bodyMedium
                                             .override(
                                               fontFamily: 'Mulish',
-                                              fontSize: 20.0,
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .primaryText,
+                                              fontSize: 18.0,
                                               letterSpacing: 0.0,
+                                              fontWeight: FontWeight.w600,
                                             ),
                                       ),
                                     ],
@@ -143,7 +147,7 @@ class _AddDeleteRecordsListWidgetState
                                                 fontFamily: 'Mulish',
                                                 color:
                                                     FlutterFlowTheme.of(context)
-                                                        .tertiary,
+                                                        .headingColor,
                                                 fontSize: 24.0,
                                                 letterSpacing: 0.0,
                                                 fontWeight: FontWeight.w500,
@@ -260,7 +264,7 @@ class _AddDeleteRecordsListWidgetState
                                             text: 'Approve',
                                             options: FFButtonOptions(
                                               width: 120.0,
-                                              height: 40.0,
+                                              height: 42.0,
                                               padding: EdgeInsetsDirectional
                                                   .fromSTEB(
                                                       16.0, 0.0, 16.0, 0.0),
@@ -280,9 +284,9 @@ class _AddDeleteRecordsListWidgetState
                                                                 .tableText1,
                                                         letterSpacing: 0.0,
                                                       ),
-                                              elevation: 0.0,
+                                              elevation: 0.1,
                                               borderRadius:
-                                                  BorderRadius.circular(15.0),
+                                                  BorderRadius.circular(24.0),
                                             ),
                                           ),
                                         ),
@@ -374,7 +378,7 @@ class _AddDeleteRecordsListWidgetState
                                             text: 'Reject',
                                             options: FFButtonOptions(
                                               width: 120.0,
-                                              height: 40.0,
+                                              height: 42.0,
                                               padding: EdgeInsetsDirectional
                                                   .fromSTEB(
                                                       16.0, 0.0, 16.0, 0.0),
@@ -394,9 +398,9 @@ class _AddDeleteRecordsListWidgetState
                                                                 .tableText2,
                                                         letterSpacing: 0.0,
                                                       ),
-                                              elevation: 0.0,
+                                              elevation: 0.1,
                                               borderRadius:
-                                                  BorderRadius.circular(15.0),
+                                                  BorderRadius.circular(24.0),
                                             ),
                                           ),
                                         ),
@@ -466,7 +470,8 @@ class _AddDeleteRecordsListWidgetState
                               width: double.infinity,
                               height: 40.0,
                               decoration: BoxDecoration(
-                                color: Color(0xFFEEEEEE),
+                                color: FlutterFlowTheme.of(context)
+                                    .tableCustomHeader,
                                 border: Border.all(
                                   width: 0.5,
                                 ),
@@ -477,25 +482,25 @@ class _AddDeleteRecordsListWidgetState
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
-                                    'Values',
+                                    'Fields',
                                     style: FlutterFlowTheme.of(context)
                                         .bodyMedium
                                         .override(
                                           fontFamily: 'Mulish',
                                           color: Colors.black,
-                                          fontSize: 16.0,
+                                          fontSize: 18.0,
                                           letterSpacing: 0.0,
                                           fontWeight: FontWeight.w600,
                                         ),
                                   ),
                                   Text(
-                                    'NEW',
+                                    'Value',
                                     style: FlutterFlowTheme.of(context)
                                         .bodyMedium
                                         .override(
                                           fontFamily: 'Mulish',
                                           color: Colors.black,
-                                          fontSize: 16.0,
+                                          fontSize: 18.0,
                                           letterSpacing: 0.0,
                                           fontWeight: FontWeight.w600,
                                         ),
@@ -583,8 +588,9 @@ class _AddDeleteRecordsListWidgetState
                                                               .override(
                                                                 fontFamily:
                                                                     'Mulish',
-                                                                color: Colors
-                                                                    .black,
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .primaryText,
                                                                 fontSize: 16.0,
                                                                 letterSpacing:
                                                                     0.0,
@@ -770,6 +776,9 @@ class _AddDeleteRecordsListWidgetState
                                                         child: Container(
                                                           decoration:
                                                               BoxDecoration(
+                                                            color: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .tableCustomHeader,
                                                             borderRadius:
                                                                 BorderRadius
                                                                     .circular(

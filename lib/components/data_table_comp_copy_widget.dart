@@ -44,11 +44,11 @@ class _DataTableCompCopyWidgetState extends State<DataTableCompCopyWidget> {
             title: Text(getJsonField(
               FFAppState().upiHostResponse,
               r'''$.data[:].HOST''',
-            ).toString().toString()),
+            ).toString()),
             content: Text(getJsonField(
               FFAppState().upiHostResponse,
               r'''$.data[:].ID''',
-            ).toString().toString()),
+            ).toString()),
             actions: [
               TextButton(
                 onPressed: () => Navigator.pop(alertDialogContext),

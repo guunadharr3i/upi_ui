@@ -28,6 +28,7 @@ class FFDevEnvironmentValues {
       _validateFaceIDURL = data['validateFaceIDURL'];
       _srURL = data['srURL'];
       _erURL = data['erURL'];
+      _baseUrl = data['baseUrl'];
     } catch (e) {
       print('Error loading environment values: $e');
     }
@@ -56,4 +57,7 @@ class FFDevEnvironmentValues {
 
   String _erURL = '';
   String get erURL => _erURL;
+
+  String _baseUrl = '';
+  String get baseUrl => _baseUrl;
 }

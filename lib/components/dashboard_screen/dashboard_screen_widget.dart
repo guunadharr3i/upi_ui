@@ -71,7 +71,7 @@ class _DashboardScreenWidgetState extends State<DashboardScreenWidget> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
-                      height: MediaQuery.sizeOf(context).height * 0.9,
+                      height: double.infinity,
                       decoration: BoxDecoration(),
                       child: wrapWithModel(
                         model: _model.newSidebarModel,
@@ -84,7 +84,7 @@ class _DashboardScreenWidgetState extends State<DashboardScreenWidget> {
                             });
                             safeSetState(() {
                               _model.upiCompModel.searchCompModel.textController
-                                  ?.text = FFAppState().searchVal;
+                                  ?.clear();
                             });
                           },
                         ),
@@ -92,7 +92,7 @@ class _DashboardScreenWidgetState extends State<DashboardScreenWidget> {
                     ),
                     Expanded(
                       child: Container(
-                        height: MediaQuery.sizeOf(context).height * 0.9,
+                        height: 845.5,
                         decoration: BoxDecoration(),
                         child: Column(
                           mainAxisSize: MainAxisSize.max,
@@ -102,7 +102,9 @@ class _DashboardScreenWidgetState extends State<DashboardScreenWidget> {
                               children: [
                                 Container(
                                   width: double.infinity,
-                                  decoration: BoxDecoration(),
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(20.0),
+                                  ),
                                   child: wrapWithModel(
                                     model: _model.headerModel,
                                     updateCallback: () => safeSetState(() {}),
@@ -121,18 +123,21 @@ class _DashboardScreenWidgetState extends State<DashboardScreenWidget> {
                                       MainAxisAlignment.spaceBetween,
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    if (FFAppState().selectedSidebar == '1')
-                                      Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            0.0, 0.0, 15.0, 0.0),
-                                        child: Container(
-                                          width: double.infinity,
-                                          decoration: BoxDecoration(
-                                            color: FlutterFlowTheme.of(context)
-                                                .secondaryBackground,
-                                            borderRadius:
-                                                BorderRadius.circular(15.0),
-                                          ),
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          0.0, 0.0, 15.0, 0.0),
+                                      child: Container(
+                                        width: double.infinity,
+                                        decoration: BoxDecoration(
+                                          color: FlutterFlowTheme.of(context)
+                                              .secondaryBackground,
+                                          borderRadius:
+                                              BorderRadius.circular(15.0),
+                                        ),
+                                        child: Visibility(
+                                          visible:
+                                              FFAppState().selectedSidebar ==
+                                                  '1',
                                           child: wrapWithModel(
                                             model: _model.pendingRequestModel,
                                             updateCallback: () =>
@@ -144,6 +149,7 @@ class _DashboardScreenWidgetState extends State<DashboardScreenWidget> {
                                           ),
                                         ),
                                       ),
+                                    ),
                                     if (FFAppState().selectedSidebar != '1')
                                       Padding(
                                         padding: EdgeInsetsDirectional.fromSTEB(
@@ -167,7 +173,7 @@ class _DashboardScreenWidgetState extends State<DashboardScreenWidget> {
                                           ),
                                         ),
                                       ),
-                                  ].divide(SizedBox(height: 20.0)),
+                                  ].divide(SizedBox(height: 10.0)),
                                 ),
                               ),
                             ),
@@ -191,7 +197,7 @@ class _DashboardScreenWidgetState extends State<DashboardScreenWidget> {
                   alignment: AlignmentDirectional(1.0, -1.0),
                   child: Padding(
                     padding:
-                        EdgeInsetsDirectional.fromSTEB(0.0, 105.0, 22.0, 0.0),
+                        EdgeInsetsDirectional.fromSTEB(0.0, 94.0, 22.0, 0.0),
                     child: wrapWithModel(
                       model: _model.userInfoCompModel,
                       updateCallback: () => safeSetState(() {}),

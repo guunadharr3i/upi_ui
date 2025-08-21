@@ -39,9 +39,9 @@ class _FooterWidgetState extends State<FooterWidget> {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      height: MediaQuery.sizeOf(context).height * 0.08,
+      height: 47.05,
       decoration: BoxDecoration(
-        color: FlutterFlowTheme.of(context).primary,
+        color: Color(0xFF94979A),
       ),
       child: Padding(
         padding: EdgeInsetsDirectional.fromSTEB(15.0, 15.0, 15.0, 15.0),
@@ -53,33 +53,47 @@ class _FooterWidgetState extends State<FooterWidget> {
               mainAxisSize: MainAxisSize.max,
               children: [
                 Text(
-                  'Terms & Conditions',
-                  style: FlutterFlowTheme.of(context).bodyMedium.override(
-                        fontFamily: 'Mulish',
-                        color: Colors.white,
-                        fontSize: 16.0,
-                        letterSpacing: 0.0,
-                      ),
-                ),
-                Text(
                   'Disclaimer',
                   style: FlutterFlowTheme.of(context).bodyMedium.override(
                         fontFamily: 'Mulish',
-                        color: Colors.white,
-                        fontSize: 16.0,
+                        color: FlutterFlowTheme.of(context).secondaryBackground,
+                        fontSize: 13.0,
                         letterSpacing: 0.0,
                       ),
+                ),
+                SizedBox(
+                  height: 100.0,
+                  child: VerticalDivider(
+                    thickness: 2.0,
+                    color: FlutterFlowTheme.of(context).alternate,
+                  ),
+                ),
+                Text(
+                  'Terms & Conditions',
+                  style: FlutterFlowTheme.of(context).bodyMedium.override(
+                        fontFamily: 'Mulish',
+                        color: FlutterFlowTheme.of(context).secondaryBackground,
+                        fontSize: 13.0,
+                        letterSpacing: 0.0,
+                      ),
+                ),
+                SizedBox(
+                  height: 100.0,
+                  child: VerticalDivider(
+                    thickness: 2.0,
+                    color: FlutterFlowTheme.of(context).alternate,
+                  ),
                 ),
                 Text(
                   'Privacy policy',
                   style: FlutterFlowTheme.of(context).bodyMedium.override(
                         fontFamily: 'Mulish',
-                        color: Colors.white,
-                        fontSize: 16.0,
+                        color: FlutterFlowTheme.of(context).secondaryBackground,
+                        fontSize: 13.0,
                         letterSpacing: 0.0,
                       ),
                 ),
-              ].divide(SizedBox(width: 80.0)),
+              ],
             ),
           ],
         ),

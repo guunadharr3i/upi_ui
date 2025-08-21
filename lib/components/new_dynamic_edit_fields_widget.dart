@@ -300,9 +300,18 @@ class _NewDynamicEditFieldsWidgetState
                                   FFAppState().userid,
                                   'BAN471234',
                                 ),
+                                dateTime: dateTimeFormat(
+                                    "yyyy-MM-ddTHH:mm:ss", getCurrentTimestamp),
                               );
 
                               if ((_model.apiResulttcb?.succeeded ?? true)) {
+                                FFAppState().apiConfigJson = null;
+                                FFAppState().token = getJsonField(
+                                  (_model.apiResulttcb?.jsonBody ?? ''),
+                                  r'''$.token''',
+                                ).toString();
+                                safeSetState(() {});
+                                Navigator.pop(context);
                                 await showDialog(
                                   context: context,
                                   builder: (dialogContext) {
@@ -316,22 +325,13 @@ class _NewDynamicEditFieldsWidgetState
                                         alertText: 'Alert',
                                         messageBody:
                                             'Data update request sent successfully ',
-                                        callback: () async {
-                                          Navigator.pop(context);
-                                          Navigator.pop(context);
-                                        },
+                                        callback: () async {},
                                       ),
                                     );
                                   },
                                 );
-
-                                FFAppState().apiConfigJson = null;
-                                FFAppState().token = getJsonField(
-                                  (_model.apiResulttcb?.jsonBody ?? ''),
-                                  r'''$.token''',
-                                ).toString();
-                                safeSetState(() {});
                               } else {
+                                Navigator.pop(context);
                                 await showDialog(
                                   context: context,
                                   builder: (dialogContext) {
@@ -347,10 +347,7 @@ class _NewDynamicEditFieldsWidgetState
                                           (_model.apiResulttcb?.jsonBody ?? ''),
                                           r'''$.message''',
                                         ).toString(),
-                                        callback: () async {
-                                          Navigator.pop(context);
-                                          Navigator.pop(context);
-                                        },
+                                        callback: () async {},
                                       ),
                                     );
                                   },

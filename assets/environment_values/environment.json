@@ -6,5 +6,6 @@
 "initializeFaceIDURL": "https://pi-control-adapter-route-dimfa-fips-uat.apps.mfaocpcorpuat.icicibankltd.com/pi-control-adapter/",
 "validateFaceIDURL": "https://pi-control-adapter-route-dimfa-fips-uat.apps.mfaocpcorpuat.icicibankltd.com/pi-control-adapter/",
 "srURL": "https://icmsuat.icicibank.com/UPIUAT/auth_redirect.html",
-"erURL": "https://icmsuat.icicibank.com/UPIUAT/"
+"erURL": "https://icmsuat.icicibank.com/UPIUAT/",
+"baseUrl": "https://icmsuat.icicibank.com/"
 }
