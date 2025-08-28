@@ -162,6 +162,7 @@ class _AddHostFieldsWidgetState extends State<AddHostFieldsWidget> {
                                 .elementAtOrNull(gviewIndex),
                             data: '',
                             showTooltip: true,
+                            type: 'ADD',
                             onChange: (data) async {
                               unawaited(
                                 () async {
@@ -265,7 +266,10 @@ class _AddHostFieldsWidgetState extends State<AddHostFieldsWidget> {
                               alignment: AlignmentDirectional(0.0, 0.0)
                                   .resolve(Directionality.of(context)),
                               child: ErrorMessageDialogWidget(
-                                errorMessageBody: 'Something went wrong',
+                                errorMessageBody: getJsonField(
+                                  (_model.addfieldsapires?.jsonBody ?? ''),
+                                  r'''$.message''',
+                                ).toString(),
                                 titleValue: 'Alert',
                               ),
                             );

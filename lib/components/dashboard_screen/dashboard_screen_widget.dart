@@ -3,7 +3,6 @@ import '/components/header/header_widget.dart';
 import '/components/new_sidebar/new_sidebar_widget.dart';
 import '/components/pending_request_widget.dart';
 import '/components/upi_comp_widget.dart';
-import '/components/user_info_comp_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
@@ -57,72 +56,90 @@ class _DashboardScreenWidgetState extends State<DashboardScreenWidget> {
           top: true,
           child: Stack(
             children: [
-              InkWell(
-                splashColor: Colors.transparent,
-                focusColor: Colors.transparent,
-                hoverColor: Colors.transparent,
-                highlightColor: Colors.transparent,
-                onTap: () async {
-                  FFAppState().isUserInfo = false;
-                  safeSetState(() {});
-                },
-                child: Row(
-                  mainAxisSize: MainAxisSize.max,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Container(
-                      height: double.infinity,
-                      decoration: BoxDecoration(),
-                      child: wrapWithModel(
-                        model: _model.newSidebarModel,
-                        updateCallback: () => safeSetState(() {}),
-                        child: NewSidebarWidget(
-                          pendingRequestsNav: () async {
-                            safeSetState(() {
-                              _model.upiCompModel.searchCompModel.textController
-                                  ?.clear();
-                            });
-                            safeSetState(() {
-                              _model.upiCompModel.searchCompModel.textController
-                                  ?.clear();
-                            });
-                          },
-                        ),
+              Row(
+                mainAxisSize: MainAxisSize.max,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    height: double.infinity,
+                    decoration: BoxDecoration(),
+                    child: wrapWithModel(
+                      model: _model.newSidebarModel,
+                      updateCallback: () => safeSetState(() {}),
+                      child: NewSidebarWidget(
+                        pendingRequestsNav: () async {
+                          safeSetState(() {
+                            _model.upiCompModel.searchCompModel.textController
+                                ?.clear();
+                          });
+                          safeSetState(() {
+                            _model.upiCompModel.searchCompModel.textController
+                                ?.clear();
+                          });
+                        },
                       ),
                     ),
-                    Expanded(
-                      child: Container(
-                        height: 845.5,
-                        decoration: BoxDecoration(),
-                        child: Column(
-                          mainAxisSize: MainAxisSize.max,
-                          children: [
-                            Column(
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
-                                Container(
-                                  width: double.infinity,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(20.0),
-                                  ),
-                                  child: wrapWithModel(
-                                    model: _model.headerModel,
-                                    updateCallback: () => safeSetState(() {}),
-                                    child: HeaderWidget(),
-                                  ),
+                  ),
+                  Expanded(
+                    child: Container(
+                      height: 845.5,
+                      decoration: BoxDecoration(),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Column(
+                            mainAxisSize: MainAxisSize.max,
+                            children: [
+                              Container(
+                                width: double.infinity,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(20.0),
                                 ),
-                              ],
-                            ),
-                            Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
-                                  0.0, 20.0, 0.0, 0.0),
-                              child: SingleChildScrollView(
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.max,
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
+                                child: wrapWithModel(
+                                  model: _model.headerModel,
+                                  updateCallback: () => safeSetState(() {}),
+                                  child: HeaderWidget(),
+                                ),
+                              ),
+                            ],
+                          ),
+                          Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                0.0, 20.0, 0.0, 0.0),
+                            child: SingleChildScrollView(
+                              child: Column(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        0.0, 0.0, 15.0, 0.0),
+                                    child: Container(
+                                      width: double.infinity,
+                                      decoration: BoxDecoration(
+                                        color: FlutterFlowTheme.of(context)
+                                            .secondaryBackground,
+                                        borderRadius:
+                                            BorderRadius.circular(15.0),
+                                      ),
+                                      child: Visibility(
+                                        visible:
+                                            FFAppState().selectedSidebar == '1',
+                                        child: wrapWithModel(
+                                          model: _model.pendingRequestModel,
+                                          updateCallback: () =>
+                                              safeSetState(() {}),
+                                          child: PendingRequestWidget(
+                                            parameter1:
+                                                FFAppState().selectedSidebar,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  if (FFAppState().selectedSidebar != '1')
                                     Padding(
                                       padding: EdgeInsetsDirectional.fromSTEB(
                                           0.0, 0.0, 15.0, 0.0),
@@ -134,55 +151,26 @@ class _DashboardScreenWidgetState extends State<DashboardScreenWidget> {
                                           borderRadius:
                                               BorderRadius.circular(15.0),
                                         ),
-                                        child: Visibility(
-                                          visible:
-                                              FFAppState().selectedSidebar ==
-                                                  '1',
-                                          child: wrapWithModel(
-                                            model: _model.pendingRequestModel,
-                                            updateCallback: () =>
-                                                safeSetState(() {}),
-                                            child: PendingRequestWidget(
-                                              parameter1:
-                                                  FFAppState().selectedSidebar,
-                                            ),
+                                        child: wrapWithModel(
+                                          model: _model.upiCompModel,
+                                          updateCallback: () =>
+                                              safeSetState(() {}),
+                                          child: UpiCompWidget(
+                                            sidebarSelected:
+                                                FFAppState().selectedSidebar,
                                           ),
                                         ),
                                       ),
                                     ),
-                                    if (FFAppState().selectedSidebar != '1')
-                                      Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            0.0, 0.0, 15.0, 0.0),
-                                        child: Container(
-                                          width: double.infinity,
-                                          decoration: BoxDecoration(
-                                            color: FlutterFlowTheme.of(context)
-                                                .secondaryBackground,
-                                            borderRadius:
-                                                BorderRadius.circular(15.0),
-                                          ),
-                                          child: wrapWithModel(
-                                            model: _model.upiCompModel,
-                                            updateCallback: () =>
-                                                safeSetState(() {}),
-                                            child: UpiCompWidget(
-                                              sidebarSelected:
-                                                  FFAppState().selectedSidebar,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                  ].divide(SizedBox(height: 10.0)),
-                                ),
+                                ].divide(SizedBox(height: 10.0)),
                               ),
                             ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
               Align(
                 alignment: AlignmentDirectional(0.0, 1.0),
@@ -192,21 +180,6 @@ class _DashboardScreenWidgetState extends State<DashboardScreenWidget> {
                   child: FooterWidget(),
                 ),
               ),
-              if (FFAppState().isUserInfo == true)
-                Align(
-                  alignment: AlignmentDirectional(1.0, -1.0),
-                  child: Padding(
-                    padding:
-                        EdgeInsetsDirectional.fromSTEB(0.0, 94.0, 22.0, 0.0),
-                    child: wrapWithModel(
-                      model: _model.userInfoCompModel,
-                      updateCallback: () => safeSetState(() {}),
-                      child: UserInfoCompWidget(
-                        userId: FFAppState().userid,
-                      ),
-                    ),
-                  ),
-                ),
             ],
           ),
         ),

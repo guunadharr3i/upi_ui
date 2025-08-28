@@ -35,17 +35,17 @@ class PendingRequestModel extends FlutterFlowModel<PendingRequestWidget> {
   }
 
   List<String> dropdownValue = [
-    'UPI Host',
-    'SYS',
-    'UPI Complaint',
-    'UPI Country',
-    'UPI SMS',
-    'UPI Source Sub',
-    'UPI FRM',
-    'UPI Transaction',
-    'UPI Bank',
-    'UPI Source',
-    'UPI Interoperable'
+    'UPI HOST Server Config',
+    'SYS Config',
+    'UPI Complaint Codes',
+    'UPI Country Codes',
+    'UPI Source Sub Channels',
+    'UPI SMS Templates',
+    'UPI FRM Whitelist Account',
+    'UPI Interoperable Sub Channels',
+    'UPI Bank Accounts',
+    'UPI Transaction Limits',
+    'UPI Source Channels'
   ];
   void addToDropdownValue(String item) => dropdownValue.add(item);
   void removeFromDropdownValue(String item) => dropdownValue.remove(item);

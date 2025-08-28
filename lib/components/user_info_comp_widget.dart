@@ -1,16 +1,12 @@
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'user_info_comp_model.dart';
 export 'user_info_comp_model.dart';
 
 class UserInfoCompWidget extends StatefulWidget {
-  const UserInfoCompWidget({
-    super.key,
-    String? userId,
-  }) : this.userId = userId ?? '';
-
-  final String userId;
+  const UserInfoCompWidget({super.key});
 
   @override
   State<UserInfoCompWidget> createState() => _UserInfoCompWidgetState();
@@ -42,6 +38,8 @@ class _UserInfoCompWidgetState extends State<UserInfoCompWidget> {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return Material(
       color: Colors.transparent,
       elevation: 3.0,
@@ -75,10 +73,7 @@ class _UserInfoCompWidgetState extends State<UserInfoCompWidget> {
                         ),
                   ),
                   Text(
-                    valueOrDefault<String>(
-                      widget.userId,
-                      'BAN741655',
-                    ),
+                    FFAppState().userid,
                     style: FlutterFlowTheme.of(context).bodyMedium.override(
                           fontFamily: 'Mulish',
                           color: FlutterFlowTheme.of(context).headingColor,
@@ -104,7 +99,7 @@ class _UserInfoCompWidgetState extends State<UserInfoCompWidget> {
                         ),
                   ),
                   Text(
-                    'Support',
+                    FFAppState().userRole == '2' ? 'BTO' : 'Support',
                     style: FlutterFlowTheme.of(context).bodyMedium.override(
                           fontFamily: 'Mulish',
                           color: FlutterFlowTheme.of(context).headingColor,

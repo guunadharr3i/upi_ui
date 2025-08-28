@@ -4,6 +4,7 @@ import '/flutter_flow/flutter_flow_util.dart';
 import 'package:aligned_tooltip/aligned_tooltip.dart';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'editable_field_model.dart';
 export 'editable_field_model.dart';
 
@@ -15,6 +16,7 @@ class EditableFieldWidget extends StatefulWidget {
     this.onChange,
     this.passDataItem,
     bool? showTooltip,
+    this.type,
   }) : this.showTooltip = showTooltip ?? false;
 
   final String? heading;
@@ -22,6 +24,7 @@ class EditableFieldWidget extends StatefulWidget {
   final Future Function(String data)? onChange;
   final Future Function(List<DataTableNewModelStruct> fieldName)? passDataItem;
   final bool showTooltip;
+  final String? type;
 
   @override
   State<EditableFieldWidget> createState() => _EditableFieldWidgetState();
@@ -105,6 +108,70 @@ class _EditableFieldWidgetState extends State<EditableFieldWidget> {
         );
       },
     );
+    _model.textController3 ??= TextEditingController(text: widget.data);
+    _model.textFieldFocusNode3 ??= FocusNode();
+    _model.textFieldFocusNode3!.addListener(
+      () async {
+        _model.edited = _model.textController3.text;
+        _model.textFieldsItems = (getJsonField(
+          DataTableNewModelStruct(
+            headers: (String var1) {
+              return [var1];
+            }(_model.textController3.text),
+          ).toMap(),
+          r'''$''',
+          true,
+        )!
+                .toList()
+                .map<DataTableNewModelStruct?>(
+                    DataTableNewModelStruct.maybeFromMap)
+                .toList() as Iterable<DataTableNewModelStruct?>)
+            .withoutNulls
+            .toList()
+            .cast<DataTableNewModelStruct>();
+        safeSetState(() {});
+        await widget.passDataItem?.call(
+          _model.textFieldsItems,
+        );
+        FFAppState().editedFields = _model.textController3.text;
+        safeSetState(() {});
+        await widget.onChange?.call(
+          _model.textController3.text,
+        );
+      },
+    );
+    _model.textController4 ??= TextEditingController(text: widget.data);
+    _model.textFieldFocusNode4 ??= FocusNode();
+    _model.textFieldFocusNode4!.addListener(
+      () async {
+        _model.edited = _model.textController4.text;
+        _model.textFieldsItems = (getJsonField(
+          DataTableNewModelStruct(
+            headers: (String var1) {
+              return [var1];
+            }(_model.textController4.text),
+          ).toMap(),
+          r'''$''',
+          true,
+        )!
+                .toList()
+                .map<DataTableNewModelStruct?>(
+                    DataTableNewModelStruct.maybeFromMap)
+                .toList() as Iterable<DataTableNewModelStruct?>)
+            .withoutNulls
+            .toList()
+            .cast<DataTableNewModelStruct>();
+        safeSetState(() {});
+        await widget.passDataItem?.call(
+          _model.textFieldsItems,
+        );
+        FFAppState().editedFields = _model.textController4.text;
+        safeSetState(() {});
+        await widget.onChange?.call(
+          _model.textController4.text,
+        );
+      },
+    );
     WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
@@ -117,331 +184,810 @@ class _EditableFieldWidgetState extends State<EditableFieldWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.max,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Container(
-          width: 300.0,
-          decoration: BoxDecoration(),
-          child: Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(18.0, 0.0, 0.0, 0.0),
-            child: Row(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  valueOrDefault<String>(
-                    widget.heading,
-                    'heading',
-                  ),
-                  style: FlutterFlowTheme.of(context).bodyMedium.override(
-                        fontFamily: 'Mulish',
-                        color: FlutterFlowTheme.of(context).primaryText,
-                        fontSize: 16.0,
-                        letterSpacing: 0.0,
-                      ),
-                ),
-                AlignedTooltip(
-                  content: Padding(
-                    padding: EdgeInsets.all(4.0),
-                    child: Text(
-                      widget.data!,
-                      style: FlutterFlowTheme.of(context).bodyLarge.override(
-                            fontFamily: 'Mulish',
-                            letterSpacing: 0.0,
-                          ),
-                    ),
-                  ),
-                  offset: 4.0,
-                  preferredDirection: AxisDirection.down,
-                  borderRadius: BorderRadius.circular(8.0),
-                  backgroundColor:
-                      FlutterFlowTheme.of(context).secondaryBackground,
-                  elevation: 4.0,
-                  tailBaseWidth: 24.0,
-                  tailLength: 12.0,
-                  waitDuration: Duration(milliseconds: 0),
-                  showDuration: Duration(milliseconds: 0),
-                  triggerMode: TooltipTriggerMode.tap,
-                  child: Visibility(
-                    visible: widget.showTooltip,
-                    child: Padding(
-                      padding:
-                          EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 18.0, 0.0),
-                      child: Icon(
-                        Icons.info_outline_rounded,
-                        color: FlutterFlowTheme.of(context).tableText2,
-                        size: 24.0,
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-        Container(
-          width: 300.0,
-          height: 50.0,
-          decoration: BoxDecoration(),
-          child: Column(
+    context.watch<FFAppState>();
+
+    return Builder(
+      builder: (context) {
+        if (widget.type == 'UPDATE') {
+          return Column(
             mainAxisSize: MainAxisSize.max,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              if (!((widget.heading == 'READ_TIMEOUT') ||
-                  (widget.heading == 'CONNECT_TIMEOUT') ||
-                  (widget.heading == 'MAX_CONNECTIONS') ||
-                  (widget.heading == 'MAX_PER_ROUTE') ||
-                  (widget.heading == 'PROXY_PORT')))
-                Container(
-                  width: 300.0,
-                  child: TextFormField(
-                    controller: _model.textController1,
-                    focusNode: _model.textFieldFocusNode1,
-                    onChanged: (_) => EasyDebounce.debounce(
-                      '_model.textController1',
-                      Duration(milliseconds: 2000),
-                      () async {
-                        _model.edited = _model.textController1.text;
-                        _model.textFieldsItems = (getJsonField(
-                          DataTableNewModelStruct(
-                            headers: (String var1) {
-                              return [var1];
-                            }(_model.textController1.text),
-                          ).toMap(),
-                          r'''$''',
-                          true,
-                        )!
-                                .toList()
-                                .map<DataTableNewModelStruct?>(
-                                    DataTableNewModelStruct.maybeFromMap)
-                                .toList() as Iterable<DataTableNewModelStruct?>)
-                            .withoutNulls
-                            .toList()
-                            .cast<DataTableNewModelStruct>();
-                        safeSetState(() {});
-                        await widget.passDataItem?.call(
-                          _model.textFieldsItems,
-                        );
-                        FFAppState().editedFields = _model.textController1.text;
-                        safeSetState(() {});
-                        await widget.onChange?.call(
-                          _model.textController1.text,
-                        );
-                      },
-                    ),
-                    onFieldSubmitted: (_) async {
-                      _model.edited = _model.textController1.text;
-                      _model.textFieldsItems = (getJsonField(
-                        DataTableNewModelStruct(
-                          headers: (String var1) {
-                            return [var1];
-                          }(_model.textController1.text),
-                        ).toMap(),
-                        r'''$''',
-                        true,
-                      )!
-                              .toList()
-                              .map<DataTableNewModelStruct?>(
-                                  DataTableNewModelStruct.maybeFromMap)
-                              .toList() as Iterable<DataTableNewModelStruct?>)
-                          .withoutNulls
-                          .toList()
-                          .cast<DataTableNewModelStruct>();
-                      safeSetState(() {});
-                      await widget.passDataItem?.call(
-                        _model.textFieldsItems,
-                      );
-                      FFAppState().editedFields = _model.textController1.text;
-                      safeSetState(() {});
-                      await widget.onChange?.call(
-                        _model.textController1.text,
-                      );
-                    },
-                    autofocus: false,
-                    obscureText: false,
-                    decoration: InputDecoration(
-                      isDense: true,
-                      alignLabelWithHint: false,
-                      hintStyle:
-                          FlutterFlowTheme.of(context).bodyMedium.override(
-                                fontFamily: 'Mulish',
-                                color: Colors.black,
-                                letterSpacing: 0.0,
-                              ),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: Color(0xFFC3C3C3),
-                          width: 1.0,
+              Container(
+                width: 300.0,
+                decoration: BoxDecoration(),
+                child: Padding(
+                  padding: EdgeInsetsDirectional.fromSTEB(18.0, 0.0, 0.0, 0.0),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        valueOrDefault<String>(
+                          widget.heading,
+                          'heading',
                         ),
-                        borderRadius: BorderRadius.circular(20.0),
+                        style: FlutterFlowTheme.of(context).bodyMedium.override(
+                              fontFamily: 'Mulish',
+                              color: FlutterFlowTheme.of(context).primaryText,
+                              fontSize: 16.0,
+                              letterSpacing: 0.0,
+                            ),
                       ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: Color(0xFFE77817),
-                          width: 1.0,
+                      AlignedTooltip(
+                        content: Padding(
+                          padding: EdgeInsets.all(4.0),
+                          child: Text(
+                            widget.data!,
+                            style:
+                                FlutterFlowTheme.of(context).bodyLarge.override(
+                                      fontFamily: 'Mulish',
+                                      letterSpacing: 0.0,
+                                    ),
+                          ),
                         ),
-                        borderRadius: BorderRadius.circular(20.0),
+                        offset: 4.0,
+                        preferredDirection: AxisDirection.down,
+                        borderRadius: BorderRadius.circular(8.0),
+                        backgroundColor:
+                            FlutterFlowTheme.of(context).secondaryBackground,
+                        elevation: 4.0,
+                        tailBaseWidth: 24.0,
+                        tailLength: 12.0,
+                        waitDuration: Duration(milliseconds: 0),
+                        showDuration: Duration(milliseconds: 0),
+                        triggerMode: TooltipTriggerMode.tap,
+                        child: Visibility(
+                          visible: widget.showTooltip,
+                          child: Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                0.0, 0.0, 18.0, 0.0),
+                            child: Icon(
+                              Icons.info_outline_rounded,
+                              color: FlutterFlowTheme.of(context).tableText2,
+                              size: 24.0,
+                            ),
+                          ),
+                        ),
                       ),
-                      errorBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: FlutterFlowTheme.of(context).error,
-                          width: 1.0,
-                        ),
-                        borderRadius: BorderRadius.circular(20.0),
-                      ),
-                      focusedErrorBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: FlutterFlowTheme.of(context).error,
-                          width: 1.0,
-                        ),
-                        borderRadius: BorderRadius.circular(20.0),
-                      ),
-                      filled: true,
-                      fillColor:
-                          FlutterFlowTheme.of(context).secondaryBackground,
-                      contentPadding: EdgeInsetsDirectional.fromSTEB(
-                          10.0, 20.0, 10.0, 20.0),
-                    ),
-                    style: FlutterFlowTheme.of(context).bodyMedium.override(
-                          fontFamily: 'Mulish',
-                          color: Colors.black,
-                          letterSpacing: 0.0,
-                        ),
-                    cursorColor: FlutterFlowTheme.of(context).primaryText,
-                    validator:
-                        _model.textController1Validator.asValidator(context),
+                    ],
                   ),
                 ),
-              if ((widget.heading == 'READ_TIMEOUT') ||
-                  (widget.heading == 'CONNECT_TIMEOUT') ||
-                  (widget.heading == 'MAX_CONNECTIONS') ||
-                  (widget.heading == 'MAX_PER_ROUTE') ||
-                  (widget.heading == 'PROXY_PORT'))
-                Container(
-                  width: 300.0,
-                  child: TextFormField(
-                    controller: _model.textController2,
-                    focusNode: _model.textFieldFocusNode2,
-                    onChanged: (_) => EasyDebounce.debounce(
-                      '_model.textController2',
-                      Duration(milliseconds: 2000),
-                      () async {
-                        _model.edited = _model.textController2.text;
-                        _model.textFieldsItems = (getJsonField(
-                          DataTableNewModelStruct(
-                            headers: (String var1) {
-                              return [var1];
-                            }(_model.textController2.text),
-                          ).toMap(),
-                          r'''$''',
-                          true,
-                        )!
+              ),
+              Container(
+                width: 300.0,
+                height: 50.0,
+                decoration: BoxDecoration(),
+                child: Column(
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    if (!((widget.heading == 'READ_TIMEOUT') ||
+                        (widget.heading == 'CONNECT_TIMEOUT') ||
+                        (widget.heading == 'MAX_CONNECTIONS') ||
+                        (widget.heading == 'MAX_PER_ROUTE') ||
+                        (widget.heading == 'PROXY_PORT') ||
+                        (widget.heading == 'VALUE') ||
+                        (widget.heading == 'TAT_DAYS') ||
+                        (widget.heading == 'DAILY_LIMIT_AMOUNT') ||
+                        (widget.heading == 'MONTHLY_LIMIT_AMOUNT') ||
+                        (widget.heading == 'OTP_VALIDITY_MIN') ||
+                        (widget.heading == 'OTP_LIMIT') ||
+                        (widget.heading == 'SOURCE_CHANNEL_ID') ||
+                        (widget.heading == 'ACCNO_LINK_TO_VPA_CNT') ||
+                        (widget.heading == 'CHANNEL_ID') ||
+                        (widget.heading == 'INSTITUTION_ID') ||
+                        (widget.heading == 'PER_TXN_LIMIT') ||
+                        (widget.heading == 'DAILY_TXN_LIMIT') ||
+                        (widget.heading == 'DAILY_TXN_COUNT') ||
+                        (widget.heading == 'MONTHLY_TXN_LIMIT') ||
+                        (widget.heading == 'MONTHLY_TXN_COUNT') ||
+                        (widget.heading == 'MANDATE_DAILY_LIMIT') ||
+                        (widget.heading == 'MANDATE_LIFECYCLE_LIMIT') ||
+                        (widget.heading == 'DAILY_ENHANCED_TXN_LIMIT') ||
+                        (widget.heading == 'DAILY_ENHANCED_TXN_COUNT') ||
+                        (widget.heading == 'RUPAY_CC_DAILY_TXN_LIMIT') ||
+                        (widget.heading == 'RUPAY_CC_PER_TXN_LIMIT') ||
+                        (widget.heading == 'SMS_TOKEN_VALIDITY_SECONDS') ||
+                        (widget.heading == 'INTERNATIONAL_VALIDITY_SECONDS') ||
+                        ((widget.heading == 'ID') &&
+                            (FFAppState().selectedSidebar != '3'))))
+                      Container(
+                        width: 300.0,
+                        child: TextFormField(
+                          controller: _model.textController1,
+                          focusNode: _model.textFieldFocusNode1,
+                          onChanged: (_) => EasyDebounce.debounce(
+                            '_model.textController1',
+                            Duration(milliseconds: 2000),
+                            () async {
+                              _model.edited = _model.textController1.text;
+                              _model.textFieldsItems = (getJsonField(
+                                DataTableNewModelStruct(
+                                  headers: (String var1) {
+                                    return [var1];
+                                  }(_model.textController1.text),
+                                ).toMap(),
+                                r'''$''',
+                                true,
+                              )!
+                                          .toList()
+                                          .map<DataTableNewModelStruct?>(
+                                              DataTableNewModelStruct.maybeFromMap)
+                                          .toList()
+                                      as Iterable<DataTableNewModelStruct?>)
+                                  .withoutNulls
+                                  .toList()
+                                  .cast<DataTableNewModelStruct>();
+                              safeSetState(() {});
+                              await widget.passDataItem?.call(
+                                _model.textFieldsItems,
+                              );
+                              FFAppState().editedFields =
+                                  _model.textController1.text;
+                              safeSetState(() {});
+                              await widget.onChange?.call(
+                                _model.textController1.text,
+                              );
+                            },
+                          ),
+                          onFieldSubmitted: (_) async {
+                            _model.edited = _model.textController1.text;
+                            _model.textFieldsItems = (getJsonField(
+                              DataTableNewModelStruct(
+                                headers: (String var1) {
+                                  return [var1];
+                                }(_model.textController1.text),
+                              ).toMap(),
+                              r'''$''',
+                              true,
+                            )!
+                                        .toList()
+                                        .map<DataTableNewModelStruct?>(
+                                            DataTableNewModelStruct.maybeFromMap)
+                                        .toList()
+                                    as Iterable<DataTableNewModelStruct?>)
+                                .withoutNulls
                                 .toList()
-                                .map<DataTableNewModelStruct?>(
-                                    DataTableNewModelStruct.maybeFromMap)
-                                .toList() as Iterable<DataTableNewModelStruct?>)
-                            .withoutNulls
-                            .toList()
-                            .cast<DataTableNewModelStruct>();
-                        safeSetState(() {});
-                        await widget.passDataItem?.call(
-                          _model.textFieldsItems,
-                        );
-                        FFAppState().editedFields = _model.textController2.text;
-                        safeSetState(() {});
-                        await widget.onChange?.call(
-                          _model.textController2.text,
-                        );
-                      },
-                    ),
-                    onFieldSubmitted: (_) async {
-                      _model.edited = _model.textController2.text;
-                      _model.textFieldsItems = (getJsonField(
-                        DataTableNewModelStruct(
-                          headers: (String var1) {
-                            return [var1];
-                          }(_model.textController2.text),
-                        ).toMap(),
-                        r'''$''',
-                        true,
-                      )!
-                              .toList()
-                              .map<DataTableNewModelStruct?>(
-                                  DataTableNewModelStruct.maybeFromMap)
-                              .toList() as Iterable<DataTableNewModelStruct?>)
-                          .withoutNulls
-                          .toList()
-                          .cast<DataTableNewModelStruct>();
-                      safeSetState(() {});
-                      await widget.passDataItem?.call(
-                        _model.textFieldsItems,
-                      );
-                      FFAppState().editedFields = _model.textController2.text;
-                      safeSetState(() {});
-                      await widget.onChange?.call(
-                        _model.textController2.text,
-                      );
-                    },
-                    autofocus: false,
-                    obscureText: false,
-                    decoration: InputDecoration(
-                      isDense: true,
-                      alignLabelWithHint: false,
-                      hintStyle:
-                          FlutterFlowTheme.of(context).bodyMedium.override(
-                                fontFamily: 'Mulish',
-                                color: Colors.black,
-                                letterSpacing: 0.0,
+                                .cast<DataTableNewModelStruct>();
+                            safeSetState(() {});
+                            await widget.passDataItem?.call(
+                              _model.textFieldsItems,
+                            );
+                            FFAppState().editedFields =
+                                _model.textController1.text;
+                            safeSetState(() {});
+                            await widget.onChange?.call(
+                              _model.textController1.text,
+                            );
+                          },
+                          autofocus: false,
+                          readOnly: (widget.heading == 'ID') ||
+                              (widget.heading == 'HOST') ||
+                              (widget.heading == 'REASON_CODE') ||
+                              (widget.heading == 'COUNTRY_CODE') ||
+                              (widget.heading == 'SOURCE_CHANNEL_ID') ||
+                              (widget.heading == 'NAME') ||
+                              (widget.heading == 'ACCOUNT_NUMBER') ||
+                              (widget.heading == 'CHANNEL_CODE'),
+                          obscureText: false,
+                          decoration: InputDecoration(
+                            isDense: true,
+                            alignLabelWithHint: false,
+                            hintStyle: FlutterFlowTheme.of(context)
+                                .bodyMedium
+                                .override(
+                                  fontFamily: 'Mulish',
+                                  color: Colors.black,
+                                  letterSpacing: 0.0,
+                                ),
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Color(0xFFC3C3C3),
+                                width: 1.0,
                               ),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: Color(0xFFC3C3C3),
-                          width: 1.0,
+                              borderRadius: BorderRadius.circular(20.0),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Color(0xFFE77817),
+                                width: 1.0,
+                              ),
+                              borderRadius: BorderRadius.circular(20.0),
+                            ),
+                            errorBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: FlutterFlowTheme.of(context).error,
+                                width: 1.0,
+                              ),
+                              borderRadius: BorderRadius.circular(20.0),
+                            ),
+                            focusedErrorBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: FlutterFlowTheme.of(context).error,
+                                width: 1.0,
+                              ),
+                              borderRadius: BorderRadius.circular(20.0),
+                            ),
+                            filled: true,
+                            fillColor: FlutterFlowTheme.of(context)
+                                .secondaryBackground,
+                            contentPadding: EdgeInsetsDirectional.fromSTEB(
+                                10.0, 20.0, 10.0, 20.0),
+                          ),
+                          style:
+                              FlutterFlowTheme.of(context).bodyMedium.override(
+                                    fontFamily: 'Mulish',
+                                    color: Colors.black,
+                                    letterSpacing: 0.0,
+                                  ),
+                          cursorColor: FlutterFlowTheme.of(context).primaryText,
+                          validator: _model.textController1Validator
+                              .asValidator(context),
                         ),
-                        borderRadius: BorderRadius.circular(20.0),
                       ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: Color(0xFFE77817),
-                          width: 1.0,
+                    if ((widget.heading == 'READ_TIMEOUT') ||
+                        (widget.heading == 'CONNECT_TIMEOUT') ||
+                        (widget.heading == 'MAX_CONNECTIONS') ||
+                        (widget.heading == 'MAX_PER_ROUTE') ||
+                        (widget.heading == 'PROXY_PORT') ||
+                        (widget.heading == 'VALUE') ||
+                        (widget.heading == 'TAT_DAYS') ||
+                        (widget.heading == 'DAILY_LIMIT_AMOUNT') ||
+                        (widget.heading == 'MONTHLY_LIMIT_AMOUNT') ||
+                        (widget.heading == 'OTP_VALIDITY_MIN') ||
+                        (widget.heading == 'OTP_LIMIT') ||
+                        (widget.heading == 'SOURCE_CHANNEL_ID') ||
+                        (widget.heading == 'ACCNO_LINK_TO_VPA_CNT') ||
+                        (widget.heading == 'CHANNEL_ID') ||
+                        (widget.heading == 'INSTITUTION_ID') ||
+                        (widget.heading == 'PER_TXN_LIMIT') ||
+                        (widget.heading == 'DAILY_TXN_LIMIT') ||
+                        (widget.heading == 'DAILY_TXN_COUNT') ||
+                        (widget.heading == 'MONTHLY_TXN_LIMIT') ||
+                        (widget.heading == 'MONTHLY_TXN_COUNT') ||
+                        (widget.heading == 'MANDATE_DAILY_LIMIT') ||
+                        (widget.heading == 'MANDATE_LIFECYCLE_LIMIT') ||
+                        (widget.heading == 'DAILY_ENHANCED_TXN_LIMIT') ||
+                        (widget.heading == 'DAILY_ENHANCED_TXN_COUNT') ||
+                        (widget.heading == 'RUPAY_CC_DAILY_TXN_LIMIT') ||
+                        (widget.heading == 'RUPAY_CC_PER_TXN_LIMIT') ||
+                        (widget.heading == 'SMS_TOKEN_VALIDITY_SECONDS') ||
+                        (widget.heading == 'INTERNATIONAL_VALIDITY_SECONDS') ||
+                        ((widget.heading == 'ID') &&
+                            (FFAppState().selectedSidebar != '3')))
+                      Container(
+                        width: 300.0,
+                        child: TextFormField(
+                          controller: _model.textController2,
+                          focusNode: _model.textFieldFocusNode2,
+                          onChanged: (_) => EasyDebounce.debounce(
+                            '_model.textController2',
+                            Duration(milliseconds: 2000),
+                            () async {
+                              _model.edited = _model.textController2.text;
+                              _model.textFieldsItems = (getJsonField(
+                                DataTableNewModelStruct(
+                                  headers: (String var1) {
+                                    return [var1];
+                                  }(_model.textController2.text),
+                                ).toMap(),
+                                r'''$''',
+                                true,
+                              )!
+                                          .toList()
+                                          .map<DataTableNewModelStruct?>(
+                                              DataTableNewModelStruct.maybeFromMap)
+                                          .toList()
+                                      as Iterable<DataTableNewModelStruct?>)
+                                  .withoutNulls
+                                  .toList()
+                                  .cast<DataTableNewModelStruct>();
+                              safeSetState(() {});
+                              await widget.passDataItem?.call(
+                                _model.textFieldsItems,
+                              );
+                              FFAppState().editedFields =
+                                  _model.textController2.text;
+                              safeSetState(() {});
+                              await widget.onChange?.call(
+                                _model.textController2.text,
+                              );
+                            },
+                          ),
+                          onFieldSubmitted: (_) async {
+                            _model.edited = _model.textController2.text;
+                            _model.textFieldsItems = (getJsonField(
+                              DataTableNewModelStruct(
+                                headers: (String var1) {
+                                  return [var1];
+                                }(_model.textController2.text),
+                              ).toMap(),
+                              r'''$''',
+                              true,
+                            )!
+                                        .toList()
+                                        .map<DataTableNewModelStruct?>(
+                                            DataTableNewModelStruct.maybeFromMap)
+                                        .toList()
+                                    as Iterable<DataTableNewModelStruct?>)
+                                .withoutNulls
+                                .toList()
+                                .cast<DataTableNewModelStruct>();
+                            safeSetState(() {});
+                            await widget.passDataItem?.call(
+                              _model.textFieldsItems,
+                            );
+                            FFAppState().editedFields =
+                                _model.textController2.text;
+                            safeSetState(() {});
+                            await widget.onChange?.call(
+                              _model.textController2.text,
+                            );
+                          },
+                          autofocus: false,
+                          readOnly: (widget.heading == 'ID') ||
+                              (widget.heading == 'HOST') ||
+                              (widget.heading == 'REASON_CODE') ||
+                              (widget.heading == 'COUNTRY_CODE') ||
+                              (widget.heading == 'SOURCE_CHANNEL_ID') ||
+                              (widget.heading == 'NAME') ||
+                              (widget.heading == 'ACCOUNT_NUMBER') ||
+                              (widget.heading == 'CHANNEL_CODE'),
+                          obscureText: false,
+                          decoration: InputDecoration(
+                            isDense: true,
+                            alignLabelWithHint: false,
+                            hintStyle: FlutterFlowTheme.of(context)
+                                .bodyMedium
+                                .override(
+                                  fontFamily: 'Mulish',
+                                  color: Colors.black,
+                                  letterSpacing: 0.0,
+                                ),
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Color(0xFFC3C3C3),
+                                width: 1.0,
+                              ),
+                              borderRadius: BorderRadius.circular(20.0),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Color(0xFFE77817),
+                                width: 1.0,
+                              ),
+                              borderRadius: BorderRadius.circular(20.0),
+                            ),
+                            errorBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: FlutterFlowTheme.of(context).error,
+                                width: 1.0,
+                              ),
+                              borderRadius: BorderRadius.circular(20.0),
+                            ),
+                            focusedErrorBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: FlutterFlowTheme.of(context).error,
+                                width: 1.0,
+                              ),
+                              borderRadius: BorderRadius.circular(20.0),
+                            ),
+                            filled: true,
+                            fillColor: FlutterFlowTheme.of(context)
+                                .secondaryBackground,
+                            contentPadding: EdgeInsetsDirectional.fromSTEB(
+                                10.0, 20.0, 10.0, 20.0),
+                          ),
+                          style:
+                              FlutterFlowTheme.of(context).bodyMedium.override(
+                                    fontFamily: 'Mulish',
+                                    color: Colors.black,
+                                    letterSpacing: 0.0,
+                                  ),
+                          keyboardType: TextInputType.number,
+                          cursorColor: FlutterFlowTheme.of(context).primaryText,
+                          validator: _model.textController2Validator
+                              .asValidator(context),
                         ),
-                        borderRadius: BorderRadius.circular(20.0),
                       ),
-                      errorBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: FlutterFlowTheme.of(context).error,
-                          width: 1.0,
+                  ],
+                ),
+              ),
+            ].divide(SizedBox(height: 12.0)),
+          );
+        } else {
+          return Column(
+            mainAxisSize: MainAxisSize.max,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                width: 300.0,
+                decoration: BoxDecoration(),
+                child: Padding(
+                  padding: EdgeInsetsDirectional.fromSTEB(18.0, 0.0, 0.0, 0.0),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        valueOrDefault<String>(
+                          widget.heading,
+                          'heading',
                         ),
-                        borderRadius: BorderRadius.circular(20.0),
+                        style: FlutterFlowTheme.of(context).bodyMedium.override(
+                              fontFamily: 'Mulish',
+                              color: FlutterFlowTheme.of(context).primaryText,
+                              fontSize: 16.0,
+                              letterSpacing: 0.0,
+                            ),
                       ),
-                      focusedErrorBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: FlutterFlowTheme.of(context).error,
-                          width: 1.0,
+                      AlignedTooltip(
+                        content: Padding(
+                          padding: EdgeInsets.all(4.0),
+                          child: Text(
+                            widget.data!,
+                            style:
+                                FlutterFlowTheme.of(context).bodyLarge.override(
+                                      fontFamily: 'Mulish',
+                                      letterSpacing: 0.0,
+                                    ),
+                          ),
                         ),
-                        borderRadius: BorderRadius.circular(20.0),
+                        offset: 4.0,
+                        preferredDirection: AxisDirection.down,
+                        borderRadius: BorderRadius.circular(8.0),
+                        backgroundColor:
+                            FlutterFlowTheme.of(context).secondaryBackground,
+                        elevation: 4.0,
+                        tailBaseWidth: 24.0,
+                        tailLength: 12.0,
+                        waitDuration: Duration(milliseconds: 0),
+                        showDuration: Duration(milliseconds: 0),
+                        triggerMode: TooltipTriggerMode.tap,
+                        child: Visibility(
+                          visible: widget.showTooltip,
+                          child: Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                0.0, 0.0, 18.0, 0.0),
+                            child: Icon(
+                              Icons.info_outline_rounded,
+                              color: FlutterFlowTheme.of(context).tableText2,
+                              size: 24.0,
+                            ),
+                          ),
+                        ),
                       ),
-                      filled: true,
-                      fillColor:
-                          FlutterFlowTheme.of(context).secondaryBackground,
-                      contentPadding: EdgeInsetsDirectional.fromSTEB(
-                          10.0, 20.0, 10.0, 20.0),
-                    ),
-                    style: FlutterFlowTheme.of(context).bodyMedium.override(
-                          fontFamily: 'Mulish',
-                          color: Colors.black,
-                          letterSpacing: 0.0,
-                        ),
-                    cursorColor: FlutterFlowTheme.of(context).primaryText,
-                    validator:
-                        _model.textController2Validator.asValidator(context),
+                    ],
                   ),
                 ),
-            ],
-          ),
-        ),
-      ].divide(SizedBox(height: 12.0)),
+              ),
+              Container(
+                width: 300.0,
+                height: 50.0,
+                decoration: BoxDecoration(),
+                child: Column(
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    if (!((widget.heading == 'READ_TIMEOUT') ||
+                        (widget.heading == 'CONNECT_TIMEOUT') ||
+                        (widget.heading == 'MAX_CONNECTIONS') ||
+                        (widget.heading == 'MAX_PER_ROUTE') ||
+                        (widget.heading == 'PROXY_PORT') ||
+                        (widget.heading == 'VALUE') ||
+                        (widget.heading == 'TAT_DAYS') ||
+                        (widget.heading == 'DAILY_LIMIT_AMOUNT') ||
+                        (widget.heading == 'MONTHLY_LIMIT_AMOUNT') ||
+                        (widget.heading == 'OTP_VALIDITY_MIN') ||
+                        (widget.heading == 'OTP_LIMIT') ||
+                        (widget.heading == 'SOURCE_CHANNEL_ID') ||
+                        (widget.heading == 'ACCNO_LINK_TO_VPA_CNT') ||
+                        (widget.heading == 'CHANNEL_ID') ||
+                        (widget.heading == 'INSTITUTION_ID') ||
+                        (widget.heading == 'PER_TXN_LIMIT') ||
+                        (widget.heading == 'DAILY_TXN_LIMIT') ||
+                        (widget.heading == 'DAILY_TXN_COUNT') ||
+                        (widget.heading == 'MONTHLY_TXN_LIMIT') ||
+                        (widget.heading == 'MONTHLY_TXN_COUNT') ||
+                        (widget.heading == 'MANDATE_DAILY_LIMIT') ||
+                        (widget.heading == 'MANDATE_LIFECYCLE_LIMIT') ||
+                        (widget.heading == 'DAILY_ENHANCED_TXN_LIMIT') ||
+                        (widget.heading == 'DAILY_ENHANCED_TXN_COUNT') ||
+                        (widget.heading == 'RUPAY_CC_DAILY_TXN_LIMIT') ||
+                        (widget.heading == 'RUPAY_CC_PER_TXN_LIMIT') ||
+                        (widget.heading == 'SMS_TOKEN_VALIDITY_SECONDS') ||
+                        (widget.heading == 'INTERNATIONAL_VALIDITY_SECONDS') ||
+                        ((widget.heading == 'ID') &&
+                            (FFAppState().selectedSidebar != '3'))))
+                      Container(
+                        width: 300.0,
+                        child: TextFormField(
+                          controller: _model.textController3,
+                          focusNode: _model.textFieldFocusNode3,
+                          onChanged: (_) => EasyDebounce.debounce(
+                            '_model.textController3',
+                            Duration(milliseconds: 2000),
+                            () async {
+                              _model.edited = _model.textController3.text;
+                              _model.textFieldsItems = (getJsonField(
+                                DataTableNewModelStruct(
+                                  headers: (String var1) {
+                                    return [var1];
+                                  }(_model.textController3.text),
+                                ).toMap(),
+                                r'''$''',
+                                true,
+                              )!
+                                          .toList()
+                                          .map<DataTableNewModelStruct?>(
+                                              DataTableNewModelStruct.maybeFromMap)
+                                          .toList()
+                                      as Iterable<DataTableNewModelStruct?>)
+                                  .withoutNulls
+                                  .toList()
+                                  .cast<DataTableNewModelStruct>();
+                              safeSetState(() {});
+                              await widget.passDataItem?.call(
+                                _model.textFieldsItems,
+                              );
+                              FFAppState().editedFields =
+                                  _model.textController3.text;
+                              safeSetState(() {});
+                              await widget.onChange?.call(
+                                _model.textController3.text,
+                              );
+                            },
+                          ),
+                          onFieldSubmitted: (_) async {
+                            _model.edited = _model.textController3.text;
+                            _model.textFieldsItems = (getJsonField(
+                              DataTableNewModelStruct(
+                                headers: (String var1) {
+                                  return [var1];
+                                }(_model.textController3.text),
+                              ).toMap(),
+                              r'''$''',
+                              true,
+                            )!
+                                        .toList()
+                                        .map<DataTableNewModelStruct?>(
+                                            DataTableNewModelStruct.maybeFromMap)
+                                        .toList()
+                                    as Iterable<DataTableNewModelStruct?>)
+                                .withoutNulls
+                                .toList()
+                                .cast<DataTableNewModelStruct>();
+                            safeSetState(() {});
+                            await widget.passDataItem?.call(
+                              _model.textFieldsItems,
+                            );
+                            FFAppState().editedFields =
+                                _model.textController3.text;
+                            safeSetState(() {});
+                            await widget.onChange?.call(
+                              _model.textController3.text,
+                            );
+                          },
+                          autofocus: false,
+                          obscureText: false,
+                          decoration: InputDecoration(
+                            isDense: true,
+                            alignLabelWithHint: false,
+                            hintStyle: FlutterFlowTheme.of(context)
+                                .bodyMedium
+                                .override(
+                                  fontFamily: 'Mulish',
+                                  color: Colors.black,
+                                  letterSpacing: 0.0,
+                                ),
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Color(0xFFC3C3C3),
+                                width: 1.0,
+                              ),
+                              borderRadius: BorderRadius.circular(20.0),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Color(0xFFE77817),
+                                width: 1.0,
+                              ),
+                              borderRadius: BorderRadius.circular(20.0),
+                            ),
+                            errorBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: FlutterFlowTheme.of(context).error,
+                                width: 1.0,
+                              ),
+                              borderRadius: BorderRadius.circular(20.0),
+                            ),
+                            focusedErrorBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: FlutterFlowTheme.of(context).error,
+                                width: 1.0,
+                              ),
+                              borderRadius: BorderRadius.circular(20.0),
+                            ),
+                            filled: true,
+                            fillColor: FlutterFlowTheme.of(context)
+                                .secondaryBackground,
+                            contentPadding: EdgeInsetsDirectional.fromSTEB(
+                                10.0, 20.0, 10.0, 20.0),
+                          ),
+                          style:
+                              FlutterFlowTheme.of(context).bodyMedium.override(
+                                    fontFamily: 'Mulish',
+                                    color: Colors.black,
+                                    letterSpacing: 0.0,
+                                  ),
+                          cursorColor: FlutterFlowTheme.of(context).primaryText,
+                          validator: _model.textController3Validator
+                              .asValidator(context),
+                        ),
+                      ),
+                    if ((widget.heading == 'READ_TIMEOUT') ||
+                        (widget.heading == 'CONNECT_TIMEOUT') ||
+                        (widget.heading == 'MAX_CONNECTIONS') ||
+                        (widget.heading == 'MAX_PER_ROUTE') ||
+                        (widget.heading == 'PROXY_PORT') ||
+                        (widget.heading == 'VALUE') ||
+                        (widget.heading == 'TAT_DAYS') ||
+                        (widget.heading == 'DAILY_LIMIT_AMOUNT') ||
+                        (widget.heading == 'MONTHLY_LIMIT_AMOUNT') ||
+                        (widget.heading == 'OTP_VALIDITY_MIN') ||
+                        (widget.heading == 'OTP_LIMIT') ||
+                        (widget.heading == 'SOURCE_CHANNEL_ID') ||
+                        (widget.heading == 'ACCNO_LINK_TO_VPA_CNT') ||
+                        (widget.heading == 'CHANNEL_ID') ||
+                        (widget.heading == 'INSTITUTION_ID') ||
+                        (widget.heading == 'PER_TXN_LIMIT') ||
+                        (widget.heading == 'DAILY_TXN_LIMIT') ||
+                        (widget.heading == 'DAILY_TXN_COUNT') ||
+                        (widget.heading == 'MONTHLY_TXN_LIMIT') ||
+                        (widget.heading == 'MONTHLY_TXN_COUNT') ||
+                        (widget.heading == 'MANDATE_DAILY_LIMIT') ||
+                        (widget.heading == 'MANDATE_LIFECYCLE_LIMIT') ||
+                        (widget.heading == 'DAILY_ENHANCED_TXN_LIMIT') ||
+                        (widget.heading == 'DAILY_ENHANCED_TXN_COUNT') ||
+                        (widget.heading == 'RUPAY_CC_DAILY_TXN_LIMIT') ||
+                        (widget.heading == 'RUPAY_CC_PER_TXN_LIMIT') ||
+                        (widget.heading == 'SMS_TOKEN_VALIDITY_SECONDS') ||
+                        (widget.heading == 'INTERNATIONAL_VALIDITY_SECONDS') ||
+                        ((widget.heading == 'ID') &&
+                            (FFAppState().selectedSidebar != '3')))
+                      Container(
+                        width: 300.0,
+                        child: TextFormField(
+                          controller: _model.textController4,
+                          focusNode: _model.textFieldFocusNode4,
+                          onChanged: (_) => EasyDebounce.debounce(
+                            '_model.textController4',
+                            Duration(milliseconds: 2000),
+                            () async {
+                              _model.edited = _model.textController4.text;
+                              _model.textFieldsItems = (getJsonField(
+                                DataTableNewModelStruct(
+                                  headers: (String var1) {
+                                    return [var1];
+                                  }(_model.textController4.text),
+                                ).toMap(),
+                                r'''$''',
+                                true,
+                              )!
+                                          .toList()
+                                          .map<DataTableNewModelStruct?>(
+                                              DataTableNewModelStruct.maybeFromMap)
+                                          .toList()
+                                      as Iterable<DataTableNewModelStruct?>)
+                                  .withoutNulls
+                                  .toList()
+                                  .cast<DataTableNewModelStruct>();
+                              safeSetState(() {});
+                              await widget.passDataItem?.call(
+                                _model.textFieldsItems,
+                              );
+                              FFAppState().editedFields =
+                                  _model.textController4.text;
+                              safeSetState(() {});
+                              await widget.onChange?.call(
+                                _model.textController4.text,
+                              );
+                            },
+                          ),
+                          onFieldSubmitted: (_) async {
+                            _model.edited = _model.textController4.text;
+                            _model.textFieldsItems = (getJsonField(
+                              DataTableNewModelStruct(
+                                headers: (String var1) {
+                                  return [var1];
+                                }(_model.textController4.text),
+                              ).toMap(),
+                              r'''$''',
+                              true,
+                            )!
+                                        .toList()
+                                        .map<DataTableNewModelStruct?>(
+                                            DataTableNewModelStruct.maybeFromMap)
+                                        .toList()
+                                    as Iterable<DataTableNewModelStruct?>)
+                                .withoutNulls
+                                .toList()
+                                .cast<DataTableNewModelStruct>();
+                            safeSetState(() {});
+                            await widget.passDataItem?.call(
+                              _model.textFieldsItems,
+                            );
+                            FFAppState().editedFields =
+                                _model.textController4.text;
+                            safeSetState(() {});
+                            await widget.onChange?.call(
+                              _model.textController4.text,
+                            );
+                          },
+                          autofocus: false,
+                          obscureText: false,
+                          decoration: InputDecoration(
+                            isDense: true,
+                            alignLabelWithHint: false,
+                            hintStyle: FlutterFlowTheme.of(context)
+                                .bodyMedium
+                                .override(
+                                  fontFamily: 'Mulish',
+                                  color: Colors.black,
+                                  letterSpacing: 0.0,
+                                ),
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Color(0xFFC3C3C3),
+                                width: 1.0,
+                              ),
+                              borderRadius: BorderRadius.circular(20.0),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Color(0xFFE77817),
+                                width: 1.0,
+                              ),
+                              borderRadius: BorderRadius.circular(20.0),
+                            ),
+                            errorBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: FlutterFlowTheme.of(context).error,
+                                width: 1.0,
+                              ),
+                              borderRadius: BorderRadius.circular(20.0),
+                            ),
+                            focusedErrorBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: FlutterFlowTheme.of(context).error,
+                                width: 1.0,
+                              ),
+                              borderRadius: BorderRadius.circular(20.0),
+                            ),
+                            filled: true,
+                            fillColor: FlutterFlowTheme.of(context)
+                                .secondaryBackground,
+                            contentPadding: EdgeInsetsDirectional.fromSTEB(
+                                10.0, 20.0, 10.0, 20.0),
+                          ),
+                          style:
+                              FlutterFlowTheme.of(context).bodyMedium.override(
+                                    fontFamily: 'Mulish',
+                                    color: Colors.black,
+                                    letterSpacing: 0.0,
+                                  ),
+                          keyboardType: TextInputType.number,
+                          cursorColor: FlutterFlowTheme.of(context).primaryText,
+                          validator: _model.textController4Validator
+                              .asValidator(context),
+                        ),
+                      ),
+                  ],
+                ),
+              ),
+            ].divide(SizedBox(height: 12.0)),
+          );
+        }
+      },
     );
   }
 }

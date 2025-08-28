@@ -206,6 +206,7 @@ class _NewDynamicEditFieldsWidgetState
                                 .elementAtOrNull(gviewIndex),
                             data: gviewItem,
                             showTooltip: true,
+                            type: 'UPDATE',
                             onChange: (data) async {
                               await actions.updatelistdata(
                                 gviewIndex,

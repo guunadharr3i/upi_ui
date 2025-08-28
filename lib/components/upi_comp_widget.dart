@@ -76,29 +76,29 @@ class _UpiCompWidgetState extends State<UpiCompWidget> {
                   child: Text(
                     () {
                       if (widget.sidebarSelected == '2') {
-                        return 'UPIHOST';
+                        return 'UPI HOST Server Config';
                       } else if (widget.sidebarSelected == '3') {
-                        return 'SYS';
+                        return 'SYS Config';
                       } else if (widget.sidebarSelected == '4') {
-                        return 'UPICOMPLAINT';
+                        return 'UPI Complaint Codes';
                       } else if (widget.sidebarSelected == '5') {
-                        return 'UPICOUNTRY';
+                        return 'UPI Country Codes';
                       } else if (widget.sidebarSelected == '6') {
-                        return 'UPISMS';
+                        return 'UPI Source Sub Channels';
                       } else if (widget.sidebarSelected == '7') {
-                        return 'UPISOURCESUB';
+                        return 'UPI SMS Templates';
                       } else if (widget.sidebarSelected == '8') {
-                        return 'UPIFRM';
+                        return 'UPI FRM Whitelist Account';
                       } else if (widget.sidebarSelected == '9') {
-                        return 'UPITRANSACTION';
+                        return 'UPI Interoperable Sub Channels';
                       } else if (widget.sidebarSelected == '10') {
-                        return 'UPIBANK';
+                        return 'UPI Bank Accounts';
                       } else if (widget.sidebarSelected == '11') {
-                        return 'UPISOURCE';
+                        return 'UPI Transaction Limits';
                       } else if (widget.sidebarSelected == '12') {
-                        return 'INTEROPERABLE';
+                        return 'UPI Source Channels';
                       } else {
-                        return 'UPIHOST';
+                        return ' UPI HOST Server Config';
                       }
                     }(),
                     style: FlutterFlowTheme.of(context).bodyMedium.override(
@@ -155,25 +155,25 @@ class _UpiCompWidgetState extends State<UpiCompWidget> {
                                         return 'UPICOUNTRY';
                                       } else if (widget.sidebarSelected ==
                                           '6') {
-                                        return 'UPISMS';
+                                        return 'UPISOURCESUB';
                                       } else if (widget.sidebarSelected ==
                                           '7') {
-                                        return 'UPISOURCESUB';
+                                        return 'UPISMS';
                                       } else if (widget.sidebarSelected ==
                                           '8') {
                                         return 'UPIFRM';
                                       } else if (widget.sidebarSelected ==
                                           '9') {
-                                        return 'UPITRANSACTION';
+                                        return 'UPIINTEROPERABLE';
                                       } else if (widget.sidebarSelected ==
                                           '10') {
                                         return 'UPIBANK';
                                       } else if (widget.sidebarSelected ==
                                           '11') {
-                                        return 'UPISOURCECHANNELS';
+                                        return 'UPITRANSACTION';
                                       } else if (widget.sidebarSelected ==
                                           '12') {
-                                        return 'UPIINTEROPERABLE';
+                                        return 'UPISOURCECHANNELS';
                                       } else {
                                         return 'UPIHOST';
                                       }
@@ -205,16 +205,16 @@ class _UpiCompWidgetState extends State<UpiCompWidget> {
                                         return 'ACCOUNT_NUMBER';
                                       } else if (widget.sidebarSelected ==
                                           '9') {
-                                        return 'CHANNEL_CODE';
+                                        return '12';
                                       } else if (FFAppState().selectedSidebar ==
                                           '10') {
                                         return 'ACCOUNT_NUMBER';
                                       } else if (FFAppState().selectedSidebar ==
                                           '11') {
-                                        return 'NAME';
+                                        return 'CHANNEL_CODE';
                                       } else if (FFAppState().selectedSidebar ==
                                           '12') {
-                                        return '12';
+                                        return 'NAME';
                                       } else {
                                         return 'HOST';
                                       }
@@ -227,7 +227,7 @@ class _UpiCompWidgetState extends State<UpiCompWidget> {
                                         return 'ID';
                                       } else if (widget.sidebarSelected ==
                                           '4') {
-                                        return 'ID';
+                                        return 'REASON_CODE';
                                       } else if (widget.sidebarSelected ==
                                           '5') {
                                         return 'COUNTRY_NAME';
@@ -242,13 +242,13 @@ class _UpiCompWidgetState extends State<UpiCompWidget> {
                                         return 'ACCOUNT_NUMBER';
                                       } else if (widget.sidebarSelected ==
                                           '9') {
-                                        return 'CHANNEL_CODE';
+                                        return 'NAME ';
                                       } else if (widget.sidebarSelected ==
                                           '10') {
                                         return 'ACCOUNT_NUMBER';
                                       } else if (widget.sidebarSelected ==
                                           '11') {
-                                        return 'NAME';
+                                        return 'CHANNEL_CODE';
                                       } else if (widget.sidebarSelected ==
                                           '12') {
                                         return 'NAME';
@@ -343,22 +343,22 @@ class _UpiCompWidgetState extends State<UpiCompWidget> {
                                     } else if (widget.sidebarSelected == '5') {
                                       return 'UPICOUNTRY';
                                     } else if (widget.sidebarSelected == '6') {
-                                      return 'UPISMS';
-                                    } else if (widget.sidebarSelected == '7') {
                                       return 'UPISOURCESUB';
+                                    } else if (widget.sidebarSelected == '7') {
+                                      return 'UPISMS';
                                     } else if (widget.sidebarSelected == '8') {
                                       return 'UPIFRM';
                                     } else if (widget.sidebarSelected == '9') {
-                                      return 'UPITRANSACTION';
+                                      return 'UPIINTEROPERABLE';
                                     } else if (widget.sidebarSelected ==
                                         '10') {
                                       return 'UPIBANK';
                                     } else if (widget.sidebarSelected ==
                                         '11') {
-                                      return 'UPISOURCECHANNELS';
+                                      return 'UPITRANSACTION ';
                                     } else if (widget.sidebarSelected ==
                                         '12') {
-                                      return 'UPIINTEROPERABLE';
+                                      return 'UPISOURCECHANNELS';
                                     } else {
                                       return 'UPIHOST';
                                     }
@@ -627,11 +627,11 @@ class _UpiCompWidgetState extends State<UpiCompWidget> {
                                                             } else if (widget
                                                                     .sidebarSelected ==
                                                                 '6') {
-                                                              return 'TEMPLATE';
+                                                              return 'CHANNEL_CODE ';
                                                             } else if (widget
                                                                     .sidebarSelected ==
                                                                 '7') {
-                                                              return 'CHANNEL_CODE';
+                                                              return 'TEMPLATE';
                                                             } else if (widget
                                                                     .sidebarSelected ==
                                                                 '8') {
@@ -1193,135 +1193,7 @@ class _UpiCompWidgetState extends State<UpiCompWidget> {
                                                                         .transparent,
                                                                 onTap:
                                                                     () async {
-                                                                  await showDialog(
-                                                                    context:
-                                                                        context,
-                                                                    builder:
-                                                                        (dialogContext) {
-                                                                      return Dialog(
-                                                                        elevation:
-                                                                            0,
-                                                                        insetPadding:
-                                                                            EdgeInsets.zero,
-                                                                        backgroundColor:
-                                                                            Colors.transparent,
-                                                                        alignment:
-                                                                            AlignmentDirectional(0.0, 0.0).resolve(Directionality.of(context)),
-                                                                        child:
-                                                                            DeleteDialogWidget(
-                                                                          messageBody:
-                                                                              'Are you sure you want to Delete?',
-                                                                          actionCallback:
-                                                                              () async {
-                                                                            _model.apiResultwfd =
-                                                                                await DeleteOperationApiCall.call(
-                                                                              operationType: 'DELETE',
-                                                                              tableId: () {
-                                                                                if (FFAppState().selectedSidebar == '2') {
-                                                                                  return 'UPIHOST';
-                                                                                } else if (FFAppState().selectedSidebar == '5') {
-                                                                                  return 'UPICOUNTRY';
-                                                                                } else if (FFAppState().selectedSidebar == '4') {
-                                                                                  return 'UPICOMPLAINT';
-                                                                                } else if (FFAppState().selectedSidebar == '5') {
-                                                                                  return 'UPICOUNTRY';
-                                                                                } else if (FFAppState().selectedSidebar == '6') {
-                                                                                  return 'UPISMS';
-                                                                                } else if (FFAppState().selectedSidebar == '7') {
-                                                                                  return 'UPISOURCESUB';
-                                                                                } else if (FFAppState().selectedSidebar == '8') {
-                                                                                  return 'UPIFRM';
-                                                                                } else if (FFAppState().selectedSidebar == '9') {
-                                                                                  return 'UPITRANSACTION';
-                                                                                } else if (FFAppState().selectedSidebar == '10') {
-                                                                                  return 'UPIBANK';
-                                                                                } else if (FFAppState().selectedSidebar == '11') {
-                                                                                  return 'UPISOURCECHANNELS';
-                                                                                } else if (FFAppState().selectedSidebar == '12') {
-                                                                                  return 'UPIINTEROPERABLE';
-                                                                                } else {
-                                                                                  return 'SYS';
-                                                                                }
-                                                                              }(),
-                                                                              recordId: valueOrDefault<String>(
-                                                                                getJsonField(
-                                                                                  dbItem,
-                                                                                  r'''$.ID''',
-                                                                                )?.toString(),
-                                                                                'OOP1',
-                                                                              ),
-                                                                              createdBy: valueOrDefault<String>(
-                                                                                FFAppState().userid,
-                                                                                'BAN1234567',
-                                                                              ),
-                                                                              token: FFAppState().token,
-                                                                              editedBy: FFAppState().userid,
-                                                                              deviceHash: FFAppState().deviceHash,
-                                                                            );
-
-                                                                            if ((_model.apiResultwfd?.succeeded ??
-                                                                                true)) {
-                                                                              FFAppState().token = valueOrDefault<String>(
-                                                                                getJsonField(
-                                                                                  (_model.apiResultwfd?.jsonBody ?? ''),
-                                                                                  r'''$.token''',
-                                                                                )?.toString(),
-                                                                                'accessToken',
-                                                                              );
-                                                                              safeSetState(() {});
-                                                                              await showDialog(
-                                                                                context: context,
-                                                                                builder: (dialogContext) {
-                                                                                  return Dialog(
-                                                                                    elevation: 0,
-                                                                                    insetPadding: EdgeInsets.zero,
-                                                                                    backgroundColor: Colors.transparent,
-                                                                                    alignment: AlignmentDirectional(0.0, 0.0).resolve(Directionality.of(context)),
-                                                                                    child: ErrorMessageDialogWidget(
-                                                                                      errorMessageBody: valueOrDefault<String>(
-                                                                                        getJsonField(
-                                                                                          (_model.apiResultwfd?.jsonBody ?? ''),
-                                                                                          r'''$.message''',
-                                                                                        )?.toString(),
-                                                                                        '\$.message',
-                                                                                      ),
-                                                                                      titleValue: 'Alert',
-                                                                                    ),
-                                                                                  );
-                                                                                },
-                                                                              );
-                                                                            } else {
-                                                                              await showDialog(
-                                                                                context: context,
-                                                                                builder: (dialogContext) {
-                                                                                  return Dialog(
-                                                                                    elevation: 0,
-                                                                                    insetPadding: EdgeInsets.zero,
-                                                                                    backgroundColor: Colors.transparent,
-                                                                                    alignment: AlignmentDirectional(0.0, 0.0).resolve(Directionality.of(context)),
-                                                                                    child: ErrorMessageDialogWidget(
-                                                                                      errorMessageBody: valueOrDefault<String>(
-                                                                                        getJsonField(
-                                                                                          (_model.apiResultwfd?.jsonBody ?? ''),
-                                                                                          r'''$.message''',
-                                                                                        )?.toString(),
-                                                                                        '\$.message',
-                                                                                      ),
-                                                                                      titleValue: 'Alert',
-                                                                                    ),
-                                                                                  );
-                                                                                },
-                                                                              );
-                                                                            }
-
-                                                                            Navigator.pop(context);
-                                                                          },
-                                                                        ),
-                                                                      );
-                                                                    },
-                                                                  );
-
-                                                                  if (!functions
+                                                                  if (functions
                                                                       .userTableAccess(
                                                                           '4',
                                                                           FFAppState()
@@ -1364,6 +1236,132 @@ class _UpiCompWidgetState extends State<UpiCompWidget> {
                                                                               return 0;
                                                                             }
                                                                           }()))!) {
+                                                                    await showDialog(
+                                                                      context:
+                                                                          context,
+                                                                      builder:
+                                                                          (dialogContext) {
+                                                                        return Dialog(
+                                                                          elevation:
+                                                                              0,
+                                                                          insetPadding:
+                                                                              EdgeInsets.zero,
+                                                                          backgroundColor:
+                                                                              Colors.transparent,
+                                                                          alignment:
+                                                                              AlignmentDirectional(0.0, 0.0).resolve(Directionality.of(context)),
+                                                                          child:
+                                                                              DeleteDialogWidget(
+                                                                            messageBody:
+                                                                                'Are you sure you want to Delete?',
+                                                                            actionCallback:
+                                                                                () async {
+                                                                              _model.apiResultwfd = await DeleteOperationApiCall.call(
+                                                                                operationType: 'DELETE',
+                                                                                tableId: () {
+                                                                                  if (FFAppState().selectedSidebar == '2') {
+                                                                                    return 'UPIHOST';
+                                                                                  } else if (FFAppState().selectedSidebar == '5') {
+                                                                                    return 'UPICOUNTRY';
+                                                                                  } else if (FFAppState().selectedSidebar == '4') {
+                                                                                    return 'UPICOMPLAINT';
+                                                                                  } else if (FFAppState().selectedSidebar == '5') {
+                                                                                    return 'UPICOUNTRY';
+                                                                                  } else if (FFAppState().selectedSidebar == '6') {
+                                                                                    return 'UPISMS';
+                                                                                  } else if (FFAppState().selectedSidebar == '7') {
+                                                                                    return 'UPISOURCESUB';
+                                                                                  } else if (FFAppState().selectedSidebar == '8') {
+                                                                                    return 'UPIFRM';
+                                                                                  } else if (FFAppState().selectedSidebar == '9') {
+                                                                                    return 'UPITRANSACTION';
+                                                                                  } else if (FFAppState().selectedSidebar == '10') {
+                                                                                    return 'UPIBANK';
+                                                                                  } else if (FFAppState().selectedSidebar == '11') {
+                                                                                    return 'UPISOURCECHANNELS';
+                                                                                  } else if (FFAppState().selectedSidebar == '12') {
+                                                                                    return 'UPIINTEROPERABLE';
+                                                                                  } else {
+                                                                                    return 'SYS';
+                                                                                  }
+                                                                                }(),
+                                                                                recordId: valueOrDefault<String>(
+                                                                                  getJsonField(
+                                                                                    dbItem,
+                                                                                    r'''$.ID''',
+                                                                                  )?.toString(),
+                                                                                  'OOP1',
+                                                                                ),
+                                                                                createdBy: valueOrDefault<String>(
+                                                                                  FFAppState().userid,
+                                                                                  'BAN1234567',
+                                                                                ),
+                                                                                token: FFAppState().token,
+                                                                                editedBy: FFAppState().userid,
+                                                                                deviceHash: FFAppState().deviceHash,
+                                                                              );
+
+                                                                              if ((_model.apiResultwfd?.succeeded ?? true)) {
+                                                                                FFAppState().token = valueOrDefault<String>(
+                                                                                  getJsonField(
+                                                                                    (_model.apiResultwfd?.jsonBody ?? ''),
+                                                                                    r'''$.token''',
+                                                                                  )?.toString(),
+                                                                                  'accessToken',
+                                                                                );
+                                                                                safeSetState(() {});
+                                                                                await showDialog(
+                                                                                  context: context,
+                                                                                  builder: (dialogContext) {
+                                                                                    return Dialog(
+                                                                                      elevation: 0,
+                                                                                      insetPadding: EdgeInsets.zero,
+                                                                                      backgroundColor: Colors.transparent,
+                                                                                      alignment: AlignmentDirectional(0.0, 0.0).resolve(Directionality.of(context)),
+                                                                                      child: ErrorMessageDialogWidget(
+                                                                                        errorMessageBody: valueOrDefault<String>(
+                                                                                          getJsonField(
+                                                                                            (_model.apiResultwfd?.jsonBody ?? ''),
+                                                                                            r'''$.message''',
+                                                                                          )?.toString(),
+                                                                                          '\$.message',
+                                                                                        ),
+                                                                                        titleValue: 'Alert',
+                                                                                      ),
+                                                                                    );
+                                                                                  },
+                                                                                );
+                                                                              } else {
+                                                                                await showDialog(
+                                                                                  context: context,
+                                                                                  builder: (dialogContext) {
+                                                                                    return Dialog(
+                                                                                      elevation: 0,
+                                                                                      insetPadding: EdgeInsets.zero,
+                                                                                      backgroundColor: Colors.transparent,
+                                                                                      alignment: AlignmentDirectional(0.0, 0.0).resolve(Directionality.of(context)),
+                                                                                      child: ErrorMessageDialogWidget(
+                                                                                        errorMessageBody: valueOrDefault<String>(
+                                                                                          getJsonField(
+                                                                                            (_model.apiResultwfd?.jsonBody ?? ''),
+                                                                                            r'''$.message''',
+                                                                                          )?.toString(),
+                                                                                          '\$.message',
+                                                                                        ),
+                                                                                        titleValue: 'Alert',
+                                                                                      ),
+                                                                                    );
+                                                                                  },
+                                                                                );
+                                                                              }
+
+                                                                              Navigator.pop(context);
+                                                                            },
+                                                                          ),
+                                                                        );
+                                                                      },
+                                                                    );
+                                                                  } else {
                                                                     await showDialog(
                                                                       context:
                                                                           context,
@@ -1653,7 +1651,7 @@ class _UpiCompWidgetState extends State<UpiCompWidget> {
                                   return 'HOST';
                                 }
                               }(),
-                              direction: 'DESC',
+                              direction: 'ASC',
                               filtersColumn: () {
                                 if (widget.sidebarSelected == '2') {
                                   return 'HOST';

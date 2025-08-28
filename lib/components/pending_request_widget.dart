@@ -60,27 +60,34 @@ class _PendingRequestWidgetState extends State<PendingRequestWidget> {
               limit: 5,
               tempTableName: valueOrDefault<String>(
                 () {
-                  if (_model.dropdownSelectedValue == 'SYS') {
+                  if (_model.dropdownSelectedValue == 'SYS Config') {
                     return 'SYS';
-                  } else if (_model.dropdownSelectedValue == 'UPI Complaint') {
+                  } else if (_model.dropdownSelectedValue ==
+                      'UPI Complaint Codes') {
                     return 'UPICOMPLAINT';
-                  } else if (_model.dropdownSelectedValue == 'UPI Country') {
+                  } else if (_model.dropdownSelectedValue ==
+                      'UPI Country Codes') {
                     return 'UPICOUNTRY';
-                  } else if (_model.dropdownSelectedValue == 'UPI SMS') {
+                  } else if (_model.dropdownSelectedValue ==
+                      'UPI SMS Templates') {
                     return 'UPISMS';
-                  } else if (_model.dropdownSelectedValue == 'UPI Source Hub') {
+                  } else if (_model.dropdownSelectedValue ==
+                      'UPI Source Sub Channels') {
                     return 'UPISOURCESUB';
-                  } else if (_model.dropdownSelectedValue == 'UPI FRM') {
+                  } else if (_model.dropdownSelectedValue ==
+                      'UPI FRM Whitelist Account') {
                     return 'UPIFRM';
                   } else if (_model.dropdownSelectedValue ==
-                      'UPI Transaction') {
+                      'UPI Transaction Limits') {
                     return 'UPITRANSACTION';
-                  } else if (_model.dropdownSelectedValue == 'UPI Bank') {
+                  } else if (_model.dropdownSelectedValue ==
+                      'UPI Bank Accounts') {
                     return 'UPIBANK';
-                  } else if (_model.dropdownSelectedValue == 'UPI Source') {
+                  } else if (_model.dropdownSelectedValue ==
+                      'UPI Source Channels') {
                     return 'UPISOURCECHANNELS';
                   } else if (_model.dropdownSelectedValue ==
-                      'UPI Interoperable') {
+                      'UPI Interoperable Sub Channels') {
                     return 'UPIINTEROPERABLE';
                   } else {
                     return 'UPIHOST';
@@ -230,7 +237,7 @@ class _PendingRequestWidgetState extends State<PendingRequestWidget> {
                             safeSetState(() {});
                           },
                           child: Text(
-                            'PENDING REQUESTS ${FFAppState().totalpendingcount < 1 ? '' : FFAppState().totalpendingcount.toString()}',
+                            'Pending Requests ${FFAppState().totalpendingcount < 1 ? '' : FFAppState().totalpendingcount.toString()}',
                             style: FlutterFlowTheme.of(context)
                                 .bodyMedium
                                 .override(
@@ -285,226 +292,229 @@ class _PendingRequestWidgetState extends State<PendingRequestWidget> {
                                                   borderRadius:
                                                       BorderRadius.circular(
                                                           30.0),
-                                                  border: Border.all(
-                                                    color: FlutterFlowTheme.of(
-                                                            context)
-                                                        .headingColor,
-                                                    width: 2.0,
-                                                  ),
                                                 ),
-                                                child: Row(
-                                                  mainAxisSize:
-                                                      MainAxisSize.max,
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.center,
-                                                  children: [
-                                                    Builder(
-                                                      builder: (context) =>
-                                                          FlutterFlowDropDown<
-                                                              String>(
-                                                        controller: _model
-                                                                .dropDownValueController ??=
-                                                            FormFieldController<
+                                                child: Padding(
+                                                  padding: EdgeInsets.all(8.0),
+                                                  child: Row(
+                                                    mainAxisSize:
+                                                        MainAxisSize.max,
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
+                                                    children: [
+                                                      Builder(
+                                                        builder: (context) =>
+                                                            FlutterFlowDropDown<
                                                                 String>(
-                                                          _model.dropDownValue ??=
-                                                              FFAppState()
-                                                                  .dropdownSelectedValue,
-                                                        ),
-                                                        options: List<
-                                                                String>.from(
-                                                            _model
-                                                                .dropdownValue),
-                                                        optionLabels: functions
-                                                            .mergedropdowncount(
-                                                                _model
-                                                                    .dropdownValue
-                                                                    .toList(),
+                                                          controller: _model
+                                                                  .dropDownValueController ??=
+                                                              FormFieldController<
+                                                                  String>(
+                                                            _model.dropDownValue ??=
                                                                 FFAppState()
-                                                                    .countJSon),
-                                                        onChanged: (val) async {
-                                                          safeSetState(() =>
-                                                              _model.dropDownValue =
-                                                                  val);
-                                                          FFAppState()
-                                                                  .dropdownSelectedValue =
+                                                                    .dropdownSelectedValue,
+                                                          ),
+                                                          options: List<
+                                                                  String>.from(
                                                               _model
-                                                                  .dropDownValue!;
-                                                          _model.updatePage(
-                                                              () {});
-                                                          _model.dropdownSelectedValue =
-                                                              FFAppState()
-                                                                  .dropdownSelectedValue;
-                                                          _model.updatePage(
-                                                              () {});
-                                                          _model.ggs =
-                                                              await TablesGetApiCallCall
-                                                                  .call(
-                                                            tableCode:
-                                                                'UPITEMP',
-                                                            limit: 5,
-                                                            tempTableName: () {
-                                                              if (_model
-                                                                      .dropdownSelectedValue ==
-                                                                  'SYS') {
-                                                                return 'SYS';
-                                                              } else if (_model
-                                                                      .dropdownSelectedValue ==
-                                                                  'UPI Complaint') {
-                                                                return 'UPICOMPLAINT';
-                                                              } else if (_model
-                                                                      .dropdownSelectedValue ==
-                                                                  'UPI Country') {
-                                                                return 'UPICOUNTRY';
-                                                              } else if (_model
-                                                                      .dropdownSelectedValue ==
-                                                                  'UPI SMS') {
-                                                                return 'UPISMS';
-                                                              } else if (_model
-                                                                      .dropdownSelectedValue ==
-                                                                  'UPI Source Sub') {
-                                                                return 'UPISOURCESUB';
-                                                              } else if (_model
-                                                                      .dropdownSelectedValue ==
-                                                                  'UPI FRM') {
-                                                                return 'UPIFRM';
-                                                              } else if (_model
-                                                                      .dropdownSelectedValue ==
-                                                                  'UPI Transaction') {
-                                                                return 'UPITRANSACTION';
-                                                              } else if (_model
-                                                                      .dropdownSelectedValue ==
-                                                                  'UPI Bank') {
-                                                                return 'UPIBANK';
-                                                              } else if (_model
-                                                                      .dropdownSelectedValue ==
-                                                                  'UPI Source') {
-                                                                return 'UPISOURCECHANNELS';
-                                                              } else if (_model
-                                                                      .dropdownSelectedValue ==
-                                                                  'UPI Interoperable') {
-                                                                return 'UPIINTEROPERABLE';
-                                                              } else {
-                                                                return 'UPIHOST';
-                                                              }
-                                                            }(),
-                                                            direction: 'DESC',
-                                                            offset: 0,
-                                                            sortColumn: 'ID',
-                                                            userId:
-                                                                valueOrDefault<
-                                                                    String>(
-                                                              FFAppState()
-                                                                  .userid,
-                                                              'BAN123456',
-                                                            ),
-                                                          );
-
-                                                          if ((_model.ggs
-                                                                  ?.succeeded ??
-                                                              true)) {
-                                                            _model.jsonPendingReqRes =
-                                                                getJsonField(
-                                                              (_model.ggs
-                                                                      ?.jsonBody ??
-                                                                  ''),
-                                                              r'''$.data''',
-                                                            );
-                                                            _model.totalPages =
-                                                                getJsonField(
-                                                              (_model.ggs
-                                                                      ?.jsonBody ??
-                                                                  ''),
-                                                              r'''$.pageCount''',
-                                                            );
+                                                                  .dropdownValue),
+                                                          optionLabels:
+                                                              functions.mergedropdowncount(
+                                                                  _model
+                                                                      .dropdownValue
+                                                                      .toList(),
+                                                                  FFAppState()
+                                                                      .countJSon),
+                                                          onChanged:
+                                                              (val) async {
+                                                            safeSetState(() =>
+                                                                _model.dropDownValue =
+                                                                    val);
+                                                            FFAppState()
+                                                                    .dropdownSelectedValue =
+                                                                _model
+                                                                    .dropDownValue!;
                                                             _model.updatePage(
                                                                 () {});
-                                                            FFAppState().token =
-                                                                getJsonField(
-                                                              (_model.ggs
-                                                                      ?.jsonBody ??
-                                                                  ''),
-                                                              r'''$.token''',
-                                                            ).toString();
-                                                            safeSetState(() {});
-                                                          } else {
-                                                            await showDialog(
-                                                              context: context,
-                                                              builder:
-                                                                  (dialogContext) {
-                                                                return Dialog(
-                                                                  elevation: 0,
-                                                                  insetPadding:
-                                                                      EdgeInsets
-                                                                          .zero,
-                                                                  backgroundColor:
-                                                                      Colors
-                                                                          .transparent,
-                                                                  alignment: AlignmentDirectional(
-                                                                          0.0,
-                                                                          0.0)
-                                                                      .resolve(
-                                                                          Directionality.of(
-                                                                              context)),
-                                                                  child:
-                                                                      ErrorMessageDialogWidget(
-                                                                    errorMessageBody:
-                                                                        'Something went wrong',
-                                                                    titleValue:
-                                                                        'Alert',
-                                                                  ),
-                                                                );
-                                                              },
+                                                            _model.dropdownSelectedValue =
+                                                                FFAppState()
+                                                                    .dropdownSelectedValue;
+                                                            _model.updatePage(
+                                                                () {});
+                                                            _model.ggs =
+                                                                await TablesGetApiCallCall
+                                                                    .call(
+                                                              tableCode:
+                                                                  'UPITEMP',
+                                                              limit: 5,
+                                                              tempTableName:
+                                                                  () {
+                                                                if (_model
+                                                                        .dropdownSelectedValue ==
+                                                                    'SYS Config') {
+                                                                  return 'SYS';
+                                                                } else if (_model
+                                                                        .dropdownSelectedValue ==
+                                                                    'UPI Complaint Codes') {
+                                                                  return 'UPICOMPLAINT';
+                                                                } else if (_model
+                                                                        .dropdownSelectedValue ==
+                                                                    'UPI Country Codes') {
+                                                                  return 'UPICOUNTRY';
+                                                                } else if (_model
+                                                                        .dropdownSelectedValue ==
+                                                                    'UPI SMS Templates') {
+                                                                  return 'UPISMS';
+                                                                } else if (_model
+                                                                        .dropdownSelectedValue ==
+                                                                    'UPI Source Sub Channels') {
+                                                                  return 'UPISOURCESUB';
+                                                                } else if (_model
+                                                                        .dropdownSelectedValue ==
+                                                                    'UPI FRM Whitelist Account') {
+                                                                  return 'UPIFRM';
+                                                                } else if (_model
+                                                                        .dropdownSelectedValue ==
+                                                                    'UPI Transaction Limits') {
+                                                                  return 'UPITRANSACTION';
+                                                                } else if (_model
+                                                                        .dropdownSelectedValue ==
+                                                                    'UPI Bank Accounts') {
+                                                                  return 'UPIBANK';
+                                                                } else if (_model
+                                                                        .dropdownSelectedValue ==
+                                                                    'UPI Source Channels') {
+                                                                  return 'UPISOURCECHANNELS';
+                                                                } else if (_model
+                                                                        .dropdownSelectedValue ==
+                                                                    'UPI Interoperable Sub Channels') {
+                                                                  return 'UPIINTEROPERABLE';
+                                                                } else {
+                                                                  return 'UPIHOST';
+                                                                }
+                                                              }(),
+                                                              direction: 'DESC',
+                                                              offset: 0,
+                                                              sortColumn: 'ID',
+                                                              userId:
+                                                                  valueOrDefault<
+                                                                      String>(
+                                                                FFAppState()
+                                                                    .userid,
+                                                                'BAN123456',
+                                                              ),
                                                             );
-                                                          }
 
-                                                          safeSetState(() {});
-                                                        },
-                                                        width: 193.1,
-                                                        height: 40.0,
-                                                        textStyle:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .bodyMedium
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'Mulish',
-                                                                  color: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .primaryText,
-                                                                  letterSpacing:
-                                                                      0.0,
-                                                                ),
-                                                        hintText: 'Select...',
-                                                        icon: Icon(
-                                                          Icons
-                                                              .keyboard_arrow_down_rounded,
-                                                          color: FlutterFlowTheme
+                                                            if ((_model.ggs
+                                                                    ?.succeeded ??
+                                                                true)) {
+                                                              _model.jsonPendingReqRes =
+                                                                  getJsonField(
+                                                                (_model.ggs
+                                                                        ?.jsonBody ??
+                                                                    ''),
+                                                                r'''$.data''',
+                                                              );
+                                                              _model.totalPages =
+                                                                  getJsonField(
+                                                                (_model.ggs
+                                                                        ?.jsonBody ??
+                                                                    ''),
+                                                                r'''$.pageCount''',
+                                                              );
+                                                              _model.updatePage(
+                                                                  () {});
+                                                              FFAppState()
+                                                                      .token =
+                                                                  getJsonField(
+                                                                (_model.ggs
+                                                                        ?.jsonBody ??
+                                                                    ''),
+                                                                r'''$.token''',
+                                                              ).toString();
+                                                              safeSetState(
+                                                                  () {});
+                                                            } else {
+                                                              await showDialog(
+                                                                context:
+                                                                    context,
+                                                                builder:
+                                                                    (dialogContext) {
+                                                                  return Dialog(
+                                                                    elevation:
+                                                                        0,
+                                                                    insetPadding:
+                                                                        EdgeInsets
+                                                                            .zero,
+                                                                    backgroundColor:
+                                                                        Colors
+                                                                            .transparent,
+                                                                    alignment: AlignmentDirectional(
+                                                                            0.0,
+                                                                            0.0)
+                                                                        .resolve(
+                                                                            Directionality.of(context)),
+                                                                    child:
+                                                                        ErrorMessageDialogWidget(
+                                                                      errorMessageBody:
+                                                                          'Something went wrong',
+                                                                      titleValue:
+                                                                          'Alert',
+                                                                    ),
+                                                                  );
+                                                                },
+                                                              );
+                                                            }
+
+                                                            safeSetState(() {});
+                                                          },
+                                                          width: 265.0,
+                                                          height: 40.0,
+                                                          textStyle:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .bodyMedium
+                                                                  .override(
+                                                                    fontFamily:
+                                                                        'Mulish',
+                                                                    color: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .primaryText,
+                                                                    letterSpacing:
+                                                                        0.0,
+                                                                  ),
+                                                          hintText: 'Select...',
+                                                          icon: Icon(
+                                                            Icons
+                                                                .keyboard_arrow_down_rounded,
+                                                            color: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .secondaryText,
+                                                            size: 24.0,
+                                                          ),
+                                                          fillColor: FlutterFlowTheme
                                                                   .of(context)
-                                                              .secondaryText,
-                                                          size: 24.0,
+                                                              .secondaryBackground,
+                                                          elevation: 2.0,
+                                                          borderColor: Colors
+                                                              .transparent,
+                                                          borderWidth: 0.0,
+                                                          borderRadius: 30.0,
+                                                          margin:
+                                                              EdgeInsetsDirectional
+                                                                  .fromSTEB(
+                                                                      12.0,
+                                                                      0.0,
+                                                                      12.0,
+                                                                      0.0),
+                                                          hidesUnderline: true,
+                                                          isOverButton: false,
+                                                          isSearchable: false,
+                                                          isMultiSelect: false,
                                                         ),
-                                                        fillColor: FlutterFlowTheme
-                                                                .of(context)
-                                                            .secondaryBackground,
-                                                        elevation: 2.0,
-                                                        borderColor:
-                                                            Colors.transparent,
-                                                        borderWidth: 0.0,
-                                                        borderRadius: 30.0,
-                                                        margin:
-                                                            EdgeInsetsDirectional
-                                                                .fromSTEB(
-                                                                    12.0,
-                                                                    0.0,
-                                                                    12.0,
-                                                                    0.0),
-                                                        hidesUnderline: true,
-                                                        isOverButton: false,
-                                                        isSearchable: false,
-                                                        isMultiSelect: false,
                                                       ),
-                                                    ),
-                                                  ],
+                                                    ],
+                                                  ),
                                                 ),
                                               ),
                                             );
@@ -613,43 +623,43 @@ class _PendingRequestWidgetState extends State<PendingRequestWidget> {
                                                         () {
                                                           if (_model
                                                                   .dropdownSelectedValue ==
-                                                              'SYS') {
+                                                              'SYS Config') {
                                                             return 'VALUE';
                                                           } else if (_model
                                                                   .dropdownSelectedValue ==
-                                                              'UPI Complaint') {
+                                                              'UPI Complaint Codes') {
                                                             return 'REASON_CODE';
                                                           } else if (_model
                                                                   .dropdownSelectedValue ==
-                                                              'UPI Country') {
+                                                              'UPI Country Codes') {
                                                             return 'COUNTRY_NAME';
                                                           } else if (_model
                                                                   .dropdownSelectedValue ==
-                                                              'UPI Source Sub') {
+                                                              'UPI Source Sub Channels') {
                                                             return 'NAME';
                                                           } else if (_model
                                                                   .dropdownSelectedValue ==
-                                                              'UPI SMS') {
+                                                              'UPI SMS Templates') {
                                                             return 'NAME';
                                                           } else if (_model
                                                                   .dropdownSelectedValue ==
-                                                              'UPI FRM') {
+                                                              'UPI FRM Whitelist Account') {
                                                             return 'ACCOUNT_NUMBER';
                                                           } else if (_model
                                                                   .dropdownSelectedValue ==
-                                                              'UPI Transaction') {
+                                                              'UPI Transaction Limits') {
                                                             return 'CHANNEL_CODE';
                                                           } else if (_model
                                                                   .dropdownSelectedValue ==
-                                                              'UPI Bank') {
+                                                              'UPI Bank Accounts') {
                                                             return 'ACCOUNT_NUMBER';
                                                           } else if (_model
                                                                   .dropdownSelectedValue ==
-                                                              'UPI Source') {
+                                                              'UPI Source Channels') {
                                                             return 'NAME';
                                                           } else if (_model
                                                                   .dropdownSelectedValue ==
-                                                              'UPI Interoperable') {
+                                                              'UPI Interoperable Sub Channels') {
                                                             return 'NAME';
                                                           } else {
                                                             return 'HOST';
@@ -684,43 +694,43 @@ class _PendingRequestWidgetState extends State<PendingRequestWidget> {
                                                         () {
                                                           if (_model
                                                                   .dropdownSelectedValue ==
-                                                              'SYS') {
+                                                              'SYS Config') {
                                                             return 'DATA_TYPE';
                                                           } else if (_model
                                                                   .dropdownSelectedValue ==
-                                                              'UPI Complaint') {
+                                                              'UPI Complaint Codes') {
                                                             return 'TXN_TYPE';
                                                           } else if (_model
                                                                   .dropdownSelectedValue ==
-                                                              'UPI Country') {
+                                                              'UPI Country Codes') {
                                                             return 'COUNTRY_CODE';
                                                           } else if (_model
                                                                   .dropdownSelectedValue ==
-                                                              'UPI SMS') {
+                                                              'UPI SMS Templates') {
                                                             return 'TEMPLATE';
                                                           } else if (_model
                                                                   .dropdownSelectedValue ==
-                                                              'UPI Source Sub') {
+                                                              'UPI Source Sub Channels') {
                                                             return 'CHANNEL_CODE';
                                                           } else if (_model
                                                                   .dropdownSelectedValue ==
-                                                              'UPI FRM') {
+                                                              'UPI FRM Whitelist Account') {
                                                             return 'TXN_TYPE';
                                                           } else if (_model
                                                                   .dropdownSelectedValue ==
-                                                              'UPI Transaction') {
+                                                              'UPI Transaction Limits') {
                                                             return 'CHANNEL_ID';
                                                           } else if (_model
                                                                   .dropdownSelectedValue ==
-                                                              'UPI Bank') {
+                                                              'UPI Bank Accounts') {
                                                             return 'MOBILE_NUMBER';
                                                           } else if (_model
                                                                   .dropdownSelectedValue ==
-                                                              'UPI Source') {
+                                                              'UPI Source Channels') {
                                                             return 'CHANNEL_CODE';
                                                           } else if (_model
                                                                   .dropdownSelectedValue ==
-                                                              'UPI Interoperable') {
+                                                              'UPI Interoperable Sub Channels') {
                                                             return 'CHANNEL_CODE';
                                                           } else {
                                                             return 'URL';
@@ -1998,43 +2008,43 @@ class _PendingRequestWidgetState extends State<PendingRequestWidget> {
                                                   tempTableName: () {
                                                     if (_model
                                                             .dropdownSelectedValue ==
-                                                        'SYS') {
+                                                        'SYS Config') {
                                                       return 'SYS';
                                                     } else if (_model
                                                             .dropdownSelectedValue ==
-                                                        'UPI Complaint') {
+                                                        'UPI Complaint Codes') {
                                                       return 'UPICOMPLAINT';
                                                     } else if (_model
                                                             .dropdownSelectedValue ==
-                                                        'UPI Country') {
+                                                        'UPI Country Codes') {
                                                       return 'UPICOUNTRY';
                                                     } else if (_model
                                                             .dropdownSelectedValue ==
-                                                        'UPI SMS') {
+                                                        'UPI SMS Templates') {
                                                       return 'UPISMS';
                                                     } else if (_model
                                                             .dropdownSelectedValue ==
-                                                        'UPI Source Hub') {
+                                                        'UPI Source Sub Channels') {
                                                       return 'UPISOURCESUB';
                                                     } else if (_model
                                                             .dropdownSelectedValue ==
-                                                        'UPI FRM') {
+                                                        'UPI FRM Whitelist Account') {
                                                       return 'UPIFRM';
                                                     } else if (_model
                                                             .dropdownSelectedValue ==
-                                                        'UPI Transaction') {
+                                                        'UPI Transaction Limits') {
                                                       return 'UPITRANSACTION';
                                                     } else if (_model
                                                             .dropdownSelectedValue ==
-                                                        'UPI Bank') {
+                                                        'UPI Bank Accounts') {
                                                       return 'UPIBANK';
                                                     } else if (_model
                                                             .dropdownSelectedValue ==
-                                                        'UPI Source') {
+                                                        'UPI Source Channels') {
                                                       return 'UPISOURCECHANNELS';
                                                     } else if (_model
                                                             .dropdownSelectedValue ==
-                                                        'UPI Interoperable') {
+                                                        'UPI Interoperable Sub Channels') {
                                                       return 'UPIINTEROPERABLE';
                                                     } else {
                                                       return 'UPIHOST';
