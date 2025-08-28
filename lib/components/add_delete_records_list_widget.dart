@@ -135,26 +135,7 @@ class _AddDeleteRecordsListWidgetState
                                     mainAxisSize: MainAxisSize.min,
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            0.0, 10.0, 0.0, 0.0),
-                                        child: Text(
-                                          'FALCON-ASYNC-FINANCIAL',
-                                          style: FlutterFlowTheme.of(context)
-                                              .bodyMedium
-                                              .override(
-                                                fontFamily: 'Mulish',
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .headingColor,
-                                                fontSize: 24.0,
-                                                letterSpacing: 0.0,
-                                                fontWeight: FontWeight.w500,
-                                              ),
-                                        ),
-                                      ),
-                                    ],
+                                    children: [],
                                   ),
                                 ],
                               ),

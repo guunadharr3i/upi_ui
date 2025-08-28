@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import '/backend/schema/structs/index.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'flutter_flow/flutter_flow_util.dart';
-import 'dart:convert';
 
 class FFAppState extends ChangeNotifier {
   static FFAppState _instance = FFAppState._internal();
@@ -29,7 +28,41 @@ class FFAppState extends ChangeNotifier {
       _deviceHash = prefs.getString('ff_deviceHash') ?? _deviceHash;
     });
     _safeInit(() {
+      _userDataAccess = prefs
+              .getStringList('ff_userDataAccess')
+              ?.map((x) {
+                try {
+                  return AccessByTableStruct.fromSerializableMap(jsonDecode(x));
+                } catch (e) {
+                  print("Can't decode persisted data type. Error: $e.");
+                  return null;
+                }
+              })
+              .withoutNulls
+              .toList() ??
+          _userDataAccess;
+    });
+    _safeInit(() {
       _lastLogin = prefs.getString('ff_lastLogin') ?? _lastLogin;
+    });
+    _safeInit(() {
+      _iconSIze = prefs.getDouble('ff_iconSIze') ?? _iconSIze;
+    });
+    _safeInit(() {
+      _mainHeadingSize =
+          prefs.getDouble('ff_mainHeadingSize') ?? _mainHeadingSize;
+    });
+    _safeInit(() {
+      _normalFontSIze = prefs.getInt('ff_normalFontSIze') ?? _normalFontSIze;
+    });
+    _safeInit(() {
+      _currentDate = prefs.getString('ff_currentDate') ?? _currentDate;
+    });
+    _safeInit(() {
+      _currentTime = prefs.getString('ff_currentTime') ?? _currentTime;
+    });
+    _safeInit(() {
+      _userRole = prefs.getString('ff_userRole') ?? _userRole;
     });
   }
 
@@ -353,7 +386,7 @@ class FFAppState extends ChangeNotifier {
     _addjsonconfig = value;
   }
 
-  String _dropdownSelectedValue = 'UPI Host';
+  String _dropdownSelectedValue = 'UPI HOST Server Config';
   String get dropdownSelectedValue => _dropdownSelectedValue;
   set dropdownSelectedValue(String value) {
     _dropdownSelectedValue = value;
@@ -378,18 +411,26 @@ class FFAppState extends ChangeNotifier {
   List<AccessByTableStruct> get userDataAccess => _userDataAccess;
   set userDataAccess(List<AccessByTableStruct> value) {
     _userDataAccess = value;
+    prefs.setStringList(
+        'ff_userDataAccess', value.map((x) => x.serialize()).toList());
   }
 
   void addToUserDataAccess(AccessByTableStruct value) {
     userDataAccess.add(value);
+    prefs.setStringList('ff_userDataAccess',
+        _userDataAccess.map((x) => x.serialize()).toList());
   }
 
   void removeFromUserDataAccess(AccessByTableStruct value) {
     userDataAccess.remove(value);
+    prefs.setStringList('ff_userDataAccess',
+        _userDataAccess.map((x) => x.serialize()).toList());
   }
 
   void removeAtIndexFromUserDataAccess(int index) {
     userDataAccess.removeAt(index);
+    prefs.setStringList('ff_userDataAccess',
+        _userDataAccess.map((x) => x.serialize()).toList());
   }
 
   void updateUserDataAccessAtIndex(
@@ -397,10 +438,14 @@ class FFAppState extends ChangeNotifier {
     AccessByTableStruct Function(AccessByTableStruct) updateFn,
   ) {
     userDataAccess[index] = updateFn(_userDataAccess[index]);
+    prefs.setStringList('ff_userDataAccess',
+        _userDataAccess.map((x) => x.serialize()).toList());
   }
 
   void insertAtIndexInUserDataAccess(int index, AccessByTableStruct value) {
     userDataAccess.insert(index, value);
+    prefs.setStringList('ff_userDataAccess',
+        _userDataAccess.map((x) => x.serialize()).toList());
   }
 
   dynamic _datatest = jsonDecode(
@@ -448,7 +493,7 @@ class FFAppState extends ChangeNotifier {
     _countdefaultjson = value;
   }
 
-  String _lastLogin = '0000-00-00 00:00:00';
+  String _lastLogin = 'null';
   String get lastLogin => _lastLogin;
   set lastLogin(String value) {
     _lastLogin = value;
@@ -459,6 +504,48 @@ class FFAppState extends ChangeNotifier {
   bool get isInitialSearch => _isInitialSearch;
   set isInitialSearch(bool value) {
     _isInitialSearch = value;
+  }
+
+  double _iconSIze = 0.0;
+  double get iconSIze => _iconSIze;
+  set iconSIze(double value) {
+    _iconSIze = value;
+    prefs.setDouble('ff_iconSIze', value);
+  }
+
+  double _mainHeadingSize = 0.0;
+  double get mainHeadingSize => _mainHeadingSize;
+  set mainHeadingSize(double value) {
+    _mainHeadingSize = value;
+    prefs.setDouble('ff_mainHeadingSize', value);
+  }
+
+  int _normalFontSIze = 55;
+  int get normalFontSIze => _normalFontSIze;
+  set normalFontSIze(int value) {
+    _normalFontSIze = value;
+    prefs.setInt('ff_normalFontSIze', value);
+  }
+
+  String _currentDate = '00-00-00 00:00:00';
+  String get currentDate => _currentDate;
+  set currentDate(String value) {
+    _currentDate = value;
+    prefs.setString('ff_currentDate', value);
+  }
+
+  String _currentTime = '';
+  String get currentTime => _currentTime;
+  set currentTime(String value) {
+    _currentTime = value;
+    prefs.setString('ff_currentTime', value);
+  }
+
+  String _userRole = '1';
+  String get userRole => _userRole;
+  set userRole(String value) {
+    _userRole = value;
+    prefs.setString('ff_userRole', value);
   }
 }
 

@@ -1,8 +1,10 @@
 import '/backend/api_requests/api_calls.dart';
 import '/components/delete_dialog_widget.dart';
+import '/components/user_info_comp_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/index.dart';
+import 'package:aligned_tooltip/aligned_tooltip.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'header_model.dart';
@@ -91,7 +93,9 @@ class _HeaderWidgetState extends State<HeaderWidget> {
                       text: TextSpan(
                         children: [
                           TextSpan(
-                            text: 'Last login :',
+                            text: FFAppState().lastLogin == 'null'
+                                ? 'Login :'
+                                : 'Last login :',
                             style: FlutterFlowTheme.of(context)
                                 .bodyMedium
                                 .override(
@@ -104,12 +108,13 @@ class _HeaderWidgetState extends State<HeaderWidget> {
                                 ),
                           ),
                           TextSpan(
-                            text: valueOrDefault<String>(
-                              (String var1) {
-                                return var1 = var1.split(' ')[0];
-                              }(FFAppState().lastLogin),
-                              '0000-00-00 00:00:00',
-                            ),
+                            text: FFAppState().lastLogin == 'null'
+                                ? ((String var1) {
+                                    return var1 = var1.split(' ')[0];
+                                  }(FFAppState().currentDate))
+                                : ((String var1) {
+                                    return var1 = var1.split(' ')[0];
+                                  }(FFAppState().lastLogin)),
                             style: FlutterFlowTheme.of(context)
                                 .bodyMedium
                                 .override(
@@ -154,12 +159,13 @@ class _HeaderWidgetState extends State<HeaderWidget> {
                                 ),
                           ),
                           TextSpan(
-                            text: valueOrDefault<String>(
-                              (String var1) {
-                                return var1 = var1.split(' ')[1];
-                              }(FFAppState().lastLogin),
-                              '0000-00-00 00:00:00',
-                            ),
+                            text: FFAppState().lastLogin == 'null'
+                                ? ((String var1) {
+                                    return var1 = var1.split(' ')[1];
+                                  }(FFAppState().currentDate))
+                                : ((String var1) {
+                                    return var1 = var1.split(' ')[1];
+                                  }(FFAppState().lastLogin)),
                             style: FlutterFlowTheme.of(context)
                                 .bodyMedium
                                 .override(
@@ -215,12 +221,14 @@ class _HeaderWidgetState extends State<HeaderWidget> {
                                   FFAppState().deviceHash = '';
                                   FFAppState().userid = '';
                                   FFAppState().selectedSidebar = '1';
+                                  FFAppState().userRole = '1';
                                   Navigator.pop(context);
                                 } else {
                                   FFAppState().token = '';
                                   FFAppState().deviceHash = '';
                                   FFAppState().userid = '';
                                   FFAppState().selectedSidebar = '1';
+                                  FFAppState().userRole = '1';
                                   Navigator.pop(context);
                                 }
 
@@ -241,36 +249,35 @@ class _HeaderWidgetState extends State<HeaderWidget> {
 
                       safeSetState(() {});
                     },
-                    child: Material(
-                      color: Colors.transparent,
-                      elevation: 0.1,
-                      shape: const CircleBorder(),
-                      child: Container(
-                        width: 50.0,
-                        height: 50.0,
-                        decoration: BoxDecoration(
-                          color: Color(0xFFFFE3CA),
-                          shape: BoxShape.circle,
-                        ),
-                        child: Icon(
-                          Icons.logout_sharp,
-                          color: FlutterFlowTheme.of(context).headingColor,
-                          size: 24.0,
-                        ),
+                    child: Container(
+                      width: 50.0,
+                      height: 50.0,
+                      decoration: BoxDecoration(
+                        color: FlutterFlowTheme.of(context).slideBarTabBG,
+                        shape: BoxShape.circle,
+                      ),
+                      child: Icon(
+                        Icons.logout_sharp,
+                        color: FlutterFlowTheme.of(context).headingColor,
+                        size: 24.0,
                       ),
                     ),
                   ),
                 ),
-                InkWell(
-                  splashColor: Colors.transparent,
-                  focusColor: Colors.transparent,
-                  hoverColor: Colors.transparent,
-                  highlightColor: Colors.transparent,
-                  onTap: () async {
-                    FFAppState().isUserInfo =
-                        !(FFAppState().isUserInfo ?? true);
-                    _model.updatePage(() {});
-                  },
+                AlignedTooltip(
+                  content: Padding(
+                    padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 8.0, 0.0),
+                    child: UserInfoCompWidget(),
+                  ),
+                  offset: 0.0,
+                  preferredDirection: AxisDirection.down,
+                  borderRadius: BorderRadius.circular(8.0),
+                  elevation: 0.0,
+                  tailBaseWidth: 0.0,
+                  tailLength: 28.0,
+                  waitDuration: Duration(milliseconds: 0),
+                  showDuration: Duration(milliseconds: 0),
+                  triggerMode: TooltipTriggerMode.tap,
                   child: Material(
                     color: Colors.transparent,
                     elevation: 0.1,
@@ -279,25 +286,13 @@ class _HeaderWidgetState extends State<HeaderWidget> {
                       width: 50.0,
                       height: 50.0,
                       decoration: BoxDecoration(
-                        color: Color(0xFFFFE3CA),
+                        color: FlutterFlowTheme.of(context).slideBarTabBG,
                         shape: BoxShape.circle,
                       ),
-                      child: Builder(
-                        builder: (context) {
-                          if (FFAppState().isUserInfo == false) {
-                            return Icon(
-                              Icons.person_outline_sharp,
-                              color: FlutterFlowTheme.of(context).headingColor,
-                              size: 24.0,
-                            );
-                          } else {
-                            return Icon(
-                              Icons.close_sharp,
-                              color: FlutterFlowTheme.of(context).primary,
-                              size: 24.0,
-                            );
-                          }
-                        },
+                      child: Icon(
+                        Icons.person_outline_sharp,
+                        color: FlutterFlowTheme.of(context).headingColor,
+                        size: 24.0,
                       ),
                     ),
                   ),

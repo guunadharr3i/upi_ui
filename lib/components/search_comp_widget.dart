@@ -112,7 +112,23 @@ class _SearchCompWidgetState extends State<SearchCompWidget> {
                             } else if (widget.sidebarSelected == '3') {
                               return 'Enter ID here...';
                             } else if (widget.sidebarSelected == '4') {
-                              return 'Enter ID here...';
+                              return 'Enter REASON_CODE here...';
+                            } else if (widget.sidebarSelected == '5') {
+                              return 'Enter COUNTRY_NAME here...';
+                            } else if (widget.sidebarSelected == '6') {
+                              return 'Enetr NAME here...';
+                            } else if (widget.sidebarSelected == '7') {
+                              return 'Enetr NAME here...';
+                            } else if (widget.sidebarSelected == '8') {
+                              return 'Enter ACCOUNT_NUMBER here...';
+                            } else if (widget.sidebarSelected == '9') {
+                              return 'Enter CHANNEL_CODE here...';
+                            } else if (widget.sidebarSelected == '10') {
+                              return 'Enter ACCOUNT_NUMBER here...';
+                            } else if (widget.sidebarSelected == '11') {
+                              return 'Enter NAME here...';
+                            } else if (widget.sidebarSelected == '12') {
+                              return 'Enter NAME here...';
                             } else {
                               return 'Enter Value';
                             }

@@ -327,6 +327,13 @@ class _LoginpageWidgetState extends State<LoginpageWidget>
                                                       ''),
                                                   r'''$.lastLogIn''',
                                                 ).toString();
+                                                FFAppState().userRole =
+                                                    getJsonField(
+                                                  (_model.ldapResCopy2
+                                                          ?.jsonBody ??
+                                                      ''),
+                                                  r'''$.accessSummary.roleId''',
+                                                ).toString();
                                                 safeSetState(() {});
 
                                                 context.goNamed(
@@ -888,6 +895,18 @@ class _LoginpageWidgetState extends State<LoginpageWidget>
                                                                   ?.jsonBody ??
                                                               ''),
                                                           r'''$.lastLogIn''',
+                                                        ).toString();
+                                                        FFAppState()
+                                                                .currentDate =
+                                                            dateTimeFormat(
+                                                                "yyyy-MM-dd HH:MM:ss",
+                                                                getCurrentTimestamp);
+                                                        FFAppState().userRole =
+                                                            getJsonField(
+                                                          (_model.ldapRes
+                                                                  ?.jsonBody ??
+                                                              ''),
+                                                          r'''$.accessSummary.roleId''',
                                                         ).toString();
                                                         safeSetState(() {});
                                                         await actions

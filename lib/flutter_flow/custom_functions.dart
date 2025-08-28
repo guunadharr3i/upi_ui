@@ -324,27 +324,20 @@ List<String> mergedropdowncount(
   return result;
 }
 
-dynamic checkTableIdMatch(
-  List<dynamic> data,
+bool checkTableIdMatch(
+  List<AccessByTableStruct> data,
   String tableId,
 ) {
+  print("checkTableIdMatch");
+  print(data);
   try {
-    print("datasdxfchgvjbkn");
-    print(data);
-    return false;
-    // final decoded = json.decode(data);
-    // print(decoded);
-    // if (decoded is List) {
-    //   for (var item in decoded) {
-    //     if (item is Map<String, dynamic>) {
-    //       if (item['tableId']?.toString() == tableId) {
-    //         return true;
-    //       }
-    //     }
-    //   }
-    // }
+    for (var item in data) {
+      if (item.tableId.toString() == tableId) {
+        return true;
+      }
+    }
   } catch (e) {
-    print('Error parsing JSON: $e');
+    print('Error checking tableId: $e');
   }
   return false;
 }

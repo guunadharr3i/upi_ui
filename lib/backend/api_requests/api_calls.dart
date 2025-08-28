@@ -16,8 +16,12 @@ class UpiAPIGroup {
   static String getBaseUrl({
     String? token = '',
     String? deviceHash = '\"\${FFAppState().deviceHash}\"',
-  }) =>
-      'https://icmsuat.icicibank.com';
+    String? baseURL,
+  }) {
+    baseURL ??= FFDevEnvironmentValues().baseUrl;
+    return '${baseURL}';
+  }
+
   static Map<String, String> headers = {
     'Content-Type': 'application/json',
     'Authorization': '[token]',
@@ -45,10 +49,13 @@ class LDAPAuthCall {
     String? roleName = '',
     String? token = '',
     String? deviceHash = '\"\${FFAppState().deviceHash}\"',
+    String? baseURL,
   }) async {
+    baseURL ??= FFDevEnvironmentValues().baseUrl;
     final baseUrl = UpiAPIGroup.getBaseUrl(
       token: token,
       deviceHash: deviceHash,
+      baseURL: baseURL,
     );
 
     final ffApiRequestBody = '''
@@ -62,7 +69,7 @@ class LDAPAuthCall {
       // ignore: prefer_const_constructors - can be mutated by interceptors
       ApiCallOptions(
         callName: 'LDAPAuth',
-        apiUrl: '${baseUrl}/upiauth/authenticate',
+        apiUrl: '${baseUrl}upiauth/authenticate',
         callType: ApiCallType.POST,
         // ignore: prefer_const_literals_to_create_immutables - can be mutated by interceptors
         headers: {
@@ -101,10 +108,13 @@ class TablesGetApiCallnCall {
     String? userId = '',
     String? token = '',
     String? deviceHash = '\"\${FFAppState().deviceHash}\"',
+    String? baseURL,
   }) async {
+    baseURL ??= FFDevEnvironmentValues().baseUrl;
     final baseUrl = UpiAPIGroup.getBaseUrl(
       token: token,
       deviceHash: deviceHash,
+      baseURL: baseURL,
     );
 
     final ffApiRequestBody = '''
@@ -180,10 +190,13 @@ class HostOpeartionsnCall {
     String? editedAt = '',
     String? token = '',
     String? deviceHash = '\"\${FFAppState().deviceHash}\"',
+    String? baseURL,
   }) async {
+    baseURL ??= FFDevEnvironmentValues().baseUrl;
     final baseUrl = UpiAPIGroup.getBaseUrl(
       token: token,
       deviceHash: deviceHash,
+      baseURL: baseURL,
     );
 
     final data = _serializeJson(dataJson);
@@ -252,10 +265,13 @@ class DeleteOperationApinCall {
     dynamic dataJson,
     String? token = '',
     String? deviceHash = '\"\${FFAppState().deviceHash}\"',
+    String? baseURL,
   }) async {
+    baseURL ??= FFDevEnvironmentValues().baseUrl;
     final baseUrl = UpiAPIGroup.getBaseUrl(
       token: token,
       deviceHash: deviceHash,
+      baseURL: baseURL,
     );
 
     final data = _serializeJson(dataJson);
@@ -305,10 +321,13 @@ class PendingRequestApprovenCall {
     String? userId = '',
     String? token = '',
     String? deviceHash = '\"\${FFAppState().deviceHash}\"',
+    String? baseURL,
   }) async {
+    baseURL ??= FFDevEnvironmentValues().baseUrl;
     final baseUrl = UpiAPIGroup.getBaseUrl(
       token: token,
       deviceHash: deviceHash,
+      baseURL: baseURL,
     );
 
     final ffApiRequestBody = '''
@@ -351,10 +370,13 @@ class LogoutnCall {
   Future<ApiCallResponse> call({
     String? token = '',
     String? deviceHash = '\"\${FFAppState().deviceHash}\"',
+    String? baseURL,
   }) async {
+    baseURL ??= FFDevEnvironmentValues().baseUrl;
     final baseUrl = UpiAPIGroup.getBaseUrl(
       token: token,
       deviceHash: deviceHash,
+      baseURL: baseURL,
     );
 
     return FFApiInterceptor.makeApiCall(
@@ -466,7 +488,7 @@ class TablesGetApiCallCall {
       // ignore: prefer_const_constructors - can be mutated by interceptors
       ApiCallOptions(
         callName: 'TablesGetApiCall',
-        apiUrl: '${baseURL}upiapi/tableData',
+        apiUrl: 'http://localhost:8080/tableData',
         callType: ApiCallType.POST,
         // ignore: prefer_const_literals_to_create_immutables - can be mutated by interceptors
         headers: {
