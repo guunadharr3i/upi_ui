@@ -5,12 +5,22 @@ on:
   workflow_dispatch:
     inputs:
       tag_name:
-        description: "Git Tag to build and deploy (e.g., uat-v1.0.0)"
+        description: "Release tag to create & build (e.g., uat-v1.0.0)"
         required: true
         type: string
+      base_ref:
+        description: "Branch or commit to tag (defaults to main)"
+        required: false
+        default: main
+        type: string
+      overwrite_tag:
+        description: "If tag exists, delete & recreate it"
+        required: false
+        default: false
+        type: boolean
 
 permissions:
-  contents: write  # for GitHub Release upload
+  contents: write  # needed to push tags and create releases
 
 jobs:
   build:
@@ -18,6 +28,8 @@ jobs:
     outputs:
       env_name: ${{ steps.set_env.outputs.env_name }}
       tag_name: ${{ steps.extract_env.outputs.tag_name }}
+      base_ref: ${{ steps.extract_env.outputs.base_ref }}
+      overwrite_tag: ${{ steps.extract_env.outputs.overwrite_tag }}
 
     steps:
       - name: Validate input is non-empty
@@ -28,18 +40,27 @@ jobs:
 
       - name: Validate tag format (expects <env>-<rest>)
         run: |
-          if ! echo "${{ inputs.tag_name }}" | grep -Eq '^[a-zA-Z0-9]+-'; then
+          if ! echo "${{ inputs.tag_name }}" | grep -Eq '^[A-Za-z0-9]+-'; then
             echo "ERROR: Tag should start with an environment prefix followed by a dash (e.g., uat-v1.0.0)."
             exit 1
           fi
+          if ! echo "${{ inputs.tag_name }}" | grep -Eq '^[A-Za-z0-9._-]+$'; then
+            echo "ERROR: Tag may only contain letters, numbers, dot, underscore, and dash."
+            exit 1
+          fi
 
-      - name: Extract Environment from Tag
+      - name: Extract inputs
         id: extract_env
         run: |
           TAG_NAME="${{ inputs.tag_name }}"
+          BASE_REF="${{ inputs.base_ref }}"
+          OVERWRITE="${{ inputs.overwrite_tag }}"
           ENV_PREFIX="${TAG_NAME%%-*}"
+
           echo "env_prefix=$ENV_PREFIX" >> "$GITHUB_OUTPUT"
           echo "tag_name=$TAG_NAME" >> "$GITHUB_OUTPUT"
+          echo "base_ref=$BASE_REF" >> "$GITHUB_OUTPUT"
+          echo "overwrite_tag=$OVERWRITE" >> "$GITHUB_OUTPUT"
 
       - name: Set GitHub Environment name (uppercased)
         id: set_env
@@ -48,10 +69,12 @@ jobs:
           ENV_NAME=$(echo "$PREFIX" | tr '[:lower:]' '[:upper:]')
           echo "env_name=$ENV_NAME" >> "$GITHUB_OUTPUT"
 
-      - name: Show selected environment
+      - name: Show selected settings
         run: |
-          echo "Selected environment is: ${{ steps.set_env.outputs.env_name }}"
-          echo "Tag to deploy:          ${{ steps.extract_env.outputs.tag_name }}"
+          echo "Environment:  ${{ steps.set_env.outputs.env_name }}"
+          echo "Tag to make:  ${{ steps.extract_env.outputs.tag_name }}"
+          echo "Base ref:     ${{ steps.extract_env.outputs.base_ref }}"
+          echo "Overwrite:    ${{ steps.extract_env.outputs.overwrite_tag }}"
 
   deploy:
     needs: build
@@ -59,26 +82,56 @@ jobs:
     environment: ${{ needs.build.outputs.env_name }}
 
     steps:
-      - name: Assert tag_name propagated from build
-        run: |
-          echo "Tag from build outputs: '${{ needs.build.outputs.tag_name }}'"
-          if [ -z "${{ needs.build.outputs.tag_name }}" ]; then
-            echo "ERROR: Empty tag_name from build job outputs."
-            exit 1
-          fi
-
-      - name: Checkout Code at Tag
+      - name: Checkout repository (base ref)
         uses: actions/checkout@v4
         with:
-          # Pass the plain tag name; checkout handles tags/branches/SHAs
-          ref: ${{ needs.build.outputs.tag_name }}
+          ref: ${{ needs.build.outputs.base_ref || 'main' }}
           fetch-depth: 0
-          fetch-tags: true
+          persist-credentials: true  # needed to push tag
+
+      - name: Create or update tag on the chosen ref
+        env:
+          TAG: ${{ needs.build.outputs.tag_name }}
+          OVERWRITE: ${{ needs.build.outputs.overwrite_tag }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+
+          # Identify actor for tag author info
+          git config user.name  "${GITHUB_ACTOR}"
+          git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
+
+          echo "Fetching tags..."
+          git fetch --tags --force
+
+          if git rev-parse -q --verify "refs/tags/$TAG" >/dev/null; then
+            if [ "$OVERWRITE" = "true" ]; then
+              echo "Tag '$TAG' exists; overwriting as requested."
+              git tag -d "$TAG" || true
+              git push origin ":refs/tags/$TAG" || true
+            else
+              echo "ERROR: Tag '$TAG' already exists. Re-run with overwrite_tag=true to replace it."
+              exit 1
+            fi
+          fi
+
+          # Create annotated tag at current HEAD and push it
+          echo "Creating annotated tag: $TAG"
+          git tag -a "$TAG" -m "Release $TAG"
+          echo "Pushing tag to origin..."
+          git push origin "$TAG"
+
+          echo "Verifying remote tag exists..."
+          git ls-remote --tags origin | grep -q "refs/tags/$TAG$" || { echo "Remote tag verification failed."; exit 1; }
+
+          echo "Checking out the tag to lock build source..."
+          git checkout -f "tags/$TAG"
+          echo "At commit: $(git rev-parse --short HEAD)"
 
       - name: Set up Flutter (stable channel)
         uses: subosito/flutter-action@v2
         with:
-          channel: "stable"   # use flutter-version: '3.32.4' if you must pin
+          channel: "stable"   # pin with flutter-version if you prefer
 
       - name: Flutter doctor (diagnostics)
         run: flutter doctor -v
@@ -96,8 +149,8 @@ jobs:
       - name: Get Dependencies
         run: flutter pub get
 
-      - name: Build Flutter Web App (HTML renderer)
-        run: flutter build web
+      - name: Build Flutter Web App
+        run: flutter build web   # no --web-renderer flag
 
       - name: Create WAR File
         run: |
@@ -106,7 +159,7 @@ jobs:
           cd ../..
           ls -lh UPIUI.war
 
-      - name: Upload WAR to GitHub Release (attach to provided tag)
+      - name: Upload WAR to GitHub Release (attach to created tag)
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ needs.build.outputs.tag_name }}
