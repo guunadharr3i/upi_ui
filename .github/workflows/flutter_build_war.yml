@@ -27,9 +27,9 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       env_name: ${{ steps.set_env.outputs.env_name }}
-      tag_name: ${{ steps.extract_env.outputs.tag_name }}
-      base_ref: ${{ steps.extract_env.outputs.base_ref }}
-      overwrite_tag: ${{ steps.extract_env.outputs.overwrite_tag }}
+      tag_name: ${{ steps.extract.outputs.tag_name }}
+      base_ref: ${{ steps.extract.outputs.base_ref }}
+      overwrite_tag: ${{ steps.extract.outputs.overwrite_tag }}
 
     steps:
       - name: Validate input is non-empty
@@ -38,7 +38,7 @@ jobs:
           echo "ERROR: You must provide a tag name when running manually."
           exit 1
 
-      - name: Validate tag format (expects <env>-<rest>)
+      - name: Validate tag format
         run: |
           if ! echo "${{ inputs.tag_name }}" | grep -Eq '^[A-Za-z0-9]+-'; then
             echo "ERROR: Tag should start with an environment prefix followed by a dash (e.g., uat-v1.0.0)."
@@ -50,7 +50,7 @@ jobs:
           fi
 
       - name: Extract inputs
-        id: extract_env
+        id: extract
         run: |
           TAG_NAME="${{ inputs.tag_name }}"
           BASE_REF="${{ inputs.base_ref }}"
@@ -58,23 +58,23 @@ jobs:
           ENV_PREFIX="${TAG_NAME%%-*}"
 
           echo "env_prefix=$ENV_PREFIX" >> "$GITHUB_OUTPUT"
-          echo "tag_name=$TAG_NAME" >> "$GITHUB_OUTPUT"
-          echo "base_ref=$BASE_REF" >> "$GITHUB_OUTPUT"
+          echo "tag_name=$TAG_NAME"     >> "$GITHUB_OUTPUT"
+          echo "base_ref=$BASE_REF"     >> "$GITHUB_OUTPUT"
           echo "overwrite_tag=$OVERWRITE" >> "$GITHUB_OUTPUT"
 
       - name: Set GitHub Environment name (uppercased)
         id: set_env
         run: |
-          PREFIX='${{ steps.extract_env.outputs.env_prefix }}'
+          PREFIX='${{ steps.extract.outputs.env_prefix }}'
           ENV_NAME=$(echo "$PREFIX" | tr '[:lower:]' '[:upper:]')
           echo "env_name=$ENV_NAME" >> "$GITHUB_OUTPUT"
 
       - name: Show selected settings
         run: |
           echo "Environment:  ${{ steps.set_env.outputs.env_name }}"
-          echo "Tag to make:  ${{ steps.extract_env.outputs.tag_name }}"
-          echo "Base ref:     ${{ steps.extract_env.outputs.base_ref }}"
-          echo "Overwrite:    ${{ steps.extract_env.outputs.overwrite_tag }}"
+          echo "Tag to make:  ${{ steps.extract.outputs.tag_name }}"
+          echo "Base ref:     ${{ steps.extract.outputs.base_ref }}"
+          echo "Overwrite:    ${{ steps.extract.outputs.overwrite_tag }}"
 
   deploy:
     needs: build
@@ -87,17 +87,14 @@ jobs:
         with:
           ref: ${{ needs.build.outputs.base_ref || 'main' }}
           fetch-depth: 0
-          persist-credentials: true  # needed to push tag
+          persist-credentials: true  # required to push the tag with GITHUB_TOKEN
 
       - name: Create or update tag on the chosen ref
         env:
           TAG: ${{ needs.build.outputs.tag_name }}
           OVERWRITE: ${{ needs.build.outputs.overwrite_tag }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           set -euo pipefail
-
-          # Identify actor for tag author info
           git config user.name  "${GITHUB_ACTOR}"
           git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
 
@@ -115,7 +112,6 @@ jobs:
             fi
           fi
 
-          # Create annotated tag at current HEAD and push it
           echo "Creating annotated tag: $TAG"
           git tag -a "$TAG" -m "Release $TAG"
           echo "Pushing tag to origin..."
@@ -131,7 +127,7 @@ jobs:
       - name: Set up Flutter (stable channel)
         uses: subosito/flutter-action@v2
         with:
-          channel: "stable"   # pin with flutter-version if you prefer
+          channel: "stable"   # pin with: flutter-version: '3.32.4' if needed
 
       - name: Flutter doctor (diagnostics)
         run: flutter doctor -v
@@ -146,11 +142,40 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-pub-
 
-      - name: Get Dependencies
-        run: flutter pub get
+      # STEP 1 — Patch web/index.html for CanvasKit + script tags (exact snippet you gave)
+      - name: Step 1 — Patch index.html for CanvasKit
+        shell: bash
+        run: |
+          set -euo pipefail
+          FILE="web/index.html"
+          if [ ! -f "$FILE" ]; then
+            echo "ERROR: $FILE not found"; exit 1
+          fi
 
-      - name: Build Flutter Web App
-        run: flutter build web   # no --web-renderer flag
+          # Remove any existing flutterConfiguration block (idempotent)
+          perl -0777 -i -pe 's|<script[^>]*>\s*window\.flutterConfiguration\s*=\s*\{[\s\S]*?\}\s*</script>\s*||gis' "$FILE"
+          # Remove any existing flutter.js tag (idempotent)
+          perl -0777 -i -pe 's|<script[^>]*src=["\x27]flutter\.js["\x27][^>]*>\s*</script>\s*||gis' "$FILE"
+          # Ensure only one main.dart.js tag at the end of body
+          perl -0777 -i -pe 's|<script[^>]*src=["\x27]main\.dart\.js["\x27][^>]*>\s*</script>\s*||gis' "$FILE"
+
+          # Insert your exact <head> block right after the opening <head>
+          perl -0777 -i -pe 's|<head>|<head>\n<script type="application/javascript">\n  window.flutterConfiguration = {\n    renderer: "canvaskit",\n    canvasKitBaseUrl: "canvaskit/"\n  }\n</script>\n<script src="flutter.js" defer></script>|i' "$FILE"
+
+          # Ensure the body includes your main.dart.js tag (once)
+          perl -0777 -i -pe 's|</body>|<script src="main.dart.js" type="application/javascript"></script>\n</body>|i' "$FILE"
+
+          echo "Patched $FILE:"
+          grep -n 'flutterConfiguration' "$FILE" || true
+          grep -n 'flutter.js' "$FILE" || true
+          grep -n 'main.dart.js' "$FILE" || true
+
+      # STEP 2 — Clean, deps, build (runtime uses CanvasKit per index.html)
+      - name: Step 2 — Clean, get packages, build web
+        run: |
+          flutter clean
+          flutter pub get
+          flutter build web --release
 
       - name: Create WAR File
         run: |
@@ -181,20 +206,12 @@ jobs:
             echo "type = pcloud"
             echo "token = ${RCLONE_PCLOUD_TOKEN_JSON}"
           } > ~/.config/rclone/rclone.conf
-
-          echo "Configured remotes:"
-          rclone listremotes || { echo "rclone config invalid"; cat ~/.config/rclone/rclone.conf; exit 1; }
+          rclone listremotes
 
       - name: Upload WAR to pCloud
         run: |
           ENV='${{ needs.build.outputs.env_name }}'
           TARGET_DIR="pcloud:/GitHubFlutterBuilds/${ENV}"
-
-          echo "Creating target dir: $TARGET_DIR"
           rclone mkdir "$TARGET_DIR"
-
-          echo "Uploading UPIUI.war to $TARGET_DIR"
           rclone copy "UPIUI.war" "$TARGET_DIR" --progress --checksum --transfers=4
-
-          echo "Listing uploaded file:"
           rclone ls "$TARGET_DIR" | grep UPIUI.war || { echo "Upload not found in listing"; exit 1; }
